@@ -26,9 +26,11 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
+        maze/builder.cpp \
         maze/cell.cpp
 
 HEADERS += \
+    maze/builder.h \
     maze/cell.h
 
 # Default rules for deployment.
