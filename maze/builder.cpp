@@ -45,17 +45,19 @@ void Builder::initVisitMatrix()
 
 QVector<Cell> Builder::getNeighbours(const Cell &c)
 {
-    Cell up    = {c.x, c.y - 2};
-    Cell down  = {c.x, c.y + 2};
-    Cell left  = {c.x - 2, c.y};
-    Cell right = {c.x + 2, c.y};
+    Cell up    = Cell(c.x, c.y - 2);
+    Cell down  = Cell(c.x, c.y + 2);
+    Cell left  = Cell(c.x - 2, c.y);
+    Cell right = Cell(c.x + 2, c.y);
 
     QVector<Cell> cells = {up, down, left, right};
     QVector<Cell> neighbours;
 
     for (const auto& cell : cells)
     {
-        if (cell.x >= 0 && cell.x < width && cell.y >= 0 && cell.y < height)
+        bool isInsideByX = (cell.x >= 0 && cell.x < width);
+        bool isInsideByY = (cell.y >= 0 && cell.y < height);
+        if (isInsideByX && isInsideByY)
         {
             Cell& neighbour = matrix[cell.y][cell.x];
             if (visitMatrix[cell.y][cell.x] == NOT_VISITED)
@@ -103,8 +105,6 @@ void Builder::destroyVertical()
     }
 }
 
-#include <QDebug>
-
 QVector<QVector<Cell>> Builder::create()
 {
     initMatrix();
@@ -128,14 +128,17 @@ QVector<QVector<Cell>> Builder::create()
             visitMatrix[neighbour.y][neighbour.x] = Builder::VISITED;
             current = neighbour;
         }
-        if (neighbours.size() == 0 && stack.size() > 0)
+        else
         {
-            current = stack.top();
-            stack.pop();
-        }
-        if (stack.size() == 0)
-        {
-            break;
+            if (stack.size() > 0)
+            {
+                current = stack.top();
+                stack.pop();
+            }
+            else
+            {
+                break;
+            }
         }
     }
 

@@ -27,11 +27,14 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         maze/builder.cpp \
-        maze/cell.cpp
+        maze/cell.cpp \
+        maze/sector.cpp
 
 HEADERS += \
+    globaloptions.h \
     maze/builder.h \
-    maze/cell.h
+    maze/cell.h \
+    maze/sector.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
