@@ -46,7 +46,6 @@ void Sector::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QW
     QPointF center = QPointF(height() * SIZE / 2, height() * SIZE / 2);
     QRadialGradient grad(center, width() * SIZE / 2, center);
 
-    // Вычисление цвета градиента
     bool mouseOver = (option->state & QStyle::State_MouseOver);
     grad.setColorAt(0, !mouseOver ? Qt::white : Qt::black);
     grad.setColorAt(0.5, !mouseOver ? Qt::red : Qt::green);
@@ -54,12 +53,10 @@ void Sector::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QW
 
     painter->setPen(Qt::NoPen);
 
-    // Рисуем каждый квадрат
     for (int i = 0; i < height(); i++)
     {
         for (int j = 0; j < width(); j++)
         {
-            // Задание точек
             QPoint topLeft = {j * SIZE, i * SIZE};
             QPoint bottomRight = topLeft + QPoint(SIZE - 1, SIZE - 1);
             QRect rect = QRect(topLeft, bottomRight);
