@@ -28,12 +28,14 @@ SOURCES += \
         main.cpp \
         maze/builder.cpp \
         maze/cell.cpp \
+        maze/maze.cpp \
         maze/sector.cpp
 
 HEADERS += \
     globaloptions.h \
     maze/builder.h \
     maze/cell.h \
+    maze/maze.h \
     maze/sector.h
 
 # Default rules for deployment.
