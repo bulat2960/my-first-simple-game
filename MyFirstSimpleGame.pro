@@ -33,6 +33,7 @@ SOURCES += \
         maze/cell.cpp \
         maze/maze.cpp \
         maze/sector.cpp \
+        objects/bot.cpp \
         objects/character.cpp \
         objects/object.cpp \
         objects/player.cpp
@@ -46,6 +47,7 @@ HEADERS += \
     maze/cell.h \
     maze/maze.h \
     maze/sector.h \
+    objects/bot.h \
     objects/character.h \
     objects/object.h \
     objects/player.h

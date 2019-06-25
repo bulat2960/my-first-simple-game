@@ -1,8 +1,12 @@
 ﻿#include "scene.h"
 
-Scene::Scene(Maze* maze, Player* player)
+Scene::Scene(Maze* maze, Player* player, Bot* bot)
 {
     this->maze = maze;
+    this->player = player;
+
+    addItem(player);
+    addItem(bot);
 
     for (int i = 0; i < maze->width(); i++)
     {
@@ -19,5 +23,16 @@ Scene::Scene(Maze* maze, Player* player)
         }
     }
 
-    addItem(player);
+    bot->move();
 }
+
+void Scene::keyPressEvent(QKeyEvent* event)
+{
+    sendEvent(player, event);
+}
+
+void Scene::keyReleaseEvent(QKeyEvent* event)
+{
+    sendEvent(player, event);
+}
+

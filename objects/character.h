@@ -20,9 +20,6 @@ protected:
 public:
     Character(Sector* sector, QColor color);
 
-    Sector* findNextSector(int key);
-    Sector* findNextSector(QPoint dir);
-
     virtual QRectF boundingRect() const;
     virtual QPainterPath shape() const;
 

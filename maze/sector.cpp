@@ -41,15 +41,15 @@ QPainterPath Sector::shape() const
 
 void Sector::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
+    Q_UNUSED(option);
     Q_UNUSED(widget);
 
     QPointF center = QPointF(height() * SIZE / 2, height() * SIZE / 2);
     QRadialGradient grad(center, width() * SIZE / 2, center);
 
-    bool mouseOver = (option->state & QStyle::State_MouseOver);
-    grad.setColorAt(0, !mouseOver ? Qt::white : Qt::black);
-    grad.setColorAt(0.5, !mouseOver ? Qt::red : Qt::green);
-    grad.setColorAt(1, !mouseOver ? Qt::black : Qt::white);
+    grad.setColorAt(0, Qt::black);
+    grad.setColorAt(0.5, Qt::gray);
+    grad.setColorAt(1, Qt::lightGray);
 
     painter->setPen(Qt::NoPen);
 
@@ -69,4 +69,7 @@ void Sector::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QW
             }
         }
     }
+
+    painter->setPen(Qt::black);
+    painter->drawRect(0, 0, width() * SIZE, height() * SIZE);
 }

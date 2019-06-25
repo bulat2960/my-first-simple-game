@@ -3,6 +3,7 @@
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QScreen>
+#include <QTime>
 
 #include "maze/sector.h"
 #include "maze/maze.h"
@@ -10,20 +11,26 @@
 #include "gui/view.h"
 #include "gui/scene.h"
 #include "objects/player.h"
+#include "objects/bot.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    const int sHeight = 10;
-    const int sWidth = 10;
-    const int mHeight = 10;
-    const int mWidth = 10;
+    QTime midnight(0, 0, 0);
+    qsrand(static_cast<uint>(midnight.secsTo(QTime::currentTime())));
+
+    const int sHeight = 6;
+    const int sWidth = 6;
+    const int mHeight = 3;
+    const int mWidth = 3;
 
     Maze* maze = new Maze(mHeight, mWidth, sHeight, sWidth);
     Player* player = new Player(maze->sector(0, 0), Qt::red);
+    Bot* bot = new Bot(maze->sector(0, 0), Qt::blue);
 
-    Scene* scene = new Scene(maze, player);
+
+    Scene* scene = new Scene(maze, player, bot);
     View* view = new View(scene);
     Window* window = new Window(view);
 

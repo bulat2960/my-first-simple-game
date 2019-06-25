@@ -8,7 +8,7 @@ Player::Player(Sector* sector, QColor color) : Character(sector, color)
     // Установка фильтра событий
     installEventFilter(this);
 
-    // Клавиши, которыми управляет игрок
+    // Клавиши, которыми управляет игрокА
     usedKeys.insert(Qt::Key_W, false);
     usedKeys.insert(Qt::Key_A, false);
     usedKeys.insert(Qt::Key_S, false);
@@ -32,6 +32,13 @@ void Player::processKeys()
             move(dir);
         }
     }
+}
+
+Sector* Player::findNextSector(int key)
+{
+    QPoint next = (position + directions[key]) * SIZE;
+    Sector* nextSector = dynamic_cast<Sector*>(scene()->items(next)[0]);
+    return nextSector;
 }
 
 void Player::move(int dir)
