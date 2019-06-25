@@ -20,17 +20,24 @@ int main(int argc, char *argv[])
     QTime midnight(0, 0, 0);
     qsrand(static_cast<uint>(midnight.secsTo(QTime::currentTime())));
 
-    const int sHeight = 6;
-    const int sWidth = 6;
-    const int mHeight = 3;
-    const int mWidth = 3;
+    const int sHeight = 10;
+    const int sWidth = 10;
+    const int mHeight = 5;
+    const int mWidth = 8;
 
     Maze* maze = new Maze(mHeight, mWidth, sHeight, sWidth);
     Player* player = new Player(maze->sector(0, 0), Qt::red);
-    Bot* bot = new Bot(maze->sector(0, 0), Qt::blue);
+
+    QVector<Bot*> bots;
+    for (int i = 0; i < 100; i++)
+    {
+        Sector* randomSector = maze->sector(qrand() % mWidth, qrand() % mHeight);
+        QColor randomColor = QColor(qrand() % 255, qrand() % 255, qrand() % 255);
+        bots.push_back(new Bot(randomSector, randomColor));
+    }
 
 
-    Scene* scene = new Scene(maze, player, bot);
+    Scene* scene = new Scene(maze, player, bots);
     View* view = new View(scene);
     Window* window = new Window(view);
 

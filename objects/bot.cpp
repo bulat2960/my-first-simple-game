@@ -54,8 +54,6 @@ void Bot::move()
         bool insideVertical = (scenePos.y() >= 0) && (scenePos.y() < sceneRect.height());
         bool inside = (insideVertical && insideHorizontal);
 
-        qDebug() << inside;
-
         if (inside)
         {
             next = findNextSector(p);
@@ -63,7 +61,10 @@ void Bot::move()
             bool check1 = sector->cell(sectorPos.x(), sectorPos.y()).isRoad();
             bool check2 = next->cell(sectorPos.x(), sectorPos.y()).isRoad();
 
-            if ((sector == next && check1) || (sector != next && check2))
+            bool checkInCurrentSector = (sector == next && check1);
+            bool checkInSectorCrossing = (sector != next && check2);
+
+            if (checkInCurrentSector || checkInSectorCrossing)
             {
                 realDirs.push_back(p);
             }
@@ -71,7 +72,6 @@ void Bot::move()
     }
 
     QPoint nextPos = realDirs[qrand() % realDirs.size()];
-
 
     startAnimation(pos().toPoint(), (nextPos - position) * SIZE);
     position = nextPos;

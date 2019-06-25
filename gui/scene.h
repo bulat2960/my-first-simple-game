@@ -13,9 +13,9 @@ class Scene : public QGraphicsScene
 private:
     Maze* maze;
     Player* player;
-    Bot* bot;
+    QVector<Bot*> bots;
 public:
-    Scene(Maze* maze, Player* player, Bot* bot);
+    Scene(Maze* maze, Player* player, QVector<Bot*> bots);
 
 public slots:
     void keyPressEvent(QKeyEvent* event);
