@@ -2,6 +2,7 @@
 #include <QWidget>
 #include <QGraphicsView>
 #include <QGraphicsScene>
+#include <QScreen>
 
 #include "maze/sector.h"
 #include "maze/maze.h"
@@ -25,7 +26,10 @@ int main(int argc, char *argv[])
 
     view->setScene(scene);
     view->setParent(window);
-    window->show();
+    QRect geometry = a.screens()[0]->geometry();
+    view->setGeometry(geometry);
+
+    window->showFullScreen();
 
 
     return a.exec();
