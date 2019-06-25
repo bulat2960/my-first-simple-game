@@ -9,6 +9,7 @@
 #include "gui/window.h"
 #include "gui/view.h"
 #include "gui/scene.h"
+#include "objects/player.h"
 
 int main(int argc, char *argv[])
 {
@@ -20,9 +21,12 @@ int main(int argc, char *argv[])
     const int mWidth = 10;
 
     Maze* maze = new Maze(mHeight, mWidth, sHeight, sWidth);
-    Scene* scene = new Scene(maze);
+    Player* player = new Player(maze->sector(0, 0), Qt::red);
+
+    Scene* scene = new Scene(maze, player);
     View* view = new View(scene);
     Window* window = new Window(view);
+
 
     view->setScene(scene);
     view->setParent(window);

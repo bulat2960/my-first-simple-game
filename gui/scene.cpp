@@ -1,6 +1,6 @@
 ﻿#include "scene.h"
 
-Scene::Scene(Maze* maze)
+Scene::Scene(Maze* maze, Player* player)
 {
     this->maze = maze;
 
@@ -18,4 +18,6 @@ Scene::Scene(Maze* maze)
             addItem(sector);
         }
     }
+
+    addItem(player);
 }

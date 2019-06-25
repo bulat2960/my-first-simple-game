@@ -4,6 +4,7 @@
 #include <QGraphicsScene>
 
 #include "maze/maze.h"
+#include "objects/player.h"
 
 class Scene : public QGraphicsScene
 {
@@ -11,7 +12,7 @@ class Scene : public QGraphicsScene
 private:
     Maze* maze;
 public:
-    Scene(Maze* maze);
+    Scene(Maze* maze, Player* player);
 };
 
 #endif // SCENE_H
