@@ -25,15 +25,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        gui/scene.cpp \
+        gui/view.cpp \
+        gui/window.cpp \
         main.cpp \
         maze/builder.cpp \
         maze/cell.cpp \
+        maze/maze.cpp \
         maze/sector.cpp
 
 HEADERS += \
     globaloptions.h \
+    gui/scene.h \
+    gui/view.h \
+    gui/window.h \
     maze/builder.h \
     maze/cell.h \
+    maze/maze.h \
     maze/sector.h
 
 # Default rules for deployment.
