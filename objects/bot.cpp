@@ -6,7 +6,7 @@ Bot::Bot(Sector* sector, QColor color) : Character(sector, color)
 {
     setStartPosition();
 
-    connect(anim, &QPropertyAnimation::finished, this, &Bot::move);
+    //connect(anim, &QPropertyAnimation::finished, this, &Bot::move);
 }
 
 void Bot::setStartPosition()
@@ -43,8 +43,6 @@ QVector<QPoint> Bot::findMoveDirs()
     QVector<QPoint> dirs = {left, right, up, down};
     QVector<QPoint> realDirs;
 
-    Sector* next = nullptr;
-
     for (int i = 0; i < dirs.size(); i++)
     {
         QPoint p = dirs[i];
@@ -56,7 +54,7 @@ QVector<QPoint> Bot::findMoveDirs()
 
         if (inside)
         {
-            next = findNextSector(p);
+            Sector* next = findNextSector(p);
             QPoint sectorPos = QPoint(p.x() % next->width(), p.y() % next->height());
             bool check1 = sector->cell(sectorPos.x(), sectorPos.y()).isRoad();
             bool check2 = next->cell(sectorPos.x(), sectorPos.y()).isRoad();

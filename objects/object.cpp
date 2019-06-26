@@ -6,3 +6,8 @@ Object::Object(Sector* sector, QColor color)
     this->sector = sector;
     this->color = color;
 }
+
+QPoint Object::getPosition() const
+{
+    return position;
+}

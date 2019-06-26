@@ -7,11 +7,11 @@ class Bot : public Character
 {
 private:
     void setStartPosition();
+    QVector<QPoint> findMoveDirs();
 public:
     Bot(Sector* sector, QColor color);
 
     Sector* findNextSector(QPoint direction);
-    QVector<QPoint> findMoveDirs();
 public slots:
     void move();
 };

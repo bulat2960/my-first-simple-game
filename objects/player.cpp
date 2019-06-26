@@ -2,6 +2,9 @@
 
 Player::Player(Sector* sector, QColor color) : Character(sector, color)
 {
+    hitpoints = 50;
+    speed = 100;
+
     // Установка начальной позиции для анимации в точку (0, 0)
     setPos(0, 0);
 
@@ -44,7 +47,7 @@ Sector* Player::findNextSector(int key)
 void Player::move(int dir)
 {
     bool shiftKeyPressed = (usedKeys[Qt::Key_Shift] == true);
-    anim->setDuration(shiftKeyPressed ? 100 : 250);
+    anim->setDuration(shiftKeyPressed ? speed / 3 : speed);
 
     if (anim->state() != QPropertyAnimation::Stopped)
     {
@@ -84,6 +87,8 @@ bool Player::eventFilter(QObject* obj, QEvent* event)
 
     if (event->type() == QEvent::KeyPress)
     {
+        emit signalMove();
+
         usedKeys[key] = true;
         return true;
     }

@@ -15,6 +15,10 @@ protected:
     Sector* sector;
 public:
     Object(Sector* sector, QColor color);
+
+    QPoint getPosition() const;
+signals:
+    void signalMove();
 };
 
 #endif // OBJECT_H

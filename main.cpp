@@ -12,6 +12,7 @@
 #include "gui/scene.h"
 #include "objects/player.h"
 #include "objects/bot.h"
+#include "logic/collisiondetector.h"
 
 int main(int argc, char *argv[])
 {
@@ -32,9 +33,11 @@ int main(int argc, char *argv[])
     for (int i = 0; i < 100; i++)
     {
         Sector* randomSector = maze->sector(qrand() % mWidth, qrand() % mHeight);
-        QColor randomColor = QColor(qrand() % 255, qrand() % 255, qrand() % 255);
+        QColor randomColor = Qt::blue; //QColor(qrand() % 255, qrand() % 255, qrand() % 255);
         bots.push_back(new Bot(randomSector, randomColor));
     }
+
+    CollisionDetector* detector = new CollisionDetector(player, bots);
 
 
     Scene* scene = new Scene(maze, player, bots);

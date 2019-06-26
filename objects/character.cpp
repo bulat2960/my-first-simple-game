@@ -2,8 +2,12 @@
 
 Character::Character(Sector* sector, QColor color) : Object(sector, color)
 {
+    speed = 250;
+    damage = 1;
+    hitpoints = 10;
+
     anim = new QPropertyAnimation(this, "pos");
-    anim->setDuration(50);
+    anim->setDuration(speed);
 
     directions.insert(Qt::Key_A, QPoint(-1, 0));
     directions.insert(Qt::Key_W, QPoint(0, -1));

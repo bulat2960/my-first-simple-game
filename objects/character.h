@@ -17,6 +17,10 @@ protected:
     QMap<int, QPoint> directions;
 
     QPropertyAnimation* anim;
+
+    int speed;
+    int damage;
+    int hitpoints;
 public:
     Character(Sector* sector, QColor color);
 
