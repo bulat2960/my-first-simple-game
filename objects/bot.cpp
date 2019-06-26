@@ -75,13 +75,10 @@ QVector<QPoint> Bot::findMoveDirs()
 void Bot::move()
 {
     QVector<QPoint> realDirs = findMoveDirs();
-
     QPoint nextPos = realDirs[qrand() % realDirs.size()];
 
     startAnimation(position, nextPos);
+
     position = nextPos;
-
     sector = findNextSector(position);
-    sector->update();
-
 }

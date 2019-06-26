@@ -9,10 +9,8 @@
 class BattleExecutor : public QObject
 {
     Q_OBJECT
-private:
-    CollisionDetector* detector;
 public:
-    BattleExecutor(CollisionDetector* detector);
+    BattleExecutor();
 public slots:
     void slotBattle(Character* unit1, Character* unit2);
 };

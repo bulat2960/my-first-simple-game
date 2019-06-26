@@ -3,7 +3,8 @@
 Player::Player(Sector* sector, QColor color) : Character(sector, color)
 {
     hitpoints = 50;
-    speed = 100;
+    speed = 250;
+    anim->setDuration(speed);
 
     // Установка начальной позиции для анимации в точку (0, 0)
     setPos(0, 0);
@@ -67,16 +68,14 @@ void Player::move(int dir)
         return;
     }
 
-    // Поиск следующего сектора, перевод из мировых координат в секторные
     Sector* next = findNextSector(dir);
     QPoint sectorPos = QPoint(nextPos.x() % next->width(), nextPos.y() % next->height());
 
-    // Проверка на возможность перемещения, перемешение с анимацией, смена сектора
     if (next->cell(sectorPos.x(), sectorPos.y()).isRoad())
     {
-        startAnimation(position, nextPos); // Запускаем анимацию
+        startAnimation(position, nextPos);
         position = nextPos;
-        sector = next; // Изменяем местоположение игрока
+        sector = next;
         emit signalCheckCollisions();
     }
 }

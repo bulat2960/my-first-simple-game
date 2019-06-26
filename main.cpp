@@ -39,7 +39,8 @@ int main(int argc, char *argv[])
     }
 
     CollisionDetector* detector = new CollisionDetector(player, bots);
-    BattleExecutor* executor = new BattleExecutor(detector);
+    BattleExecutor* executor = new BattleExecutor();
+    QObject::connect(detector, &CollisionDetector::signalBattle, executor, &BattleExecutor::slotBattle);
 
 
 
@@ -53,7 +54,7 @@ int main(int argc, char *argv[])
     QRect geometry = a.screens()[0]->geometry();
     view->setGeometry(geometry);
 
-    window->showFullScreen();
+    window->show();
 
 
     return a.exec();
