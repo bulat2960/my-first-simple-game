@@ -51,8 +51,7 @@ void Player::move(int dir)
         return;
     }
 
-    QPoint delta = directions[dir];
-    QPoint nextPos = position + delta;
+    QPoint nextPos = position + directions[dir];
 
     // Проверка на выход за границы сцены
     QRect sceneRect = scene()->sceneRect().toRect();
@@ -72,8 +71,8 @@ void Player::move(int dir)
     // Проверка на возможность перемещения, перемешение с анимацией, смена сектора
     if (next->cell(sectorPos.x(), sectorPos.y()).isRoad())
     {
-        position += delta; // Меняем глобальные координаты
-        startAnimation(pos().toPoint(), delta * SIZE); // Запускаем анимацию
+        startAnimation(position, nextPos); // Запускаем анимацию
+        position = nextPos;
         sector = next; // Изменяем местоположение игрока
     }
 }

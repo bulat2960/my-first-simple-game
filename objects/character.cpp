@@ -11,10 +11,10 @@ Character::Character(Sector* sector, QColor color) : Object(sector, color)
     directions.insert(Qt::Key_S, QPoint(0, 1));
 }
 
-void Character::startAnimation(QPoint point, QPoint offset)
+void Character::startAnimation(QPoint startPos, QPoint endPos)
 {
-    anim->setStartValue(point);
-    anim->setEndValue(point + offset);
+    anim->setStartValue(startPos * SIZE);
+    anim->setEndValue(endPos * SIZE);
     anim->start();
 }
 

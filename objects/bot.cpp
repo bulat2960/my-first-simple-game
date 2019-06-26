@@ -33,7 +33,7 @@ Sector* Bot::findNextSector(QPoint direction)
     return nextSector;
 }
 
-void Bot::move()
+QVector<QPoint> Bot::findMoveDirs()
 {
     QPoint left  = position + directions[Qt::Key_A];
     QPoint right = position + directions[Qt::Key_D];
@@ -71,10 +71,18 @@ void Bot::move()
         }
     }
 
+    return realDirs;
+}
+
+void Bot::move()
+{
+    QVector<QPoint> realDirs = findMoveDirs();
+
     QPoint nextPos = realDirs[qrand() % realDirs.size()];
 
-    startAnimation(pos().toPoint(), (nextPos - position) * SIZE);
+    startAnimation(position, nextPos);
     position = nextPos;
+
     sector = findNextSector(position);
     sector->update();
 

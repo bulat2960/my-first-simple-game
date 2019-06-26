@@ -23,7 +23,7 @@ public:
     virtual QRectF boundingRect() const;
     virtual QPainterPath shape() const;
 
-    void startAnimation(QPoint point, QPoint offset);
+    void startAnimation(QPoint startPos, QPoint endPos);
 
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 };
