@@ -28,7 +28,7 @@ SOURCES += \
         gui/scene.cpp \
         gui/view.cpp \
         gui/window.cpp \
-        logic/battle.cpp \
+        logic/battleexecutor.cpp \
         logic/collisiondetector.cpp \
         main.cpp \
         maze/builder.cpp \
@@ -45,7 +45,7 @@ HEADERS += \
     gui/scene.h \
     gui/view.h \
     gui/window.h \
-    logic/battle.h \
+    logic/battleexecutor.h \
     logic/collisiondetector.h \
     maze/builder.h \
     maze/cell.h \

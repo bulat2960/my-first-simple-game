@@ -13,6 +13,7 @@
 #include "objects/player.h"
 #include "objects/bot.h"
 #include "logic/collisiondetector.h"
+#include "logic/battleexecutor.h"
 
 int main(int argc, char *argv[])
 {
@@ -38,6 +39,8 @@ int main(int argc, char *argv[])
     }
 
     CollisionDetector* detector = new CollisionDetector(player, bots);
+    BattleExecutor* executor = new BattleExecutor(detector);
+
 
 
     Scene* scene = new Scene(maze, player, bots);

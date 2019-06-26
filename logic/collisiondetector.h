@@ -17,6 +17,8 @@ public:
     CollisionDetector(Player* player, QVector<Bot*> bots);
 public slots:
     void findCollision();
+signals:
+    void signalBattle(Character* obj1, Character* obj2);
 };
 
 #endif // COLLISIONDETECTOR_H

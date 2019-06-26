@@ -23,15 +23,8 @@ void CollisionDetector::findCollision()
             Bot* bot = bots[i];
             if (p->getPosition() == bot->getPosition())
             {
-                qDebug() << "COLLIDE PLAYER";
+                emit signalBattle(p, bot);
             }
-        }
-    }
-    if (b)
-    {
-        if (b->getPosition() == player->getPosition())
-        {
-            qDebug() << "COLLIDE BOT";
         }
     }
 }
