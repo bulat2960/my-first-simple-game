@@ -5,10 +5,10 @@ CollisionDetector::CollisionDetector(Player* player, QVector<Bot*> bots)
     this->player = player;
     this->bots = bots;
 
-    connect(player, &Player::signalMove, this, &CollisionDetector::findCollision);
+    connect(player, &Player::signalCheckCollisions, this, &CollisionDetector::slotFindCollision);
 }
 
-void CollisionDetector::findCollision()
+void CollisionDetector::slotFindCollision()
 {
     QObject* sender = QObject::sender();
 
@@ -21,7 +21,7 @@ void CollisionDetector::findCollision()
         for (int i = 0; i < bots.size(); i++)
         {
             Bot* bot = bots[i];
-            if (p->getPosition() == bot->getPosition())
+            if (bot->alive() && p->getPosition() == bot->getPosition())
             {
                 emit signalBattle(p, bot);
             }

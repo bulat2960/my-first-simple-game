@@ -8,5 +8,5 @@ BattleExecutor::BattleExecutor(CollisionDetector* detector)
 
 void BattleExecutor::slotBattle(Character* unit1, Character* unit2)
 {
-    qDebug() << "START BATTLE!";
+    unit2->kill();
 }

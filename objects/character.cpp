@@ -2,9 +2,16 @@
 
 Character::Character(Sector* sector, QColor color) : Object(sector, color)
 {
-    speed = 250;
+    speed = 500;
     damage = 1;
     hitpoints = 10;
+
+    respawnTimer = new QTimer(this);
+    respawnTimer->setSingleShot(true);
+    respawnTimer->setInterval(2000);
+    connect(respawnTimer, &QTimer::timeout, this, &Character::respawn);
+
+    isAlive = true;
 
     anim = new QPropertyAnimation(this, "pos");
     anim->setDuration(speed);
@@ -39,5 +46,30 @@ void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    painter->fillPath(shape(), color);
+    if (isAlive)
+    {
+        painter->fillPath(shape(), color);
+    }
+    else
+    {
+        sector->update();
+    }
+}
+
+bool Character::alive() const
+{
+    return isAlive;
+}
+
+void Character::kill()
+{
+    isAlive = false;
+    respawnTimer->start();
+    anim->pause();
+}
+
+void Character::respawn()
+{
+    isAlive = true;
+    anim->resume();
 }

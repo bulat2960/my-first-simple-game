@@ -5,6 +5,7 @@
 #include <QPropertyAnimation>
 #include <QMap>
 #include <QGraphicsScene>
+#include <QTimer>
 
 #include "object.h"
 #include "maze/sector.h"
@@ -21,6 +22,9 @@ protected:
     int speed;
     int damage;
     int hitpoints;
+
+    bool isAlive;
+    QTimer* respawnTimer;
 public:
     Character(Sector* sector, QColor color);
 
@@ -29,7 +33,13 @@ public:
 
     void startAnimation(QPoint startPos, QPoint endPos);
 
+    bool alive() const;
+    void kill();
+    void respawn();
+
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+signals:
+    void signalCheckCollisions();
 };
 
 #endif // CHARACTER_H

@@ -77,6 +77,7 @@ void Player::move(int dir)
         startAnimation(position, nextPos); // Запускаем анимацию
         position = nextPos;
         sector = next; // Изменяем местоположение игрока
+        emit signalCheckCollisions();
     }
 }
 
@@ -87,8 +88,6 @@ bool Player::eventFilter(QObject* obj, QEvent* event)
 
     if (event->type() == QEvent::KeyPress)
     {
-        emit signalMove();
-
         usedKeys[key] = true;
         return true;
     }

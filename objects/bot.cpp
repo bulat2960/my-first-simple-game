@@ -6,7 +6,7 @@ Bot::Bot(Sector* sector, QColor color) : Character(sector, color)
 {
     setStartPosition();
 
-    //connect(anim, &QPropertyAnimation::finished, this, &Bot::move);
+    connect(anim, &QPropertyAnimation::finished, this, &Bot::move);
 }
 
 void Bot::setStartPosition()
