@@ -17,7 +17,6 @@ public:
     int width() const;
 
     Sector* sector(int x, int y) const;
-    void swapSectors(int n1, int n2);
 };
 
 #endif // MAZE_H

@@ -26,6 +26,7 @@ public:
     Sector(const QVector<QVector<Cell>>& matrix, int x, int y);
 
     QPoint position();
+    void setPosition(QPoint pos);
 
     int height() const;
     int width() const;

@@ -17,6 +17,8 @@ public:
     Object(Sector* sector, QColor color);
 
     QPoint getPosition() const;
+signals:
+    void signalCheckCollisions();
 };
 
 #endif // OBJECT_H

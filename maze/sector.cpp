@@ -12,6 +12,12 @@ QPoint Sector::position()
     return QPoint(x, y);
 }
 
+void Sector::setPosition(QPoint pos)
+{
+    this->x = pos.x();
+    this->y = pos.y();
+}
+
 int Sector::height() const
 {
     return matrix.size();

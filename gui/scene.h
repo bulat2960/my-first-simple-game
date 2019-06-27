@@ -20,7 +20,6 @@ public:
 public slots:
     void keyPressEvent(QKeyEvent* event);
     void keyReleaseEvent(QKeyEvent* event);
-    void mousePressEvent(QGraphicsSceneMouseEvent* mouseEvent);
 };
 
 #endif // SCENE_H
