@@ -35,10 +35,12 @@ SOURCES += \
         maze/cell.cpp \
         maze/maze.cpp \
         maze/sector.cpp \
+        objects/bonus.cpp \
         objects/bot.cpp \
         objects/character.cpp \
         objects/object.cpp \
-        objects/player.cpp
+        objects/player.cpp \
+        objects/portal.cpp
 
 HEADERS += \
     globaloptions.h \
@@ -51,10 +53,12 @@ HEADERS += \
     maze/cell.h \
     maze/maze.h \
     maze/sector.h \
+    objects/bonus.h \
     objects/bot.h \
     objects/character.h \
     objects/object.h \
-    objects/player.h
+    objects/player.h \
+    objects/portal.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

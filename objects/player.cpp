@@ -48,7 +48,7 @@ Sector* Player::findNextSector(int key)
 void Player::move(int dir)
 {
     bool shiftKeyPressed = (usedKeys[Qt::Key_Shift] == true);
-    anim->setDuration(shiftKeyPressed ? speed / 3 : speed);
+    anim->setDuration(shiftKeyPressed ? 1 : speed);
 
     if (anim->state() != QPropertyAnimation::Stopped)
     {
