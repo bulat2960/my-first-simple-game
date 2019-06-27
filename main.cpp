@@ -24,14 +24,14 @@ int main(int argc, char *argv[])
 
     const int sHeight = 10;
     const int sWidth = 10;
-    const int mHeight = 5;
-    const int mWidth = 8;
+    const int mHeight = 2;
+    const int mWidth = 2;
 
     Maze* maze = new Maze(mHeight, mWidth, sHeight, sWidth);
     Player* player = new Player(maze->sector(0, 0), Qt::red);
 
     QVector<Bot*> bots;
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < 2; i++)
     {
         Sector* randomSector = maze->sector(qrand() % mWidth, qrand() % mHeight);
         QColor randomColor = Qt::blue; //QColor(qrand() % 255, qrand() % 255, qrand() % 255);
@@ -42,12 +42,9 @@ int main(int argc, char *argv[])
     BattleExecutor* executor = new BattleExecutor();
     QObject::connect(detector, &CollisionDetector::signalBattle, executor, &BattleExecutor::slotBattle);
 
-
-
     Scene* scene = new Scene(maze, player, bots);
     View* view = new View(scene);
     Window* window = new Window(view);
-
 
     view->setScene(scene);
     view->setParent(window);
@@ -55,7 +52,6 @@ int main(int argc, char *argv[])
     view->setGeometry(geometry);
 
     window->show();
-
 
     return a.exec();
 }
