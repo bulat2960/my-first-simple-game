@@ -8,6 +8,7 @@ Player::Player(Sector* sector, QColor color) : Character(sector, color)
 
     // Установка начальной позиции для анимации в точку (0, 0)
     setPos(0, 0);
+    position = QPoint(0, 0);
 
     // Установка фильтра событий
     installEventFilter(this);
