@@ -10,8 +10,6 @@ private:
     QVector<QPoint> findMoveDirs();
 public:
     Bot(Sector* sector, QColor color);
-
-    Sector* findNextSector(QPoint direction);
 public slots:
     void move();
 };

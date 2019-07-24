@@ -79,7 +79,7 @@ void Builder::removeWall(const Cell &current, const Cell &neighbour)
 
 void Builder::destroyHorizontal()
 {
-    int destroyCount = round(width / 5);
+    int destroyCount = static_cast<int>(round(width / 5));
     while (destroyCount > 0)
     {
         int x = 2 * (rand() % (width / 2));
@@ -93,7 +93,7 @@ void Builder::destroyHorizontal()
 
 void Builder::destroyVertical()
 {
-    int destroyCount = round(height / 5);
+    int destroyCount = static_cast<int>(round(height / 5));
     while (destroyCount > 0)
     {
         int x = 2 * (rand() % (height / 2));

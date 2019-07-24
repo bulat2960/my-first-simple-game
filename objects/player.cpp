@@ -32,19 +32,11 @@ void Player::processKeys()
     for (int i = 0; i < dirs.size(); i++)
     {
         int dir = dirs[i];
-        if (usedKeys[dir] == true)
+        if (usedKeys[dir] == true && anim->state() == QPropertyAnimation::Stopped)
         {
             move(dir);
         }
     }
-}
-
-Sector* Player::findNextSector(int key)
-{
-    QPoint next = (position + directions[key]) * SIZE;
-    QRect nextRect = QRect(next.x(), next.y(), SIZE, SIZE);
-    Sector* nextSector = dynamic_cast<Sector*>(scene()->items(nextRect, Qt::IntersectsItemBoundingRect)[0]);
-    return nextSector;
 }
 
 void Player::move(int dir)
@@ -52,25 +44,15 @@ void Player::move(int dir)
     bool shiftKeyPressed = (usedKeys[Qt::Key_Shift] == true);
     anim->setDuration(shiftKeyPressed ? 1 : speed);
 
-    if (anim->state() != QPropertyAnimation::Stopped)
-    {
-        return;
-    }
-
     QPoint nextPos = position + directions[dir];
 
     // Проверка на выход за границы сцены
-    QRect sceneRect = scene()->sceneRect().toRect();
-    QPoint scenePos = nextPos * SIZE;
-    bool insideHorizontal = (scenePos.x() >= 0) && (scenePos.x() < sceneRect.width());
-    bool insideVertical = (scenePos.y() >= 0) && (scenePos.y() < sceneRect.height());
-    bool inside = (insideVertical && insideHorizontal);
-    if (!inside)
+    if (!isInsideScene(nextPos))
     {
         return;
     }
 
-    Sector* next = findNextSector(dir);
+    Sector* next = findNextSector(nextPos);
     QPoint sectorPos = QPoint(nextPos.x() % next->width(), nextPos.y() % next->height());
 
     if (next->cell(sectorPos.x(), sectorPos.y()).isRoad())

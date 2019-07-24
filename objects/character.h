@@ -37,6 +37,9 @@ public:
     void kill();
     void respawn();
 
+    Sector* findNextSector(QPoint direction);
+    bool isInsideScene(QPoint nextPos);
+
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 signals:
     void signalCheckCollisions();

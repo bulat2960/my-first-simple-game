@@ -56,6 +56,23 @@ void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     }
 }
 
+Sector* Character::findNextSector(QPoint direction)
+{
+    QPoint next = direction * SIZE;
+    QRect nextRect = QRect(next.x(), next.y(), SIZE, SIZE);
+    Sector* nextSector = dynamic_cast<Sector*>(scene()->items(nextRect, Qt::IntersectsItemBoundingRect)[0]);
+    return nextSector;
+}
+
+bool Character::isInsideScene(QPoint nextPos)
+{
+    QRect sceneRect = scene()->sceneRect().toRect();
+    QPoint scenePos = nextPos * SIZE;
+    bool insideHorizontal = (scenePos.x() >= 0) && (scenePos.x() < sceneRect.width());
+    bool insideVertical = (scenePos.y() >= 0) && (scenePos.y() < sceneRect.height());
+    return (insideVertical && insideHorizontal);
+}
+
 bool Character::alive() const
 {
     return isAlive;
