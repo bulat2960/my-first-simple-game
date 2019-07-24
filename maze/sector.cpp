@@ -41,7 +41,18 @@ QRectF Sector::boundingRect() const
 QPainterPath Sector::shape() const
 {
     QPainterPath path;
-    path.addRect(boundingRect());
+    for (int i = 0; i < matrix.size(); i++)
+    {
+        for (int j = 0; j < matrix[i].size(); j++)
+        {
+            if (cell(i, j).isWall())
+            {
+                QRect rect = QRect(matrix[i][j].x * SIZE, matrix[i][j].y * SIZE, SIZE, SIZE);
+                rect.adjust(1, 1, -1, -1);
+                path.addRect(rect);
+            }
+        }
+    }
     return path;
 }
 
@@ -59,7 +70,9 @@ void Sector::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QW
 
     painter->setPen(Qt::NoPen);
 
-    for (int i = 0; i < height(); i++)
+    painter->fillPath(shape(), grad);
+
+    /*for (int i = 0; i < height(); i++)
     {
         for (int j = 0; j < width(); j++)
         {
@@ -74,7 +87,7 @@ void Sector::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QW
                 painter->setBrush(Qt::BrushStyle::NoBrush);
             }
         }
-    }
+    }*/
 
     painter->setPen(Qt::black);
     painter->drawRect(0, 0, width() * SIZE, height() * SIZE);
