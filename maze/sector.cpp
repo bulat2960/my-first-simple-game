@@ -47,7 +47,7 @@ QPainterPath Sector::shape() const
         {
             if (cell(i, j).isWall())
             {
-                QRect rect = QRect(matrix[i][j].x * SIZE, matrix[i][j].y * SIZE, SIZE, SIZE);
+                QRect rect = QRect(cell(i, j).x * SIZE, cell(i, j).y * SIZE, SIZE, SIZE);
                 rect.adjust(1, 1, -1, -1);
                 path.addRect(rect);
             }
@@ -71,23 +71,6 @@ void Sector::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QW
     painter->setPen(Qt::NoPen);
 
     painter->fillPath(shape(), grad);
-
-    /*for (int i = 0; i < height(); i++)
-    {
-        for (int j = 0; j < width(); j++)
-        {
-            QPoint topLeft = {j * SIZE, i * SIZE};
-            QPoint bottomRight = topLeft + QPoint(SIZE - 1, SIZE - 1);
-            QRect rect = QRect(topLeft, bottomRight);
-
-            if (cell(j, i).isWall())
-            {
-                painter->setBrush(grad);
-                painter->drawRect(rect);
-                painter->setBrush(Qt::BrushStyle::NoBrush);
-            }
-        }
-    }*/
 
     painter->setPen(Qt::black);
     painter->drawRect(0, 0, width() * SIZE, height() * SIZE);

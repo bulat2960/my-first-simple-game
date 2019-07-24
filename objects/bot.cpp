@@ -29,7 +29,8 @@ void Bot::setStartPosition()
 Sector* Bot::findNextSector(QPoint direction)
 {
     QPoint next = direction * SIZE;
-    Sector* nextSector = dynamic_cast<Sector*>(scene()->items(next)[0]);
+    QRect nextRect = QRect(next.x(), next.y(), SIZE, SIZE);
+    Sector* nextSector = dynamic_cast<Sector*>(scene()->items(nextRect, Qt::IntersectsItemBoundingRect)[0]);
     return nextSector;
 }
 

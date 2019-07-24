@@ -42,7 +42,8 @@ void Player::processKeys()
 Sector* Player::findNextSector(int key)
 {
     QPoint next = (position + directions[key]) * SIZE;
-    Sector* nextSector = dynamic_cast<Sector*>(scene()->items(next)[0]);
+    QRect nextRect = QRect(next.x(), next.y(), SIZE, SIZE);
+    Sector* nextSector = dynamic_cast<Sector*>(scene()->items(nextRect, Qt::IntersectsItemBoundingRect)[0]);
     return nextSector;
 }
 
