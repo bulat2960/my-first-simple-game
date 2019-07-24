@@ -4,6 +4,8 @@
 #include <QVector>
 #include <QStack>
 
+#include <cmath>
+
 #include "cell.h"
 
 class Builder
