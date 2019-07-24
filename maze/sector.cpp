@@ -33,6 +33,31 @@ Cell Sector::cell(int x, int y) const
     return matrix[y][x];
 }
 
+Cell Sector::cell(const QPoint &p) const
+{
+    return matrix[p.y()][p.x()];
+}
+
+bool Sector::isRoadCell(int x, int y) const
+{
+    return cell(x, y).isRoad();
+}
+
+bool Sector::isRoadCell(const QPoint& p) const
+{
+    return cell(p.x(), p.y()).isRoad();
+}
+
+bool Sector::isWallCell(int x, int y) const
+{
+    return cell(x, y).isWall();
+}
+
+bool Sector::isWallCell(const QPoint& p) const
+{
+    return cell(p.x(), p.y()).isWall();
+}
+
 QRectF Sector::boundingRect() const
 {
     return QRectF(0, 0, width() * SIZE, height() * SIZE);

@@ -32,7 +32,8 @@ void Player::processKeys()
     for (int i = 0; i < dirs.size(); i++)
     {
         int dir = dirs[i];
-        if (usedKeys[dir] == true && anim->state() == QPropertyAnimation::Stopped)
+        bool usedKey = usedKeys[dir];
+        if (usedKey && anim->state() == QPropertyAnimation::Stopped)
         {
             move(dir);
         }
@@ -53,9 +54,9 @@ void Player::move(int dir)
     }
 
     Sector* next = findNextSector(nextPos);
-    QPoint sectorPos = QPoint(nextPos.x() % next->width(), nextPos.y() % next->height());
+    QPoint sectorPos = mapToSector(nextPos, next);
 
-    if (next->cell(sectorPos.x(), sectorPos.y()).isRoad())
+    if (next->isRoadCell(sectorPos))
     {
         startAnimation(position, nextPos);
         position = nextPos;

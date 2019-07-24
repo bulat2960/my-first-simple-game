@@ -32,6 +32,13 @@ public:
     int width() const;
 
     Cell cell(int x, int y) const;
+    Cell cell(const QPoint& p) const;
+
+    bool isRoadCell(int x, int y) const;
+    bool isRoadCell(const QPoint& p) const;
+
+    bool isWallCell(int x, int y) const;
+    bool isWallCell(const QPoint& p) const;
 
     QRectF boundingRect() const override;
     QPainterPath shape() const override;

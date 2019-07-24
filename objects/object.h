@@ -17,6 +17,7 @@ public:
     Object(Sector* sector, QColor color);
 
     QPoint getPosition() const;
+    QPoint mapToSector(QPoint p, Sector *sector) const;
 signals:
     void signalCheckCollisions();
 };

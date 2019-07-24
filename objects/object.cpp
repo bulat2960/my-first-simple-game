@@ -11,3 +11,8 @@ QPoint Object::getPosition() const
 {
     return position;
 }
+
+QPoint Object::mapToSector(QPoint p, Sector* sector) const
+{
+    return QPoint(p.x() % sector->width(), p.y() % sector->height());
+}
