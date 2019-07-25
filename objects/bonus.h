@@ -6,6 +6,16 @@
 class Bonus
 {
 public:
+    enum Type
+    {
+        INCREASE_HP,
+        INCREASE_REGENERATION,
+        INCREASE_DAMAGE,
+        POISON,
+        HEAL,
+        DAMAGE,
+        SECRET
+    };
     Bonus();
 signals:
     void signalTakenBy(Character* character);
