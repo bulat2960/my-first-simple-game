@@ -6,10 +6,8 @@ Player::Player(Sector* sector, QColor color) : Character(sector, color)
     speed = 250;
     anim->setDuration(speed);
 
-    // Установка начальной позиции для анимации в точку (0, 0)
-    setPos(0, 0);
-    // Установка позиции на секторе в точку (0, 0)
-    setPosition(0, 0);
+    // Установка начальной позиции для анимации в стартовую точку
+    setPos(graphicalPosition(position()));
 
     // Установка фильтра событий
     installEventFilter(this);

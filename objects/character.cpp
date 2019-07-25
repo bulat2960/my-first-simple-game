@@ -31,7 +31,7 @@ void Character::startAnimation(QPoint startPos, QPoint endPos)
 
 QRectF Character::boundingRect() const
 {
-    return QRectF(0, 0, SIZE, SIZE);
+    return Object::boundingRect();
 }
 
 QPainterPath Character::shape() const
@@ -49,10 +49,6 @@ void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     if (isAlive)
     {
         painter->fillPath(shape(), color());
-    }
-    else
-    {
-        sector()->update();
     }
 }
 

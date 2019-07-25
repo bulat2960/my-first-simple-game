@@ -28,12 +28,12 @@ int main(int argc, char *argv[])
     const int mHeight = 2;
     const int mWidth = 2;
     const int botsNumber = 2;
-    const int bonusesNumber = 0;
+    const int bonusesNumber = 5;
     const int portalsNumber = 0;
 
     Game* game = new Game(botsNumber, bonusesNumber, portalsNumber, mHeight, mWidth, sHeight, sWidth);
 
-    Scene* scene = new Scene(game->getMaze(), game->getPlayer(), game->getBots());
+    Scene* scene = new Scene(game->getMaze(), game->getPlayer(), game->getBots(), game->getBonuses());
     View* view = new View(scene);
     Window* window = new Window(view);
 

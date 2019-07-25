@@ -6,7 +6,6 @@
 class Bot : public Character
 {
 private:
-    void setStartPosition();
     QVector<QPoint> findMoveDirs();
 public:
     Bot(Sector* sector, QColor color);

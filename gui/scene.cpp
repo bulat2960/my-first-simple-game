@@ -1,10 +1,11 @@
 ﻿#include "scene.h"
 
-Scene::Scene(Maze* maze, Player* player, QVector<Bot*> bots)
+Scene::Scene(Maze* maze, Player* player, QVector<Bot*> bots, QVector<Bonus*> bonuses)
 {
     this->maze = maze;
     this->player = player;
     this->bots = bots;
+    this->bonuses = bonuses;
 
     for (int i = 0; i < maze->width(); i++)
     {
@@ -26,6 +27,11 @@ Scene::Scene(Maze* maze, Player* player, QVector<Bot*> bots)
     for (int i = 0; i < bots.size(); i++)
     {
         addItem(bots[i]);
+    }
+
+    for (int i = 0; i < bonuses.size(); i++)
+    {
+        addItem(bonuses[i]);
     }
 }
 

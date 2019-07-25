@@ -2,9 +2,10 @@
 
 Object::Object(Sector* sector, QColor color)
 {
-    objPosition = QPoint(0, 0);
     objSector = sector;
     objColor = color;
+
+    setStartPosition();
 }
 
 QPoint Object::position() const
@@ -25,6 +26,23 @@ void Object::setPosition(int x, int y)
 void Object::setPosition(const QPoint& position)
 {
     this->objPosition = position;
+}
+
+void Object::setStartPosition()
+{
+    while (true)
+    {
+        int x = qrand() % sector()->width();
+        int y = qrand() % sector()->height();
+        if (sector()->cell(x, y).isRoad())
+        {
+            x += sector()->position().x() * sector()->width();
+            y += sector()->position().y() * sector()->height();
+            setPosition(x, y);
+            setPos(graphicalPosition(position()));
+            break;
+        }
+    }
 }
 
 Sector* Object::sector() const
@@ -55,4 +73,9 @@ QPoint Object::mapToSector(QPoint p, Sector* sector) const
 bool Object::animStopped() const
 {
     return anim->state() == QPropertyAnimation::Stopped;
+}
+
+QRectF Object::boundingRect() const
+{
+    return QRectF(0, 0, SIZE, SIZE);
 }

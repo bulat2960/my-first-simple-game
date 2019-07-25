@@ -26,6 +26,8 @@ public:
     void setPosition(int x, int y);
     void setPosition(const QPoint& position);
 
+    void setStartPosition();
+
     Sector* sector() const;
     void setSector(Sector* sector);
 
@@ -35,6 +37,8 @@ public:
     bool animStopped() const;
 signals:
     void signalCheckCollisions();
+public slots:
+    QRectF boundingRect() const override;
 };
 
 #endif // OBJECT_H

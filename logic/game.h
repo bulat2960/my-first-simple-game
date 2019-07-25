@@ -37,6 +37,7 @@ public:
     Maze* getMaze() const;
     Player* getPlayer() const;
     QVector<Bot*> getBots() const;
+    QVector<Bonus*> getBonuses() const;
 
 public slots:
     void start();

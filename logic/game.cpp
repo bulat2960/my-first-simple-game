@@ -21,7 +21,9 @@ Game::Game(int botsNumber, int bonusesNumber, int portalsNumber,
 
     for (int i = 0; i < bonusesNumber; i++)
     {
-        // Add bonuses
+        Sector* sector = maze->sector(qrand() % mWidth, qrand() % mHeight);
+        QColor color = Qt::green;
+        bonuses.push_back(new Bonus(sector, color));
     }
 
     collisionDetector = new CollisionDetector(player, bots);
@@ -50,4 +52,9 @@ QVector<Bot*> Game::getBots() const
 Maze* Game::getMaze() const
 {
     return maze;
+}
+
+QVector<Bonus*> Game::getBonuses() const
+{
+    return bonuses;
 }

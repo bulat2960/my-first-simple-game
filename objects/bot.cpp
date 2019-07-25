@@ -9,23 +9,6 @@ Bot::Bot(Sector* sector, QColor color) : Character(sector, color)
     connect(anim, &QPropertyAnimation::finished, this, &Bot::move);
 }
 
-void Bot::setStartPosition()
-{
-    while (true)
-    {
-        int x = qrand() % sector()->width();
-        int y = qrand() % sector()->height();
-        if (sector()->cell(x, y).isRoad())
-        {
-            x += sector()->position().x() * sector()->width();
-            y += sector()->position().y() * sector()->height();
-            setPosition(x, y);
-            setPos(position() * SIZE);
-            break;
-        }
-    }
-}
-
 QVector<QPoint> Bot::findMoveDirs()
 {
     QPoint left  = position() + directions[Qt::Key_A];
