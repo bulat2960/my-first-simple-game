@@ -27,23 +27,13 @@ int main(int argc, char *argv[])
     const int sWidth = 10;
     const int mHeight = 2;
     const int mWidth = 2;
+    const int botsNumber = 2;
+    const int bonusesNumber = 0;
+    const int portalsNumber = 0;
 
-    Maze* maze = new Maze(mHeight, mWidth, sHeight, sWidth);
-    Player* player = new Player(maze->sector(0, 0), Qt::red);
+    Game* game = new Game(botsNumber, bonusesNumber, portalsNumber, mHeight, mWidth, sHeight, sWidth);
 
-    QVector<Bot*> bots;
-    for (int i = 0; i < 2; i++)
-    {
-        Sector* randomSector = maze->sector(qrand() % mWidth, qrand() % mHeight);
-        QColor randomColor = Qt::blue; //QColor(qrand() % 255, qrand() % 255, qrand() % 255);
-        bots.push_back(new Bot(randomSector, randomColor));
-    }
-
-    CollisionDetector* detector = new CollisionDetector(player, bots);
-    BattleExecutor* executor = new BattleExecutor();
-    QObject::connect(detector, &CollisionDetector::signalBattle, executor, &BattleExecutor::slotBattle);
-
-    Scene* scene = new Scene(maze, player, bots);
+    Scene* scene = new Scene(game->getMaze(), game->getPlayer(), game->getBots());
     View* view = new View(scene);
     Window* window = new Window(view);
 
@@ -53,6 +43,8 @@ int main(int argc, char *argv[])
     view->setGeometry(geometry);
 
     window->show();
+
+    game->start();
 
     return a.exec();
 }

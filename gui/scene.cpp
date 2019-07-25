@@ -26,7 +26,6 @@ Scene::Scene(Maze* maze, Player* player, QVector<Bot*> bots)
     for (int i = 0; i < bots.size(); i++)
     {
         addItem(bots[i]);
-        bots[i]->move();
     }
 }
 

@@ -1,6 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <QObject>
+
 #include "battleexecutor.h"
 #include "bonusgenerator.h"
 #include "collisiondetector.h"
@@ -13,8 +15,10 @@
 #include "objects/portal.h"
 
 
-class Game
+class Game : public QObject
 {
+    Q_OBJECT
+private:
     Maze* maze;
 
     Player* player;
@@ -29,6 +33,13 @@ class Game
 public:
     Game(int botsNumber, int bonusesNumber, int portalsNumber,
          int mHeight, int mWidth, int sHeight, int sWidth);
+
+    Maze* getMaze() const;
+    Player* getPlayer() const;
+    QVector<Bot*> getBots() const;
+
+public slots:
+    void start();
 };
 
 #endif // GAME_H
