@@ -2,7 +2,6 @@
 #define CHARACTER_H
 
 #include <QKeyEvent>
-#include <QPropertyAnimation>
 #include <QMap>
 #include <QGraphicsScene>
 #include <QTimer>
@@ -16,8 +15,6 @@ class Character : public Object
     Q_PROPERTY(QPointF pos READ pos WRITE setPos)
 protected:
     QMap<int, QPoint> directions;
-
-    QPropertyAnimation* anim;
 
     int speed;
     int damage;
@@ -37,7 +34,7 @@ public:
     void kill();
     void respawn();
 
-    Sector* findNextSector(QPoint direction);
+    Sector* findNextSector(QPoint nextPos);
     bool insideScene(QPoint nextPos);
 
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);

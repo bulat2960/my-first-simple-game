@@ -15,9 +15,10 @@ private:
     void move(int dir);
 public:
     Player(Sector* sector, QColor color);
+private slots:
+    void slotProcessKeys();
 public slots:
     virtual bool eventFilter(QObject* obj, QEvent* event) override;
-    void processKeys();
 };
 
 #endif // PLAYER_H

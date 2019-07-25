@@ -23,18 +23,18 @@ Player::Player(Sector* sector, QColor color) : Character(sector, color)
 
     QTimer* timer = new QTimer(this);
     timer->setInterval(1);
-    connect(timer, &QTimer::timeout, this, &Player::processKeys);
+    connect(timer, &QTimer::timeout, this, &Player::slotProcessKeys);
     timer->start();
 }
 
-void Player::processKeys()
+void Player::slotProcessKeys()
 {
     QList<int> dirs = directions.keys();
     for (int i = 0; i < dirs.size(); i++)
     {
         int dir = dirs[i];
         bool usedKey = usedKeys[dir];
-        if (usedKey && anim->state() == QPropertyAnimation::Stopped)
+        if (usedKey && animStopped())
         {
             move(dir);
         }
@@ -43,7 +43,7 @@ void Player::processKeys()
 
 void Player::move(int dir)
 {
-    bool shiftKeyPressed = (usedKeys[Qt::Key_Shift] == true);
+    bool shiftKeyPressed = usedKeys[Qt::Key_Shift];
     anim->setDuration(shiftKeyPressed ? 1 : speed);
 
     QPoint playerNextPos = position() + directions[dir];
