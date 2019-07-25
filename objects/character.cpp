@@ -48,11 +48,11 @@ void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
     if (isAlive)
     {
-        painter->fillPath(shape(), color);
+        painter->fillPath(shape(), color());
     }
     else
     {
-        sector->update();
+        sector()->update();
     }
 }
 
@@ -64,7 +64,7 @@ Sector* Character::findNextSector(QPoint direction)
     return nextSector;
 }
 
-bool Character::isInsideScene(QPoint nextPos)
+bool Character::insideScene(QPoint nextPos)
 {
     QRect sceneRect = scene()->sceneRect().toRect();
     QPoint scenePos = nextPos * SIZE;

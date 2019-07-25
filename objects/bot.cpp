@@ -13,14 +13,14 @@ void Bot::setStartPosition()
 {
     while (true)
     {
-        int x = qrand() % sector->width();
-        int y = qrand() % sector->height();
-        if (sector->cell(x, y).isRoad())
+        int x = qrand() % sector()->width();
+        int y = qrand() % sector()->height();
+        if (sector()->cell(x, y).isRoad())
         {
-            x += sector->position().x() * sector->width();
-            y += sector->position().y() * sector->height();
-            position = QPoint(x, y);
-            setPos(position * SIZE);
+            x += sector()->position().x() * sector()->width();
+            y += sector()->position().y() * sector()->height();
+            setPosition(x, y);
+            setPos(position() * SIZE);
             break;
         }
     }
@@ -28,47 +28,49 @@ void Bot::setStartPosition()
 
 QVector<QPoint> Bot::findMoveDirs()
 {
-    QPoint left  = position + directions[Qt::Key_A];
-    QPoint right = position + directions[Qt::Key_D];
-    QPoint up    = position + directions[Qt::Key_W];
-    QPoint down  = position + directions[Qt::Key_S];
+    QPoint left  = position() + directions[Qt::Key_A];
+    QPoint right = position() + directions[Qt::Key_D];
+    QPoint up    = position() + directions[Qt::Key_W];
+    QPoint down  = position() + directions[Qt::Key_S];
 
     QVector<QPoint> dirs = {left, right, up, down};
-    QVector<QPoint> realDirs;
+    QVector<QPoint> validDirs;
 
     for (int i = 0; i < dirs.size(); i++)
     {
         QPoint nextPos = dirs[i];
 
-        if (!isInsideScene(nextPos))
+        if (!insideScene(nextPos))
         {
             continue;
         }
 
         Sector* next = findNextSector(nextPos);
         QPoint sectorPos = QPoint(nextPos.x() % next->width(), nextPos.y() % next->height());
-        bool check1 = sector->cell(sectorPos.x(), sectorPos.y()).isRoad();
-        bool check2 = next->cell(sectorPos.x(), sectorPos.y()).isRoad();
+        bool roadInCurrentSector = sector()->cell(sectorPos.x(), sectorPos.y()).isRoad();
+        bool roadInNextSector = next->cell(sectorPos.x(), sectorPos.y()).isRoad();
 
-        bool checkInCurrentSector = (sector == next && check1);
-        bool checkInSectorCrossing = (sector != next && check2);
+        bool validDirInCurrentSector = (sector() == next && roadInCurrentSector);
+        bool validDirInNextSector = (sector() != next && roadInNextSector);
 
-        if (checkInCurrentSector || checkInSectorCrossing)
+        if (validDirInCurrentSector || validDirInNextSector)
         {
-            realDirs.push_back(nextPos);
+            validDirs.push_back(nextPos);
         }
     }
 
-    return realDirs;
+    return validDirs;
 }
 
 void Bot::move()
 {
-    QVector<QPoint> realDirs = findMoveDirs();
-    QPoint nextPos = realDirs[qrand() % realDirs.size()];
+    QVector<QPoint> validDirs = findMoveDirs();
+    QPoint nextPos = validDirs[qrand() % validDirs.size()];
 
-    startAnimation(position, nextPos);
+    startAnimation(position(), nextPos);
 
-    position = nextPos;
-    sector = findNextSector(position);
+    setPosition(nextPos);
+
+    Sector* nextSector = findNextSector(position());
+    setSector(nextSector);
 }

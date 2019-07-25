@@ -34,11 +34,11 @@ public:
     Cell cell(int x, int y) const;
     Cell cell(const QPoint& p) const;
 
-    bool isRoadCell(int x, int y) const;
-    bool isRoadCell(const QPoint& p) const;
+    bool isRoad(int x, int y) const;
+    bool isRoad(const QPoint& p) const;
 
-    bool isWallCell(int x, int y) const;
-    bool isWallCell(const QPoint& p) const;
+    bool isWall(int x, int y) const;
+    bool isWall(const QPoint& p) const;
 
     QRectF boundingRect() const override;
     QPainterPath shape() const override;

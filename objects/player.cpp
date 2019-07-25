@@ -8,7 +8,8 @@ Player::Player(Sector* sector, QColor color) : Character(sector, color)
 
     // Установка начальной позиции для анимации в точку (0, 0)
     setPos(0, 0);
-    position = QPoint(0, 0);
+    // Установка позиции на секторе в точку (0, 0)
+    setPosition(0, 0);
 
     // Установка фильтра событий
     installEventFilter(this);
@@ -45,22 +46,22 @@ void Player::move(int dir)
     bool shiftKeyPressed = (usedKeys[Qt::Key_Shift] == true);
     anim->setDuration(shiftKeyPressed ? 1 : speed);
 
-    QPoint nextPos = position + directions[dir];
+    QPoint playerNextPos = position() + directions[dir];
 
     // Проверка на выход за границы сцены
-    if (!isInsideScene(nextPos))
+    if (!insideScene(playerNextPos))
     {
         return;
     }
 
-    Sector* next = findNextSector(nextPos);
-    QPoint sectorPos = mapToSector(nextPos, next);
+    Sector* nextSector = findNextSector(playerNextPos);
+    QPoint nextSectorPos = mapToSector(playerNextPos, nextSector);
 
-    if (next->isRoadCell(sectorPos))
+    if (nextSector->isRoad(nextSectorPos))
     {
-        startAnimation(position, nextPos);
-        position = nextPos;
-        sector = next;
+        startAnimation(position(), playerNextPos);
+        setPosition(playerNextPos);
+        setSector(nextSector);
         emit signalCheckCollisions();
     }
 }

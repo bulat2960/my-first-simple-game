@@ -38,22 +38,22 @@ Cell Sector::cell(const QPoint &p) const
     return matrix[p.y()][p.x()];
 }
 
-bool Sector::isRoadCell(int x, int y) const
+bool Sector::isRoad(int x, int y) const
 {
     return cell(x, y).isRoad();
 }
 
-bool Sector::isRoadCell(const QPoint& p) const
+bool Sector::isRoad(const QPoint& p) const
 {
     return cell(p.x(), p.y()).isRoad();
 }
 
-bool Sector::isWallCell(int x, int y) const
+bool Sector::isWall(int x, int y) const
 {
     return cell(x, y).isWall();
 }
 
-bool Sector::isWallCell(const QPoint& p) const
+bool Sector::isWall(const QPoint& p) const
 {
     return cell(p.x(), p.y()).isWall();
 }
@@ -94,7 +94,6 @@ void Sector::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QW
     grad.setColorAt(1, Qt::lightGray);
 
     painter->setPen(Qt::NoPen);
-
     painter->fillPath(shape(), grad);
 
     painter->setPen(Qt::black);

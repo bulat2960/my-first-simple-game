@@ -4,11 +4,11 @@
 
 class Cell
 {
+private:
+    bool state;
 public:
     int x;
     int y;
-
-    bool state;
 public:
     bool isWall();
     bool isRoad();

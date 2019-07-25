@@ -2,5 +2,5 @@
 
 Portal::Portal(int x, int y, Sector* sector, QColor color) : Object(sector, color)
 {
-    position = QPoint(x, y);
+    setPosition(x, y);
 }
