@@ -41,7 +41,8 @@ SOURCES += \
         objects/object.cpp \
         objects/player.cpp \
         objects/portal.cpp \
-    logic/bonusgenerator.cpp
+    logic/bonusgenerator.cpp \
+    logic/game.cpp
 
 HEADERS += \
     globaloptions.h \
@@ -60,7 +61,8 @@ HEADERS += \
     objects/object.h \
     objects/player.h \
     objects/portal.h \
-    logic/bonusgenerator.h
+    logic/bonusgenerator.h \
+    logic/game.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

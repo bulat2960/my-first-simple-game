@@ -12,6 +12,7 @@
 #include "gui/scene.h"
 #include "objects/player.h"
 #include "objects/bot.h"
+#include "logic/game.h"
 #include "logic/collisiondetector.h"
 #include "logic/battleexecutor.h"
 
