@@ -60,7 +60,7 @@ Sector* Character::findNextSector(QPoint direction)
 {
     QPoint next = direction * SIZE;
     QRect nextRect = QRect(next.x(), next.y(), SIZE, SIZE);
-    Sector* nextSector = dynamic_cast<Sector*>(scene()->items(nextRect, Qt::IntersectsItemBoundingRect)[0]);
+    Sector* nextSector = dynamic_cast<Sector*>(scene()->items(nextRect, Qt::IntersectsItemBoundingRect).last());
     return nextSector;
 }
 
