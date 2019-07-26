@@ -22,11 +22,11 @@ protected:
     QTimer* respawnTimer;
 protected:
     QPoint mapToSector(QPoint p, Sector *sector) const;
+    QPoint graphicalPosition(const QPoint& position) const;
 public:
     Object(Sector* sector, QColor color);
 
     QPoint position() const;
-    QPoint graphicalPosition(const QPoint& position) const;
     void setPosition(int x, int y);
     void setPosition(const QPoint& position);
 
