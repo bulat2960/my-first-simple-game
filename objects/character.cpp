@@ -79,6 +79,7 @@ void Character::kill()
     isAlive = false;
     respawnTimer->start();
     anim->pause();
+    update();
 }
 
 void Character::respawn()
