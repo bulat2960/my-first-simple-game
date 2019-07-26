@@ -23,6 +23,8 @@ protected:
 protected:
     QPoint mapToSector(QPoint p, Sector *sector) const;
     QPoint graphicalPosition(const QPoint& position) const;
+
+    bool animStopped() const;
 public:
     Object(Sector* sector, QColor color);
 
@@ -38,15 +40,13 @@ public:
     QColor color() const;
     void setColor(QColor color);
 
-    bool animStopped() const;
-
     bool alive() const;
     void kill();
     void respawn();
 signals:
     void signalCheckCollisions();
 public slots:
-    QRectF boundingRect() const override;
+    virtual QRectF boundingRect() const override;
 };
 
 #endif // OBJECT_H

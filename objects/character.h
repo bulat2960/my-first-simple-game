@@ -21,15 +21,14 @@ protected:
 public:
     Character(Sector* sector, QColor color);
 
-    virtual QRectF boundingRect() const;
-    virtual QPainterPath shape() const;
+    virtual QPainterPath shape() const override;
 
     void startAnimation(QPoint startPos, QPoint endPos);
 
     Sector* findNextSector(QPoint nextPos);
     bool insideScene(QPoint nextPos);
 
-    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 signals:
     void signalCheckCollisions();
 };

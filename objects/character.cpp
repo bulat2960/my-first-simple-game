@@ -27,11 +27,6 @@ void Character::startAnimation(QPoint startPos, QPoint endPos)
     anim->start();
 }
 
-QRectF Character::boundingRect() const
-{
-    return Object::boundingRect();
-}
-
 QPainterPath Character::shape() const
 {
     QPainterPath path;
@@ -44,10 +39,7 @@ void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    if (isAlive)
-    {
-        painter->fillPath(shape(), color());
-    }
+    painter->fillPath(shape(), color());
 }
 
 Sector* Character::findNextSector(QPoint nextPos)

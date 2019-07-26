@@ -75,14 +75,14 @@ QPoint Object::mapToSector(QPoint p, Sector* sector) const
     return QPoint(p.x() % sector->width(), p.y() % sector->height());
 }
 
-bool Object::animStopped() const
-{
-    return anim->state() == QPropertyAnimation::Stopped;
-}
-
 QRectF Object::boundingRect() const
 {
     return QRectF(0, 0, SIZE, SIZE);
+}
+
+bool Object::animStopped() const
+{
+    return anim->state() == QPropertyAnimation::Stopped;
 }
 
 bool Object::alive() const
@@ -95,11 +95,12 @@ void Object::kill()
     isAlive = false;
     respawnTimer->start();
     anim->pause();
-    update();
+    hide();
 }
 
 void Object::respawn()
 {
     isAlive = true;
     anim->resume();
+    show();
 }

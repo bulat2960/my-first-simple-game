@@ -27,12 +27,20 @@ Player::Player(Sector* sector, QColor color) : Character(sector, color)
 
 void Player::slotProcessKeys()
 {
+    bool shiftKeyPressed = usedKeys[Qt::Key_Shift];
+    anim->setDuration(shiftKeyPressed ? 1 : speed);
+
+    if (!animStopped() || !alive())
+    {
+        return;
+    }
+
     QList<int> dirs = directions.keys();
     for (int i = 0; i < dirs.size(); i++)
     {
         int dir = dirs[i];
         bool usedKey = usedKeys[dir];
-        if (usedKey && animStopped() && alive())
+        if (usedKey)
         {
             move(dir);
         }
@@ -40,10 +48,7 @@ void Player::slotProcessKeys()
 }
 
 void Player::move(int dir)
-{   
-    bool shiftKeyPressed = usedKeys[Qt::Key_Shift];
-    anim->setDuration(shiftKeyPressed ? 1 : speed);
-
+{
     QPoint playerNextPos = position() + directions[dir];
 
     // Проверка на выход за границы сцены
