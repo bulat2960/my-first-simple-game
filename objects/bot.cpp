@@ -56,4 +56,6 @@ void Bot::move()
 
     Sector* nextSector = findNextSector(position());
     setSector(nextSector);
+
+    emit signalCheckCollisions();
 }
