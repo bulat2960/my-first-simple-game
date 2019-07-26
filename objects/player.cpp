@@ -52,6 +52,11 @@ void Player::move(int dir)
         return;
     }
 
+    if (!alive())
+    {
+        return;
+    }
+
     Sector* nextSector = findNextSector(playerNextPos);
     QPoint nextSectorPos = mapToSector(playerNextPos, nextSector);
 
