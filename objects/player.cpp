@@ -32,7 +32,7 @@ void Player::slotProcessKeys()
     {
         int dir = dirs[i];
         bool usedKey = usedKeys[dir];
-        if (usedKey && animStopped())
+        if (usedKey && animStopped() && alive())
         {
             move(dir);
         }
@@ -40,7 +40,7 @@ void Player::slotProcessKeys()
 }
 
 void Player::move(int dir)
-{
+{   
     bool shiftKeyPressed = usedKeys[Qt::Key_Shift];
     anim->setDuration(shiftKeyPressed ? 1 : speed);
 
@@ -48,11 +48,6 @@ void Player::move(int dir)
 
     // Проверка на выход за границы сцены
     if (!insideScene(playerNextPos))
-    {
-        return;
-    }
-
-    if (!alive())
     {
         return;
     }
