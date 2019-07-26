@@ -3,6 +3,7 @@
 
 #include <QGraphicsObject>
 #include <QPropertyAnimation>
+#include <QTimer>
 
 #include "maze/sector.h"
 
@@ -16,6 +17,9 @@ protected:
     Sector* objSector;
 
     QPropertyAnimation* anim;
+
+    bool isAlive;
+    QTimer* respawnTimer;
 protected:
     QPoint mapToSector(QPoint p, Sector *sector) const;
 public:
@@ -35,6 +39,10 @@ public:
     void setColor(QColor color);
 
     bool animStopped() const;
+
+    bool alive() const;
+    void kill();
+    void respawn();
 signals:
     void signalCheckCollisions();
 public slots:

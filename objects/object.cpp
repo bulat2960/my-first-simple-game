@@ -6,6 +6,11 @@ Object::Object(Sector* sector, QColor color)
     objColor = color;
 
     setStartPosition();
+
+    isAlive = true;
+    respawnTimer = nullptr;
+
+    anim = nullptr;
 }
 
 QPoint Object::position() const
@@ -78,4 +83,23 @@ bool Object::animStopped() const
 QRectF Object::boundingRect() const
 {
     return QRectF(0, 0, SIZE, SIZE);
+}
+
+bool Object::alive() const
+{
+    return isAlive;
+}
+
+void Object::kill()
+{
+    isAlive = false;
+    respawnTimer->start();
+    anim->pause();
+    update();
+}
+
+void Object::respawn()
+{
+    isAlive = true;
+    anim->resume();
 }

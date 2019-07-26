@@ -11,8 +11,6 @@ Character::Character(Sector* sector, QColor color) : Object(sector, color)
     respawnTimer->setInterval(2000);
     connect(respawnTimer, &QTimer::timeout, this, &Character::respawn);
 
-    isAlive = true;
-
     anim = new QPropertyAnimation(this, "pos");
     anim->setDuration(speed);
 
@@ -67,23 +65,4 @@ bool Character::insideScene(QPoint nextPos)
     bool insideHorizontal = (scenePos.x() >= 0) && (scenePos.x() < sceneRect.width());
     bool insideVertical = (scenePos.y() >= 0) && (scenePos.y() < sceneRect.height());
     return (insideVertical && insideHorizontal);
-}
-
-bool Character::alive() const
-{
-    return isAlive;
-}
-
-void Character::kill()
-{
-    isAlive = false;
-    respawnTimer->start();
-    anim->pause();
-    update();
-}
-
-void Character::respawn()
-{
-    isAlive = true;
-    anim->resume();
 }
