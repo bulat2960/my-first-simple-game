@@ -22,8 +22,8 @@ Character::Character(Sector* sector, QColor color) : Object(sector, color)
 
 void Character::startAnimation(QPoint startPos, QPoint endPos)
 {
-    anim->setStartValue(startPos * SIZE);
-    anim->setEndValue(endPos * SIZE);
+    anim->setStartValue(graphicalPosition(startPos));
+    anim->setEndValue(graphicalPosition(endPos));
     anim->start();
 }
 
@@ -53,7 +53,7 @@ void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 Sector* Character::findNextSector(QPoint nextPos)
 {
     QPoint nextScenePos = graphicalPosition(nextPos);
-    QRect nextRect = QRect(nextScenePos.x(), nextScenePos.y(), SIZE, SIZE);
+    QRect nextRect = QRect(nextScenePos, nextScenePos + boundingRect().bottomRight().toPoint());
     Sector* nextSector = dynamic_cast<Sector*>(scene()->items(nextRect, Qt::IntersectsItemBoundingRect).last());
     return nextSector;
 }
