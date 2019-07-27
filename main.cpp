@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
     const int sWidth = 10;
     const int mHeight = 2;
     const int mWidth = 2;
-    const int botsNumber = 3;
+    const int botsNumber = 5;
     const int bonusesNumber = 20;
     const int portalsNumber = 0;
 
