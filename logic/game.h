@@ -31,16 +31,20 @@ private:
     BonusGenerator* bonusGenerator;
 
 public:
-    Game(int botsNumber, int bonusesNumber, int portalsNumber,
-         int mHeight, int mWidth, int sHeight, int sWidth);
+    Game(Maze* maze, Player* player);
 
     Maze* getMaze() const;
     Player* getPlayer() const;
     QVector<Bot*> getBots() const;
     QVector<Bonus*> getBonuses() const;
 
+signals:
+    void signalCreated(Object* object);
 public slots:
-    void start();
+    void slotCreateBot();
+    void slotCreateBonus();
+    void slotCreatePortal();
+    void slotStart();
 };
 
 #endif // GAME_H

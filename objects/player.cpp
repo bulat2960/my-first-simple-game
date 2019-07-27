@@ -3,7 +3,7 @@
 Player::Player(Sector* sector, QColor color) : Character(sector, color)
 {
     hitpoints = 50;
-    speed = 250;
+    speed = 1000;
     anim->setDuration(speed);
 
     // Установка начальной позиции для анимации в стартовую точку
@@ -35,16 +35,21 @@ void Player::slotProcessKeys()
     {
         int dir = dirs[i];
         bool usedKey = usedKeys[dir];
-        if (usedKey && animStopped() && alive())
+        if (usedKey)
         {
-            move(dir);
+            move(directions[dir]);
         }
     }
 }
 
-void Player::move(int dir)
+void Player::move(QPoint dir)
 {
-    QPoint playerNextPos = position() + directions[dir];
+    if (!animStopped())
+    {
+        return;
+    }
+
+    QPoint playerNextPos = position() + dir;
 
     // Проверка на выход за границы сцены
     if (!insideScene(playerNextPos))

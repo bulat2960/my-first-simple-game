@@ -5,8 +5,6 @@
 
 #include "maze/maze.h"
 #include "objects/player.h"
-#include "objects/bot.h"
-#include "objects/bonus.h"
 
 class Scene : public QGraphicsScene
 {
@@ -14,14 +12,14 @@ class Scene : public QGraphicsScene
 private:
     Maze* maze;
     Player* player;
-    QVector<Bot*> bots;
-    QVector<Bonus*> bonuses;
 public:
-    Scene(Maze* maze, Player* player, QVector<Bot*> bots, QVector<Bonus*> bonuses);
+    Scene(Maze* maze, Player* player);
 
 public slots:
     void keyPressEvent(QKeyEvent* event);
     void keyReleaseEvent(QKeyEvent* event);
+
+    void slotAddItem(QGraphicsItem* object);
 };
 
 #endif // SCENE_H

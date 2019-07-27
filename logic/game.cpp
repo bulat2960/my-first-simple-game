@@ -1,37 +1,43 @@
 #include "game.h"
 
-Game::Game(int botsNumber, int bonusesNumber, int portalsNumber,
-           int mHeight, int mWidth, int sHeight, int sWidth)
+Game::Game(Maze* maze, Player* player)
 {
-    maze = new Maze(mHeight, mWidth, sHeight, sWidth);
-
-    player = new Player(maze->sector(0, 0), Qt::red);
-
-    for (int i = 0; i < botsNumber; i++)
-    {
-        Sector* sector = maze->sector(qrand() % mWidth, qrand() % mHeight);
-        QColor color = Qt::blue;
-        bots.push_back(new Bot(sector, color));
-    }
-
-    for (int i = 0; i < portalsNumber; i++)
-    {
-        // Add portals
-    }
-
-    for (int i = 0; i < bonusesNumber; i++)
-    {
-        Sector* sector = maze->sector(qrand() % mWidth, qrand() % mHeight);
-        QColor color = Qt::green;
-        bonuses.push_back(new Bonus(sector, color));
-    }
+    this->maze = maze;
+    this->player = player;
 
     collisionDetector = new CollisionDetector(player, bots);
+
+    connect(player, &Character::signalCheckCollisions, collisionDetector, &CollisionDetector::slotFindCollision);
+
     battleExecutor = new BattleExecutor;
     QObject::connect(collisionDetector, &CollisionDetector::signalBattle, battleExecutor, &BattleExecutor::slotBattle);
 }
 
-void Game::start()
+void Game::slotCreateBot()
+{
+    Sector* sector = maze->sector(qrand() % maze->width(), qrand() % maze->height());
+    Bot* bot = new Bot(sector, Qt::blue);
+    bots.push_back(bot);
+    connect(bot, &Bot::signalCheckCollisions, collisionDetector, &CollisionDetector::slotFindCollision);
+
+    emit signalCreated(bot);
+}
+
+void Game::slotCreateBonus()
+{
+    Sector* sector = maze->sector(qrand() % maze->width(), qrand() % maze->height());
+    Bonus* bonus = new Bonus(sector, Qt::green);
+    bonuses.push_back(bonus);
+
+    emit signalCreated(bonus);
+}
+
+void Game::slotCreatePortal()
+{
+
+}
+
+void Game::slotStart()
 {
     for (int i = 0; i < bots.size(); i++)
     {

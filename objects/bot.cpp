@@ -50,11 +50,10 @@ void Bot::move()
     QVector<QPoint> validDirs = findMoveDirs();
     QPoint nextPos = validDirs[qrand() % validDirs.size()];
 
-    startAnimation(position(), nextPos);
-
-    setPosition(nextPos);
-
     Sector* nextSector = findNextSector(position());
+
+    startAnimation(position(), nextPos);
+    setPosition(nextPos);
     setSector(nextSector);
 
     emit signalCheckCollisions();

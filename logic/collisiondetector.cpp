@@ -4,12 +4,6 @@ CollisionDetector::CollisionDetector(Player* player, QVector<Bot*> bots)
 {
     this->player = player;
     this->bots = bots;
-
-    connect(player, &Character::signalCheckCollisions, this, &CollisionDetector::slotFindCollision);
-    for (int i = 0; i < bots.size(); i++)
-    {
-        connect(bots[i], &Character::signalCheckCollisions, this, &CollisionDetector::slotFindCollision);
-    }
 }
 
 void CollisionDetector::slotFindCollision()

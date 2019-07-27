@@ -31,9 +31,13 @@ int main(int argc, char *argv[])
     const int bonusesNumber = 5;
     const int portalsNumber = 0;
 
-    Game* game = new Game(botsNumber, bonusesNumber, portalsNumber, mHeight, mWidth, sHeight, sWidth);
+    Maze* maze = new Maze(mHeight, mWidth, sHeight, sWidth);
+    Player* player = new Player(maze->sector(0, 0), Qt::red);
 
-    Scene* scene = new Scene(game->getMaze(), game->getPlayer(), game->getBots(), game->getBonuses());
+    Game* game = new Game(maze, player);
+
+    Scene* scene = new Scene(maze, player);
+    QObject::connect(game, &Game::signalCreated, scene, &Scene::slotAddItem);
     View* view = new View(scene);
     Window* window = new Window(view);
 
@@ -42,9 +46,18 @@ int main(int argc, char *argv[])
     QRect geometry = a.screens()[0]->geometry();
     view->setGeometry(geometry);
 
+    for (int i = 0; i < botsNumber; i++)
+    {
+        game->slotCreateBot();
+    }
+    for (int i = 0; i < bonusesNumber; i++)
+    {
+        game->slotCreateBonus();
+    }
+
     window->show();
 
-    game->start();
+    game->slotStart();
 
     return a.exec();
 }

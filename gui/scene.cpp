@@ -1,11 +1,9 @@
 ﻿#include "scene.h"
 
-Scene::Scene(Maze* maze, Player* player, QVector<Bot*> bots, QVector<Bonus*> bonuses)
+Scene::Scene(Maze* maze, Player* player)
 {
     this->maze = maze;
     this->player = player;
-    this->bots = bots;
-    this->bonuses = bonuses;
 
     for (int i = 0; i < maze->width(); i++)
     {
@@ -23,16 +21,6 @@ Scene::Scene(Maze* maze, Player* player, QVector<Bot*> bots, QVector<Bonus*> bon
     }
 
     addItem(player);
-
-    for (int i = 0; i < bots.size(); i++)
-    {
-        addItem(bots[i]);
-    }
-
-    for (int i = 0; i < bonuses.size(); i++)
-    {
-        addItem(bonuses[i]);
-    }
 }
 
 void Scene::keyPressEvent(QKeyEvent* event)
@@ -43,5 +31,10 @@ void Scene::keyPressEvent(QKeyEvent* event)
 void Scene::keyReleaseEvent(QKeyEvent* event)
 {
     sendEvent(player, event);
+}
+
+void Scene::slotAddItem(QGraphicsItem* object)
+{
+    QGraphicsScene::addItem(object);
 }
 

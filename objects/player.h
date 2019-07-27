@@ -12,7 +12,7 @@ class Player : public Character
 private:
     QMap<int, bool> usedKeys;
 private:
-    void move(int dir);
+    void move(QPoint dir);
 public:
     Player(Sector* sector, QColor color);
 private slots:
