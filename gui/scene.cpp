@@ -33,8 +33,3 @@ void Scene::keyReleaseEvent(QKeyEvent* event)
     sendEvent(player, event);
 }
 
-void Scene::slotAddItem(QGraphicsItem* object)
-{
-    QGraphicsScene::addItem(object);
-}
-
