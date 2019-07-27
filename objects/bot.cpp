@@ -6,10 +6,10 @@ Bot::Bot(Sector* sector, QColor color) : Character(sector, color)
 {
     setStartPosition();
 
-    connect(anim, &QPropertyAnimation::finished, this, &Bot::move);
+    connect(anim, &QPropertyAnimation::finished, this, &Bot::slotFindCorrectMoveDir);
 }
 
-QVector<QPoint> Bot::findMoveDirs()
+void Bot::slotFindCorrectMoveDir()
 {
     QPoint left  = position() + directions[Qt::Key_A];
     QPoint right = position() + directions[Qt::Key_D];
@@ -42,19 +42,6 @@ QVector<QPoint> Bot::findMoveDirs()
         }
     }
 
-    return validDirs;
-}
-
-void Bot::move()
-{
-    QVector<QPoint> validDirs = findMoveDirs();
     QPoint nextPos = validDirs[qrand() % validDirs.size()];
-
-    Sector* nextSector = findNextSector(position());
-
-    startAnimation(position(), nextPos);
-    setPosition(nextPos);
-    setSector(nextSector);
-
-    emit signalCheckCollisions();
+    move(nextPos);
 }

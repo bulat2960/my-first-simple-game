@@ -18,6 +18,8 @@ protected:
     int speed;
     int damage;
     int hitpoints;
+protected:
+    void move(QPoint nextPos);
 public:
     Character(Sector* sector, QColor color);
 

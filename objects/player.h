@@ -11,12 +11,10 @@ class Player : public Character
 {
 private:
     QMap<int, bool> usedKeys;
-private:
-    void move(QPoint dir);
 public:
     Player(Sector* sector, QColor color);
 private slots:
-    void slotProcessKeys();
+    void slotFindCorrectMoveDir();
 public slots:
     virtual bool eventFilter(QObject* obj, QEvent* event) override;
 };

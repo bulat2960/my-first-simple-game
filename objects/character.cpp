@@ -2,7 +2,7 @@
 
 Character::Character(Sector* sector, QColor color) : Object(sector, color)
 {
-    speed = 250;
+    speed = 200;
     damage = 1;
     hitpoints = 10;
 
@@ -18,6 +18,9 @@ Character::Character(Sector* sector, QColor color) : Object(sector, color)
     directions.insert(Qt::Key_W, QPoint(0, -1));
     directions.insert(Qt::Key_D, QPoint(1, 0));
     directions.insert(Qt::Key_S, QPoint(0, 1));
+
+    connect(this, &Character::xChanged, this, &Character::signalCheckCollisions);
+    connect(this, &Character::yChanged, this, &Character::signalCheckCollisions);
 }
 
 void Character::startAnimation(QPoint startPos, QPoint endPos)
@@ -57,4 +60,13 @@ bool Character::insideScene(QPoint nextPos)
     bool insideHorizontal = (scenePos.x() >= 0) && (scenePos.x() < sceneRect.width());
     bool insideVertical = (scenePos.y() >= 0) && (scenePos.y() < sceneRect.height());
     return (insideVertical && insideHorizontal);
+}
+
+void Character::move(QPoint nextPos)
+{
+    Sector* nextSector = findNextSector(nextPos);
+
+    startAnimation(position(), nextPos);
+    setPosition(nextPos);
+    setSector(nextSector);
 }

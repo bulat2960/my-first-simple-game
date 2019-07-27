@@ -21,51 +21,46 @@ Player::Player(Sector* sector, QColor color) : Character(sector, color)
 
     QTimer* timer = new QTimer(this);
     timer->setInterval(1);
-    connect(timer, &QTimer::timeout, this, &Player::slotProcessKeys);
+    connect(timer, &QTimer::timeout, this, &Player::slotFindCorrectMoveDir);
     timer->start();
 }
 
-void Player::slotProcessKeys()
+void Player::slotFindCorrectMoveDir()
 {
     bool shiftKeyPressed = usedKeys[Qt::Key_Shift];
     anim->setDuration(shiftKeyPressed ? 1 : speed);
 
-    QList<int> dirs = directions.keys();
-    for (int i = 0; i < dirs.size(); i++)
-    {
-        int dir = dirs[i];
-        bool usedKey = usedKeys[dir];
-        if (usedKey)
-        {
-            move(directions[dir]);
-        }
-    }
-}
-
-void Player::move(QPoint dir)
-{
     if (!animStopped())
     {
         return;
     }
 
-    QPoint playerNextPos = position() + dir;
+    QVector<QPoint> possibleDirs;
 
-    // Проверка на выход за границы сцены
-    if (!insideScene(playerNextPos))
+    QList<int> dirKeys = directions.keys();
+    for (int i = 0; i < dirKeys.size(); i++)
     {
-        return;
+        int key = dirKeys[i];
+        bool usedKey = usedKeys[key];
+        QPoint nextPos = position() + directions[key];
+
+        if (!insideScene(nextPos))
+        {
+            continue;
+        }
+
+        Sector* nextSector = findNextSector(nextPos);
+        QPoint nextSectorPos = mapToSector(nextPos, nextSector);
+        if (usedKey && nextSector->isRoad(nextSectorPos))
+        {
+            possibleDirs.push_back(nextPos);
+        }
     }
 
-    Sector* nextSector = findNextSector(playerNextPos);
-    QPoint nextSectorPos = mapToSector(playerNextPos, nextSector);
-
-    if (nextSector->isRoad(nextSectorPos))
+    if (possibleDirs.size() > 0)
     {
-        startAnimation(position(), playerNextPos);
-        setPosition(playerNextPos);
-        setSector(nextSector);
-        emit signalCheckCollisions();
+        QPoint nextPos = possibleDirs[qrand() % possibleDirs.size()];
+        move(nextPos);
     }
 }
 

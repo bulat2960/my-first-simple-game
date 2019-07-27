@@ -5,12 +5,12 @@ Object::Object(Sector* sector, QColor color)
     objSector = sector;
     objColor = color;
 
-    setStartPosition();
-
     isAlive = true;
     respawnTimer = nullptr;
 
     anim = nullptr;
+
+    setStartPosition();
 }
 
 QPoint Object::position() const
@@ -101,6 +101,7 @@ void Object::kill()
 void Object::respawn()
 {
     isAlive = true;
+    respawnTimer->stop();
     anim->resume();
     show();
 }

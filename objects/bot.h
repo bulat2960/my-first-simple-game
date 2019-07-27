@@ -5,12 +5,10 @@
 
 class Bot : public Character
 {
-private:
-    QVector<QPoint> findMoveDirs();
 public:
     Bot(Sector* sector, QColor color);
 public slots:
-    void move();
+    void slotFindCorrectMoveDir();
 };
 
 #endif // BOT_H
