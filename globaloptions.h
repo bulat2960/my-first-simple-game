@@ -3,6 +3,6 @@
 
 #include <QDebug>
 
-const int SIZE = 30;
+const int SIZE = 40;
 
 #endif // GLOBALOPTIONS_H

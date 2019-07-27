@@ -2,7 +2,7 @@
 
 Bonus::Bonus(Sector* sector, QColor color) : Object(sector, color)
 {
-    setPos(0, 0);
+
 }
 
 void Bonus::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -11,7 +11,7 @@ void Bonus::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     Q_UNUSED(widget);
 
     QPainterPath path;
-    path.addRect(boundingRect());
+    path.addRect(boundingRect().adjusted(SIZE / 5, SIZE / 5, -SIZE / 5, -SIZE / 5));
 
     QPoint center = boundingRect().bottomRight().toPoint() / 2;
 
