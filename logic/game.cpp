@@ -41,7 +41,7 @@ void Game::slotStart()
 {
     for (int i = 0; i < bots.size(); i++)
     {
-        bots[i]->move();
+        bots[i]->slotFindCorrectMoveDir();
     }
 }
 

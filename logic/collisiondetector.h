@@ -12,9 +12,9 @@ class CollisionDetector : public QObject
     Q_OBJECT
 private:
     Player* player;
-    QVector<Bot*> bots;
+    QVector<Bot*>& bots;
 public:
-    CollisionDetector(Player* player, QVector<Bot*> bots);
+    CollisionDetector(Player* player, QVector<Bot*>& bots);
 public slots:
     void slotFindCollision();
 signals:

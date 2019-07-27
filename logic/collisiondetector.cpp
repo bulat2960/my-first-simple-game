@@ -1,9 +1,8 @@
 ﻿#include "collisiondetector.h"
 
-CollisionDetector::CollisionDetector(Player* player, QVector<Bot*> bots)
+CollisionDetector::CollisionDetector(Player* player, QVector<Bot*>& bots) : bots(bots)
 {
     this->player = player;
-    this->bots = bots;
 }
 
 void CollisionDetector::slotFindCollision()
@@ -19,7 +18,7 @@ void CollisionDetector::slotFindCollision()
         for (int i = 0; i < bots.size(); i++)
         {
             Bot* bot = bots[i];
-            if (bot->alive() && p->collidesWithItem(bot, Qt::ItemSelectionMode::IntersectsItemBoundingRect))
+            if (bot->alive() && p->collidesWithItem(bot))
             {
                 emit signalBattle(p, bot);
             }
@@ -28,7 +27,7 @@ void CollisionDetector::slotFindCollision()
 
     if (b)
     {
-        if (player->alive() && b->collidesWithItem(player, Qt::ItemSelectionMode::IntersectsItemBoundingRect))
+        if (player->alive() && b->collidesWithItem(player))
         {
             emit signalBattle(b, player);
         }
