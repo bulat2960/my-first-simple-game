@@ -27,8 +27,8 @@ int main(int argc, char *argv[])
     const int sWidth = 10;
     const int mHeight = 2;
     const int mWidth = 2;
-    const int botsNumber = 2;
-    const int bonusesNumber = 5;
+    const int botsNumber = 3;
+    const int bonusesNumber = 20;
     const int portalsNumber = 0;
 
     Maze* maze = new Maze(mHeight, mWidth, sHeight, sWidth);
@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
     Game* game = new Game(maze, player);
 
     Scene* scene = new Scene(maze, player);
-    QObject::connect(game, &Game::signalCreated, scene, &Scene::slotAddItem);
+    QObject::connect(game, &Game::signalCreated, scene, &Scene::addItem);
     View* view = new View(scene);
     Window* window = new Window(view);
 
