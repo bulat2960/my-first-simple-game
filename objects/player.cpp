@@ -3,16 +3,11 @@
 Player::Player(Sector* sector, QColor color) : Character(sector, color)
 {
     hitpoints = 50;
-    speed = 1000;
-    anim->setDuration(speed);
-
-    // Установка начальной позиции для анимации в стартовую точку
-    setPos(graphicalPosition(position()));
 
     // Установка фильтра событий
     installEventFilter(this);
 
-    // Клавиши, которыми управляет игрокА
+    // Клавиши, которыми управляет игрок
     usedKeys.insert(Qt::Key_W, false);
     usedKeys.insert(Qt::Key_A, false);
     usedKeys.insert(Qt::Key_S, false);
@@ -28,9 +23,9 @@ Player::Player(Sector* sector, QColor color) : Character(sector, color)
 void Player::slotFindCorrectMoveDir()
 {
     bool shiftKeyPressed = usedKeys[Qt::Key_Shift];
-    anim->setDuration(shiftKeyPressed ? 1 : speed);
+    moveAnim->setDuration(shiftKeyPressed ? 1 : speed);
 
-    if (!animStopped())
+    if (!moveAnimStopped())
     {
         return;
     }

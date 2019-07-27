@@ -1,12 +1,8 @@
 ﻿#include "bot.h"
 
-#include <QDebug>
-
 Bot::Bot(Sector* sector, QColor color) : Character(sector, color)
 {
-    setStartPosition();
-
-    connect(anim, &QPropertyAnimation::finished, this, &Bot::slotFindCorrectMoveDir);
+    connect(moveAnim, &QPropertyAnimation::finished, this, &Bot::slotFindCorrectMoveDir);
 }
 
 void Bot::slotFindCorrectMoveDir()

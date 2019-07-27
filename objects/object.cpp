@@ -8,9 +8,10 @@ Object::Object(Sector* sector, QColor color)
     isAlive = true;
     respawnTimer = nullptr;
 
-    anim = nullptr;
+    moveAnim = nullptr;
 
     setStartPosition();
+    setPos(graphicalPosition(position()));
 }
 
 QPoint Object::position() const
@@ -39,7 +40,9 @@ void Object::setStartPosition()
     {
         int x = qrand() % sector()->width();
         int y = qrand() % sector()->height();
-        if (sector()->cell(x, y).isRoad())
+
+        bool notAtBorders = !(x == 0 || y == 0 || x == sector()->width() - 1 || y == sector()->height() - 1);
+        if (sector()->cell(x, y).isRoad() && notAtBorders)
         {
             x += sector()->position().x() * sector()->width();
             y += sector()->position().y() * sector()->height();
@@ -80,9 +83,9 @@ QRectF Object::boundingRect() const
     return QRectF(0, 0, SIZE, SIZE);
 }
 
-bool Object::animStopped() const
+bool Object::moveAnimStopped() const
 {
-    return anim->state() == QPropertyAnimation::Stopped;
+    return moveAnim->state() == QPropertyAnimation::Stopped;
 }
 
 bool Object::alive() const
@@ -94,7 +97,10 @@ void Object::kill()
 {
     isAlive = false;
     respawnTimer->start();
-    anim->pause();
+    if (moveAnim->state() == QPropertyAnimation::Running)
+    {
+        moveAnim->pause();
+    }
     hide();
 }
 
@@ -102,6 +108,9 @@ void Object::respawn()
 {
     isAlive = true;
     respawnTimer->stop();
-    anim->resume();
+    if (moveAnim->state() == QPropertyAnimation::Paused)
+    {
+        moveAnim->resume();
+    }
     show();
 }

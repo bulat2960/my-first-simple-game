@@ -16,7 +16,7 @@ protected:
 
     Sector* objSector;
 
-    QPropertyAnimation* anim;
+    QPropertyAnimation* moveAnim;
 
     bool isAlive;
     QTimer* respawnTimer;
@@ -24,7 +24,7 @@ protected:
     QPoint mapToSector(QPoint p, Sector *sector) const;
     QPoint graphicalPosition(const QPoint& position) const;
 
-    bool animStopped() const;
+    bool moveAnimStopped() const;
 public:
     Object(Sector* sector, QColor color);
 

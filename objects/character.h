@@ -25,7 +25,7 @@ public:
 
     virtual QPainterPath shape() const override;
 
-    void startAnimation(QPoint startPos, QPoint endPos);
+    void startMoveAnimation(QPoint startPos, QPoint endPos);
 
     Sector* findNextSector(QPoint nextPos);
     bool insideScene(QPoint nextPos);

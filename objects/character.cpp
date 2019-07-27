@@ -2,17 +2,17 @@
 
 Character::Character(Sector* sector, QColor color) : Object(sector, color)
 {
-    speed = 200;
+    speed = 100;
     damage = 1;
     hitpoints = 10;
 
     respawnTimer = new QTimer(this);
     respawnTimer->setSingleShot(true);
-    respawnTimer->setInterval(2000);
+    respawnTimer->setInterval(1000 + qrand() % 1000);
     connect(respawnTimer, &QTimer::timeout, this, &Character::respawn);
 
-    anim = new QPropertyAnimation(this, "pos");
-    anim->setDuration(speed);
+    moveAnim = new QPropertyAnimation(this, "pos");
+    moveAnim->setDuration(speed);
 
     directions.insert(Qt::Key_A, QPoint(-1, 0));
     directions.insert(Qt::Key_W, QPoint(0, -1));
@@ -23,11 +23,11 @@ Character::Character(Sector* sector, QColor color) : Object(sector, color)
     connect(this, &Character::yChanged, this, &Character::signalCheckCollisions);
 }
 
-void Character::startAnimation(QPoint startPos, QPoint endPos)
+void Character::startMoveAnimation(QPoint startPos, QPoint endPos)
 {
-    anim->setStartValue(graphicalPosition(startPos));
-    anim->setEndValue(graphicalPosition(endPos));
-    anim->start();
+    moveAnim->setStartValue(graphicalPosition(startPos));
+    moveAnim->setEndValue(graphicalPosition(endPos));
+    moveAnim->start();
 }
 
 QPainterPath Character::shape() const
@@ -49,8 +49,7 @@ Sector* Character::findNextSector(QPoint nextPos)
 {
     QPoint nextScenePos = graphicalPosition(nextPos);
     QRect nextRect = QRect(nextScenePos, nextScenePos + boundingRect().bottomRight().toPoint());
-    Sector* nextSector = dynamic_cast<Sector*>(scene()->items(nextRect, Qt::IntersectsItemBoundingRect).last());
-    return nextSector;
+    return dynamic_cast<Sector*>(scene()->items(nextRect).last());
 }
 
 bool Character::insideScene(QPoint nextPos)
@@ -66,7 +65,7 @@ void Character::move(QPoint nextPos)
 {
     Sector* nextSector = findNextSector(nextPos);
 
-    startAnimation(position(), nextPos);
+    startMoveAnimation(position(), nextPos);
     setPosition(nextPos);
     setSector(nextSector);
 }
