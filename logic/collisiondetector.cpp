@@ -27,6 +27,18 @@ void CollisionDetector::slotFindCollision()
 
     if (b)
     {
+        for (int i = 0; i < bots.size(); i++)
+        {
+            Bot* bot = bots[i];
+            if (b == bot)
+            {
+                continue;
+            }
+            if (bot->alive() && b->collidesWithItem(bot))
+            {
+                emit signalBattle(b, bot);
+            }
+        }
         if (player->alive() && b->collidesWithItem(player))
         {
             emit signalBattle(b, player);
