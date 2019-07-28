@@ -3,7 +3,7 @@
 Bonus::Bonus(Sector* sector, QColor color) : Object(sector, color)
 {
     rotateAnim = new QPropertyAnimation(this, "rot");
-    rotateAnim->setDuration(0);
+    rotateAnim->setDuration(10000);
     rotateAnim->setStartValue(0);
     rotateAnim->setEndValue(360);
     rotateAnim->setLoopCount(-1);

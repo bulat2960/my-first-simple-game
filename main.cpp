@@ -28,8 +28,8 @@ int main(int argc, char *argv[])
     const int mHeight = 2;
     const int mWidth = 2;
     const int botsNumber = 5;
-    const int bonusesNumber = 20;
-    const int portalsNumber = 0;
+    const int bonusesNumber = 100;
+    const int portalsNumber = 5;
 
     Maze* maze = new Maze(mHeight, mWidth, sHeight, sWidth);
     Player* player = new Player(maze->sector(0, 0), Qt::red);
@@ -53,6 +53,10 @@ int main(int argc, char *argv[])
     for (int i = 0; i < bonusesNumber; i++)
     {
         game->slotCreateBonus();
+    }
+    for (int i = 0; i < portalsNumber; i++)
+    {
+        game->slotCreatePortal();
     }
 
     window->show();

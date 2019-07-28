@@ -34,7 +34,11 @@ void Game::slotCreateBonus()
 
 void Game::slotCreatePortal()
 {
+    Sector* sector = maze->sector(qrand() % maze->width(), qrand() % maze->height());
+    Portal* portal = new Portal(sector, Qt::black);
+    portals.push_back(portal);
 
+    emit signalCreated(portal);
 }
 
 void Game::slotStart()

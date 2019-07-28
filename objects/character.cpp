@@ -2,7 +2,7 @@
 
 Character::Character(Sector* sector, QColor color) : Object(sector, color)
 {
-    speed = 100;
+    speed = 250;
     damage = 1;
     hitpoints = 10;
 
