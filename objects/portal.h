@@ -10,7 +10,7 @@ class Portal : public Object
 private:
     Sector* other;
 public:
-    Portal(Sector* sector, QColor color, Sector* other = nullptr);
+    Portal(Sector* sector, QColor color);
 public slots:
     virtual QPainterPath shape() const override;
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
