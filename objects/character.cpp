@@ -2,7 +2,7 @@
 
 Character::Character(Sector* sector, QColor color) : Object(sector, color)
 {
-    speed = 250;
+    speed = 300;
     damage = 1;
     hitpoints = 10;
 
@@ -21,6 +21,8 @@ Character::Character(Sector* sector, QColor color) : Object(sector, color)
 
     connect(this, &Character::xChanged, this, &Character::signalCheckCollisions);
     connect(this, &Character::yChanged, this, &Character::signalCheckCollisions);
+
+    connect(moveAnim, &QPropertyAnimation::finished, this, &Character::signalCheckPortal);
 }
 
 void Character::startMoveAnimation(QPoint startPos, QPoint endPos)

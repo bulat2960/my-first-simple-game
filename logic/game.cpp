@@ -5,9 +5,10 @@ Game::Game(Maze* maze, Player* player)
     this->maze = maze;
     this->player = player;
 
-    collisionDetector = new CollisionDetector(player, bots);
+    collisionDetector = new CollisionDetector(player, bots, bonuses, portals);
 
     connect(player, &Character::signalCheckCollisions, collisionDetector, &CollisionDetector::slotFindCollision);
+    connect(player, &Player::signalCheckPortal, collisionDetector, &CollisionDetector::slotFindPortal);
 
     battleExecutor = new BattleExecutor;
     QObject::connect(collisionDetector, &CollisionDetector::signalBattle, battleExecutor, &BattleExecutor::slotBattle);
@@ -19,6 +20,7 @@ void Game::slotCreateBot()
     Bot* bot = new Bot(sector, Qt::blue);
     bots.push_back(bot);
     connect(bot, &Bot::signalCheckCollisions, collisionDetector, &CollisionDetector::slotFindCollision);
+    connect(bot, &Bot::signalCheckPortal, collisionDetector, &CollisionDetector::slotFindPortal);
 
     emit signalCreated(bot);
 }

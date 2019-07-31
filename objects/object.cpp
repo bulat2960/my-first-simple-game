@@ -9,7 +9,9 @@ Object::Object(Sector* sector, QColor color)
     respawnTimer = nullptr;
 
     moveAnim = nullptr;
+    rotateAnim = nullptr;
 
+    setSector(sector);
     setStartPosition();
     setPos(graphicalPosition(position()));
 }
@@ -71,6 +73,20 @@ QColor Object::color() const
 void Object::setColor(QColor color)
 {
     objColor = color;
+}
+
+qreal Object::rot() const
+{
+    return this->rotation();
+}
+
+void Object::setRot(qreal angle)
+{
+    QTransform t = QTransform();
+    t.translate(SIZE / 2, SIZE / 2);
+    t.rotate(angle);
+    t.translate(-SIZE / 2, -SIZE / 2);
+    setTransform(t);
 }
 
 QPoint Object::mapToSector(QPoint p, Sector* sector) const

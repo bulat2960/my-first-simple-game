@@ -1,6 +1,7 @@
 ﻿#include "collisiondetector.h"
 
-CollisionDetector::CollisionDetector(Player* player, QVector<Bot*>& bots) : bots(bots)
+CollisionDetector::CollisionDetector(Player* player, QVector<Bot*>& bots, QVector<Bonus*>& bonuses,
+                                     QVector<Portal*>& portals) : bots(bots), bonuses(bonuses), portals(portals)
 {
     this->player = player;
 }
@@ -43,5 +44,43 @@ void CollisionDetector::slotFindCollision()
         {
             emit signalBattle(b, player);
         }
+    }
+}
+
+void CollisionDetector::slotFindPortal()
+{
+    QObject* sender = QObject::sender();
+
+    Character* character = dynamic_cast<Character*>(sender);
+
+    Portal* start = nullptr;
+    Portal* finish = nullptr;
+
+    if (portals.size() == 0)
+    {
+        return;
+    }
+
+    for (int i = 0; i < portals.size(); i++)
+    {
+        if (character->position() == portals[i]->position())
+        {
+            start = portals[i];
+        }
+    }
+    while (true)
+    {
+        int randNum = qrand() % portals.size();
+        finish = portals[randNum];
+        if (start != finish)
+        {
+            break;
+        }
+    }
+    if (start != nullptr)
+    {
+        character->setSector(finish->sector());
+        character->setPosition(finish->position());
+        character->setPos(finish->pos());
     }
 }

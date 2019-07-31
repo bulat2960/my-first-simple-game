@@ -2,6 +2,8 @@
 
 Scene::Scene(Maze* maze, Player* player)
 {
+    setItemIndexMethod(QGraphicsScene::NoIndex);
+
     this->maze = maze;
     this->player = player;
 

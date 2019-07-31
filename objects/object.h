@@ -10,6 +10,7 @@
 class Object : public QGraphicsObject
 {
     Q_OBJECT
+    Q_PROPERTY(qreal rot READ rot WRITE setRot)
 protected:
     QPoint objPosition;
     QColor objColor;
@@ -17,6 +18,7 @@ protected:
     Sector* objSector;
 
     QPropertyAnimation* moveAnim;
+    QPropertyAnimation* rotateAnim;
 
     bool isAlive;
     QTimer* respawnTimer;
@@ -39,6 +41,9 @@ public:
 
     QColor color() const;
     void setColor(QColor color);
+
+    qreal rot() const;
+    void setRot(qreal angle);
 
     bool alive() const;
     void kill();

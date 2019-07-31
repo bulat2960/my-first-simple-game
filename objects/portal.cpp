@@ -2,7 +2,13 @@
 
 Portal::Portal(Sector* sector, QColor color) : Object(sector, color)
 {
-    setSector(sector);
+    rotateAnim = new QPropertyAnimation(this, "rot");
+    rotateAnim->setDuration(5000);
+    rotateAnim->setStartValue(0);
+    rotateAnim->setEndValue(3600);
+    rotateAnim->setLoopCount(-1);
+    rotateAnim->setEasingCurve(QEasingCurve::InOutSine);
+    rotateAnim->start();
 }
 
 QPainterPath Portal::shape() const

@@ -7,9 +7,6 @@
 class Bonus : public Object
 {
     Q_OBJECT
-    Q_PROPERTY(qreal rot READ rot WRITE setRot)
-private:
-    QPropertyAnimation* rotateAnim;
 public:
     enum Type
     {
@@ -25,9 +22,6 @@ public:
         SECRET
     };
     Bonus(Sector* sector, QColor color);
-
-    qreal rot() const;
-    void setRot(qreal angle);
 signals:
     void signalTakenBy(Character* character);
 public slots:

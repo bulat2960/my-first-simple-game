@@ -47,17 +47,3 @@ void Bonus::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
 
     painter->fillPath(shape(), color());
 }
-
-qreal Bonus::rot() const
-{
-    return this->rotation();
-}
-
-void Bonus::setRot(qreal angle)
-{
-    QTransform t = QTransform();
-    t.translate(SIZE / 2, SIZE / 2);
-    t.rotate(angle);
-    t.translate(-SIZE / 2, -SIZE / 2);
-    setTransform(t);
-}
