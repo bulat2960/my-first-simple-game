@@ -26,11 +26,11 @@ int main(int argc, char *argv[])
 
     const int sHeight = 10;
     const int sWidth = 10;
-    const int mHeight = 5;
-    const int mWidth = 10;
+    const int mHeight = 3;
+    const int mWidth = 6;
     const int botsNumber = 0;
     const int bonusesNumber = 0;
-    const int portalsNumber = 100;
+    const int portalsNumber = 500;
     Maze* maze = new Maze(mHeight, mWidth, sHeight, sWidth);
     Player* player = new Player(maze->sector(0, 0), Qt::red);
 

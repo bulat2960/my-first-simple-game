@@ -1,6 +1,6 @@
 #include "bonus.h"
 
-Bonus::Bonus(Sector* sector, QColor color) : Object(sector, color)
+Bonus::Bonus(Sector* sector, QColor color) : FixedObject(sector, color)
 {
     animations.rotateAnim = new QPropertyAnimation(this, "rot");
     animations.rotateAnim->setDuration(10000);

@@ -1,6 +1,6 @@
 ﻿#include "portal.h"
 
-Portal::Portal(Sector* sector, QColor color) : Object(sector, color)
+Portal::Portal(Sector* sector, QColor color) : FixedObject(sector, color)
 {
     animations.rotateAnim = new QPropertyAnimation(this, "rot");
     animations.rotateAnim->setDuration(5000);
@@ -9,6 +9,8 @@ Portal::Portal(Sector* sector, QColor color) : Object(sector, color)
     animations.rotateAnim->setLoopCount(-1);
     animations.rotateAnim->setEasingCurve(QEasingCurve::InOutSine);
     animations.rotateAnim->start();
+
+    drawingSettings.pixmap.load("/home/gubaydullin-bulat/portal.png");
 }
 
 QPainterPath Portal::shape() const
@@ -63,5 +65,5 @@ void Portal::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    painter->fillPath(shape(), color());
+    painter->drawPixmap(boundingRect().toRect(), drawingSettings.pixmap);
 }

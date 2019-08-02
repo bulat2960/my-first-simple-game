@@ -28,6 +28,7 @@ protected:
 
     struct DrawingSettings
     {
+        QPixmap pixmap;
         QColor color;
     };
     DrawingSettings drawingSettings;

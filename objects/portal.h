@@ -1,10 +1,10 @@
 ﻿#ifndef PORTAL_H
 #define PORTAL_H
 
-#include "object.h"
+#include "fixedobject.h"
 #include "maze/sector.h"
 
-class Portal : public Object
+class Portal : public FixedObject
 {
     Q_OBJECT
 private:

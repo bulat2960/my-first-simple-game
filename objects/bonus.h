@@ -1,10 +1,10 @@
     #ifndef BONUS_H
 #define BONUS_H
 
-#include "object.h"
+#include "fixedobject.h"
 #include "character.h"
 
-class Bonus : public Object
+class Bonus : public FixedObject
 {
     Q_OBJECT
 public:
