@@ -12,29 +12,49 @@ class Object : public QGraphicsObject
     Q_OBJECT
     Q_PROPERTY(qreal rot READ rot WRITE setRot)
 protected:
-    QPoint objPosition;
-    QColor objColor;
+    struct MapPosition
+    {
+        QPoint coords;
+        Sector* sector;
+    };
+    MapPosition mapPosition;
 
-    Sector* objSector;
+    struct Animations
+    {
+        QPropertyAnimation* moveAnim;
+        QPropertyAnimation* rotateAnim;
+    };
+    Animations animations;
 
-    QPropertyAnimation* moveAnim;
-    QPropertyAnimation* rotateAnim;
+    struct GameSettings
+    {
+        bool alive;
+        QTimer* respawnTimer;
+    };
+    GameSettings gameSettings;
 
-    bool isAlive;
-    QTimer* respawnTimer;
+    struct DrawingSettings
+    {
+        QColor color;
+    };
+    DrawingSettings drawingSettings;
 protected:
     QPoint mapToSector(QPoint p, Sector *sector) const;
+
+    QPoint graphicalPosition(int x, int y) const;
     QPoint graphicalPosition(const QPoint& position) const;
+    void setGraphicalPosition(int x, int y);
+    void setGraphicalPosition(const QPoint& position);
 
     bool moveAnimStopped() const;
+
+    void setStartPosition();
 public:
     Object(Sector* sector, QColor color);
 
     QPoint position() const;
     void setPosition(int x, int y);
     void setPosition(const QPoint& position);
-
-    void setStartPosition();
 
     Sector* sector() const;
     void setSector(Sector* sector);
@@ -44,10 +64,6 @@ public:
 
     qreal rot() const;
     void setRot(qreal angle);
-
-    bool alive() const;
-    void kill();
-    void respawn();
 signals:
     void signalCheckCollisions();
 public slots:

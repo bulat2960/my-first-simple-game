@@ -30,6 +30,10 @@ public:
     Sector* findNextSector(QPoint nextPos);
     bool insideScene(QPoint nextPos);
 
+    bool alive() const;
+    void kill();
+    void respawn();
+
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 signals:
     void signalCheckPortal();

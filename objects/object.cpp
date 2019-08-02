@@ -2,23 +2,23 @@
 
 Object::Object(Sector* sector, QColor color)
 {
-    objSector = sector;
-    objColor = color;
-
-    isAlive = true;
-    respawnTimer = nullptr;
-
-    moveAnim = nullptr;
-    rotateAnim = nullptr;
-
-    setSector(sector);
     setStartPosition();
-    setPos(graphicalPosition(position()));
+    mapPosition.sector = sector;
+
+    animations.moveAnim = nullptr;
+    animations.rotateAnim = nullptr;
+
+    gameProperties.alive = true;
+    gameProperties.respawnTimer = nullptr;
+
+    drawingSettings.color = color;
+
+    setGraphicalPosition(mapPosition.coords);
 }
 
-QPoint Object::position() const
+QPoint Object::graphicalPosition(int x, int y) const
 {
-    return objPosition;
+    return QPoint(x, y) * SIZE;
 }
 
 QPoint Object::graphicalPosition(const QPoint &position) const
@@ -26,14 +26,29 @@ QPoint Object::graphicalPosition(const QPoint &position) const
     return position * SIZE;
 }
 
+void Object::setGraphicalPosition(int x, int y)
+{
+    setPos(QPoint(x, y) * SIZE);
+}
+
+void Object::setGraphicalPosition(const QPoint& position)
+{
+    setPos(position * SIZE);
+}
+
+QPoint Object::position() const
+{
+    return mapPosition.coords;
+}
+
 void Object::setPosition(int x, int y)
 {
-    objPosition = QPoint(x, y);
+    mapPosition.coords = QPoint(x, y);
 }
 
 void Object::setPosition(const QPoint& position)
 {
-    this->objPosition = position;
+    mapPosition.coords = position;
 }
 
 void Object::setStartPosition()
@@ -43,13 +58,15 @@ void Object::setStartPosition()
         int x = qrand() % sector()->width();
         int y = qrand() % sector()->height();
 
-        bool notAtBorders = !(x == 0 || y == 0 || x == sector()->width() - 1 || y == sector()->height() - 1);
-        if (sector()->cell(x, y).isRoad() && notAtBorders)
+        bool atVerticalBorders = (x == 0) || (x == mapPosition.sector->width() - 1);
+        bool atHorizontalBorders = (y == 0) || (y == mapPosition.sector->height() - 1);
+        bool notAtBorders = !(atVerticalBorders || atHorizontalBorders);
+        if (mapPosition.sector->cell(x, y).isRoad() && notAtBorders)
         {
-            x += sector()->position().x() * sector()->width();
-            y += sector()->position().y() * sector()->height();
+            x += mapPosition.sector->position().x() * mapPosition.sector->width();
+            y += mapPosition.sector->position().y() * mapPosition.sector->height();
             setPosition(x, y);
-            setPos(graphicalPosition(position()));
+            setGraphicalPosition(x, y);
             break;
         }
     }
@@ -57,22 +74,22 @@ void Object::setStartPosition()
 
 Sector* Object::sector() const
 {
-    return objSector;
+    return mapPosition.sector;
 }
 
 void Object::setSector(Sector* sector)
 {
-    objSector = sector;
+    mapPosition.sector = sector;
 }
 
 QColor Object::color() const
 {
-    return objColor;
+    return drawingSettings.color;
 }
 
 void Object::setColor(QColor color)
 {
-    objColor = color;
+    drawingSettings.color = color;
 }
 
 qreal Object::rot() const
@@ -101,32 +118,5 @@ QRectF Object::boundingRect() const
 
 bool Object::moveAnimStopped() const
 {
-    return moveAnim->state() == QPropertyAnimation::Stopped;
-}
-
-bool Object::alive() const
-{
-    return isAlive;
-}
-
-void Object::kill()
-{
-    isAlive = false;
-    respawnTimer->start();
-    if (moveAnim->state() == QPropertyAnimation::Running)
-    {
-        moveAnim->pause();
-    }
-    hide();
-}
-
-void Object::respawn()
-{
-    isAlive = true;
-    respawnTimer->stop();
-    if (moveAnim->state() == QPropertyAnimation::Paused)
-    {
-        moveAnim->resume();
-    }
-    show();
+    return animations.moveAnim->state() == QPropertyAnimation::Stopped;
 }

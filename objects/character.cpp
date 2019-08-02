@@ -71,3 +71,30 @@ void Character::move(QPoint nextPos)
     setPosition(nextPos);
     setSector(nextSector);
 }
+
+bool Character::alive() const
+{
+    return gameSettings.alive;
+}
+
+void Character::kill()
+{
+    isAlive = false;
+    respawnTimer->start();
+    if (moveAnim->state() == QPropertyAnimation::Running)
+    {
+        moveAnim->pause();
+    }
+    hide();
+}
+
+void Character::respawn()
+{
+    isAlive = true;
+    respawnTimer->stop();
+    if (moveAnim->state() == QPropertyAnimation::Paused)
+    {
+        moveAnim->resume();
+    }
+    show();
+}
