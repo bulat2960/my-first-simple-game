@@ -2,17 +2,14 @@
 
 Object::Object(Sector* sector, QColor color)
 {
-    setStartPosition();
     mapPosition.sector = sector;
 
     animations.moveAnim = nullptr;
     animations.rotateAnim = nullptr;
 
-    gameProperties.alive = true;
-    gameProperties.respawnTimer = nullptr;
-
     drawingSettings.color = color;
 
+    setStartPosition();
     setGraphicalPosition(mapPosition.coords);
 }
 

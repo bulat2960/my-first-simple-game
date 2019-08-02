@@ -2,17 +2,17 @@
 
 Character::Character(Sector* sector, QColor color) : Object(sector, color)
 {
-    speed = 300;
-    damage = 1;
-    hitpoints = 10;
+    gameSettings.speed = 300;
+    gameSettings.damage = 1;
+    gameSettings.hitpoints = 10;
 
-    respawnTimer = new QTimer(this);
-    respawnTimer->setSingleShot(true);
-    respawnTimer->setInterval(1000 + qrand() % 1000);
-    connect(respawnTimer, &QTimer::timeout, this, &Character::respawn);
+    gameSettings.respawnTimer = new QTimer(this);
+    gameSettings.respawnTimer->setSingleShot(true);
+    gameSettings.respawnTimer->setInterval(1000 + qrand() % 1000);
+    connect(gameSettings.respawnTimer, &QTimer::timeout, this, &Character::respawn);
 
-    moveAnim = new QPropertyAnimation(this, "pos");
-    moveAnim->setDuration(speed);
+    animations.moveAnim = new QPropertyAnimation(this, "pos");
+    animations.moveAnim->setDuration(gameSettings.speed);
 
     directions.insert(Qt::Key_A, QPoint(-1, 0));
     directions.insert(Qt::Key_W, QPoint(0, -1));
@@ -22,14 +22,14 @@ Character::Character(Sector* sector, QColor color) : Object(sector, color)
     connect(this, &Character::xChanged, this, &Character::signalCheckCollisions);
     connect(this, &Character::yChanged, this, &Character::signalCheckCollisions);
 
-    connect(moveAnim, &QPropertyAnimation::finished, this, &Character::signalCheckPortal);
+    connect(animations.moveAnim, &QPropertyAnimation::finished, this, &Character::signalCheckPortal);
 }
 
 void Character::startMoveAnimation(QPoint startPos, QPoint endPos)
 {
-    moveAnim->setStartValue(graphicalPosition(startPos));
-    moveAnim->setEndValue(graphicalPosition(endPos));
-    moveAnim->start();
+    animations.moveAnim->setStartValue(graphicalPosition(startPos));
+    animations.moveAnim->setEndValue(graphicalPosition(endPos));
+    animations.moveAnim->start();
 }
 
 QPainterPath Character::shape() const
@@ -79,22 +79,22 @@ bool Character::alive() const
 
 void Character::kill()
 {
-    isAlive = false;
-    respawnTimer->start();
-    if (moveAnim->state() == QPropertyAnimation::Running)
+    gameSettings.alive = false;
+    gameSettings.respawnTimer->start();
+    if (animations.moveAnim->state() == QPropertyAnimation::Running)
     {
-        moveAnim->pause();
+        animations.moveAnim->pause();
     }
     hide();
 }
 
 void Character::respawn()
 {
-    isAlive = true;
-    respawnTimer->stop();
-    if (moveAnim->state() == QPropertyAnimation::Paused)
+    gameSettings.alive = true;
+    gameSettings.respawnTimer->stop();
+    if (animations.moveAnim->state() == QPropertyAnimation::Paused)
     {
-        moveAnim->resume();
+        animations.moveAnim->resume();
     }
     show();
 }

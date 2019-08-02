@@ -2,7 +2,7 @@
 
 Bot::Bot(Sector* sector, QColor color) : Character(sector, color)
 {
-    connect(moveAnim, &QPropertyAnimation::finished, this, &Bot::slotFindCorrectMoveDir);
+    connect(animations.moveAnim, &QPropertyAnimation::finished, this, &Bot::slotFindCorrectMoveDir);
 }
 
 void Bot::slotFindCorrectMoveDir()

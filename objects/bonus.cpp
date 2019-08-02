@@ -2,12 +2,12 @@
 
 Bonus::Bonus(Sector* sector, QColor color) : Object(sector, color)
 {
-    rotateAnim = new QPropertyAnimation(this, "rot");
-    rotateAnim->setDuration(10000);
-    rotateAnim->setStartValue(0);
-    rotateAnim->setEndValue(360);
-    rotateAnim->setLoopCount(-1);
-    rotateAnim->start();
+    animations.rotateAnim = new QPropertyAnimation(this, "rot");
+    animations.rotateAnim->setDuration(10000);
+    animations.rotateAnim->setStartValue(0);
+    animations.rotateAnim->setEndValue(360);
+    animations.rotateAnim->setLoopCount(-1);
+    animations.rotateAnim->start();
 }
 
 QPainterPath Bonus::shape() const

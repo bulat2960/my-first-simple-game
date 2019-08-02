@@ -26,13 +26,6 @@ protected:
     };
     Animations animations;
 
-    struct GameSettings
-    {
-        bool alive;
-        QTimer* respawnTimer;
-    };
-    GameSettings gameSettings;
-
     struct DrawingSettings
     {
         QColor color;

@@ -20,6 +20,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+
     QTime midnight(0, 0, 0);
     qsrand(static_cast<uint>(midnight.secsTo(QTime::currentTime())));
 

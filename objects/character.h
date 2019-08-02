@@ -13,11 +13,18 @@ class Character : public Object
     Q_OBJECT
     Q_PROPERTY(QPointF pos READ pos WRITE setPos)
 protected:
-    QMap<int, QPoint> directions;
+    struct GameSettings
+    {
+        int speed;
+        int damage;
+        int hitpoints;
 
-    int speed;
-    int damage;
-    int hitpoints;
+        bool alive;
+        QTimer* respawnTimer;
+    };
+    GameSettings gameSettings;
+
+    QMap<int, QPoint> directions;
 protected:
     void move(QPoint nextPos);
 public:

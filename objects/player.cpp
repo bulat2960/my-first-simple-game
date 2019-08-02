@@ -2,8 +2,6 @@
 
 Player::Player(Sector* sector, QColor color) : Character(sector, color)
 {
-    hitpoints = 50;
-
     // Установка фильтра событий
     installEventFilter(this);
 
@@ -23,7 +21,7 @@ Player::Player(Sector* sector, QColor color) : Character(sector, color)
 void Player::slotFindCorrectMoveDir()
 {
     bool shiftKeyPressed = usedKeys[Qt::Key_Shift];
-    moveAnim->setDuration(shiftKeyPressed ? 1 : speed);
+    animations.moveAnim->setDuration(shiftKeyPressed ? 1 : gameSettings.speed);
 
     if (!moveAnimStopped())
     {
