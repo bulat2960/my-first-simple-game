@@ -1,6 +1,6 @@
 ﻿#include "player.h"
 
-Player::Player(Sector* sector, QColor color) : Character(sector, color)
+Player::Player(Sector* sector) : Character(sector)
 {
     // Установка фильтра событий
     installEventFilter(this);

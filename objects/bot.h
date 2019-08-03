@@ -6,7 +6,7 @@
 class Bot : public Character
 {
 public:
-    Bot(Sector* sector, QColor color);
+    Bot(Sector* sector);
 public slots:
     void slotFindCorrectMoveDir();
 };

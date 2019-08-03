@@ -44,7 +44,7 @@ protected:
 
     void setStartPosition();
 public:
-    Object(Sector* sector, QColor color);
+    Object(Sector* sector);
 
     QPoint position() const;
     void setPosition(int x, int y);

@@ -1,13 +1,13 @@
 ﻿#include "object.h"
 
-Object::Object(Sector* sector, QColor color)
+Object::Object(Sector* sector)
 {
     mapPosition.sector = sector;
 
     animations.moveAnim = nullptr;
     animations.rotateAnim = nullptr;
 
-    drawingSettings.color = color;
+    drawingSettings.color = Qt::black;
 
     setStartPosition();
     setGraphicalPosition(mapPosition.coords);

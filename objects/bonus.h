@@ -21,7 +21,7 @@ public:
         DAMAGE,
         SECRET
     };
-    Bonus(Sector* sector, QColor color);
+    Bonus(Sector* sector);
 signals:
     void signalTakenBy(Character* character);
 public slots:

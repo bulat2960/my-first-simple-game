@@ -12,7 +12,7 @@ class Player : public Character
 private:
     QMap<int, bool> usedKeys;
 public:
-    Player(Sector* sector, QColor color);
+    Player(Sector* sector);
 private slots:
     void slotFindCorrectMoveDir();
 public slots:

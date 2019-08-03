@@ -75,3 +75,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 # QMAKE_LFLAGS += -static -static-libgcc
 # QMAKE_CFLAGS_RELEASE -= O2
 # DEFINES += UNICODE QT_STATIC_BUILD
+
+RESOURCES += \
+    images.qrc

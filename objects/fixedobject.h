@@ -6,7 +6,7 @@
 class FixedObject : public Object
 {
 public:
-    FixedObject(Sector* sector, QColor color);
+    FixedObject(Sector* sector);
 };
 
 #endif // FIXEDOBJECT_H

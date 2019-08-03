@@ -1,6 +1,6 @@
 ﻿#include "bot.h"
 
-Bot::Bot(Sector* sector, QColor color) : Character(sector, color)
+Bot::Bot(Sector* sector) : Character(sector)
 {
     connect(animations.moveAnim, &QPropertyAnimation::finished, this, &Bot::slotFindCorrectMoveDir);
 }

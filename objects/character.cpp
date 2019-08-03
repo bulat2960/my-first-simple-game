@@ -1,6 +1,6 @@
 ﻿#include "character.h"
 
-Character::Character(Sector* sector, QColor color) : Object(sector, color)
+Character::Character(Sector* sector) : Object(sector)
 {
     gameSettings.speed = 300;
     gameSettings.damage = 1;

@@ -30,9 +30,10 @@ int main(int argc, char *argv[])
     const int mWidth = 6;
     const int botsNumber = 0;
     const int bonusesNumber = 0;
-    const int portalsNumber = 500;
+    const int portalsNumber = 100;
     Maze* maze = new Maze(mHeight, mWidth, sHeight, sWidth);
-    Player* player = new Player(maze->sector(0, 0), Qt::red);
+    Player* player = new Player(maze->sector(0, 0));
+    player->setColor(Qt::red);
 
     Game* game = new Game(maze, player);
 

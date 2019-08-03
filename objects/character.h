@@ -28,7 +28,7 @@ protected:
 protected:
     void move(QPoint nextPos);
 public:
-    Character(Sector* sector, QColor color);
+    Character(Sector* sector);
 
     virtual QPainterPath shape() const override;
 

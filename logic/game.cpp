@@ -17,7 +17,8 @@ Game::Game(Maze* maze, Player* player)
 void Game::slotCreateBot()
 {
     Sector* sector = maze->sector(qrand() % maze->width(), qrand() % maze->height());
-    Bot* bot = new Bot(sector, Qt::blue);
+    Bot* bot = new Bot(sector);
+    bot->setColor(Qt::blue);
     bots.push_back(bot);
     connect(bot, &Bot::signalCheckCollisions, collisionDetector, &CollisionDetector::slotFindCollision);
     connect(bot, &Bot::signalCheckPortal, collisionDetector, &CollisionDetector::slotFindPortal);
@@ -28,7 +29,8 @@ void Game::slotCreateBot()
 void Game::slotCreateBonus()
 {
     Sector* sector = maze->sector(qrand() % maze->width(), qrand() % maze->height());
-    Bonus* bonus = new Bonus(sector, Qt::green);
+    Bonus* bonus = new Bonus(sector);
+    bonus->setColor(Qt::green);
     bonuses.push_back(bonus);
 
     emit signalCreated(bonus);
@@ -37,7 +39,8 @@ void Game::slotCreateBonus()
 void Game::slotCreatePortal()
 {
     Sector* sector = maze->sector(qrand() % maze->width(), qrand() % maze->height());
-    Portal* portal = new Portal(sector, Qt::black);
+    Portal* portal = new Portal(sector);
+    portal->setColor(Qt::black);
     portals.push_back(portal);
 
     emit signalCreated(portal);
