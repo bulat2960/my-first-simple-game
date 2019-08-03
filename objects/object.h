@@ -4,6 +4,8 @@
 #include <QGraphicsObject>
 #include <QPropertyAnimation>
 #include <QTimer>
+#include <QPixmap>
+#include <QBitmap>
 
 #include "maze/sector.h"
 
@@ -28,7 +30,7 @@ protected:
 
     struct DrawingSettings
     {
-        QPixmap pixmap;
+        QImage image;
         QColor color;
     };
     DrawingSettings drawingSettings;

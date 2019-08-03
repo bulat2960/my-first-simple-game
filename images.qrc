@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/images">
         <file>images/portal.png</file>
+        <file>images/character.png</file>
     </qresource>
 </RCC>

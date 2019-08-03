@@ -10,7 +10,7 @@ Portal::Portal(Sector* sector) : FixedObject(sector)
     animations.rotateAnim->setEasingCurve(QEasingCurve::InOutSine);
     animations.rotateAnim->start();
 
-    drawingSettings.pixmap.load(":/images/images/portal.png");
+    drawingSettings.image.load(":/images/images/portal.png");
 }
 
 QPainterPath Portal::shape() const
@@ -26,5 +26,5 @@ void Portal::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    painter->drawPixmap(boundingRect().toRect(), drawingSettings.pixmap);
+    painter->drawImage(boundingRect().adjusted(3, 3, -3, -3), drawingSettings.image);
 }

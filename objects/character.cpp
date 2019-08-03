@@ -2,7 +2,7 @@
 
 Character::Character(Sector* sector) : Object(sector)
 {
-    gameSettings.speed = 300;
+    gameSettings.speed = 50;
     gameSettings.damage = 1;
     gameSettings.hitpoints = 10;
 
@@ -18,6 +18,8 @@ Character::Character(Sector* sector) : Object(sector)
     directions.insert(Qt::Key_W, QPoint(0, -1));
     directions.insert(Qt::Key_D, QPoint(1, 0));
     directions.insert(Qt::Key_S, QPoint(0, 1));
+
+    drawingSettings.image.load(":/images/images/character.png");
 
     connect(this, &Character::xChanged, this, &Character::signalCheckCollisions);
     connect(this, &Character::yChanged, this, &Character::signalCheckCollisions);
@@ -44,7 +46,7 @@ void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    painter->fillPath(shape(), color());
+    painter->drawImage(boundingRect(), drawingSettings.image);
 }
 
 Sector* Character::findNextSector(QPoint nextPos)

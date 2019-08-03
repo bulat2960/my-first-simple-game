@@ -86,6 +86,17 @@ QColor Object::color() const
 
 void Object::setColor(QColor color)
 {
+    for (int i = 0; i < drawingSettings.image.width(); i++)
+    {
+        for (int j = 0; j < drawingSettings.image.height(); j++)
+        {
+            if (drawingSettings.image.pixelColor(i, j) == drawingSettings.color)
+            {
+                drawingSettings.image.setPixelColor(i, j, color);
+            }
+        }
+    }
+
     drawingSettings.color = color;
 }
 
