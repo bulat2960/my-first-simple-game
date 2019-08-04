@@ -53,23 +53,3 @@ void Game::slotStart()
         bots[i]->slotFindCorrectMoveDir();
     }
 }
-
-Player* Game::getPlayer() const
-{
-    return player;
-}
-
-QVector<Bot*> Game::getBots() const
-{
-    return bots;
-}
-
-Maze* Game::getMaze() const
-{
-    return maze;
-}
-
-QVector<Bonus*> Game::getBonuses() const
-{
-    return bonuses;
-}

@@ -32,12 +32,6 @@ private:
 
 public:
     Game(Maze* maze, Player* player);
-
-    Maze* getMaze() const;
-    Player* getPlayer() const;
-    QVector<Bot*> getBots() const;
-    QVector<Bonus*> getBonuses() const;
-
 signals:
     void signalCreated(Object* object);
 public slots:
