@@ -34,7 +34,7 @@ protected:
     void setGraphicalPosition(int x, int y);
     void setGraphicalPosition(const QPoint& position);
 
-    void setStartPosition();
+    virtual void setStartPosition() = 0;
 public:
     Object(Sector* sector);
 

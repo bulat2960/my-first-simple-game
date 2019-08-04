@@ -6,7 +6,6 @@ Object::Object(Sector* sector)
 
     drawingSettings.color = Qt::black;
 
-    setStartPosition();
     setGraphicalPosition(mapPosition.coords);
 }
 
@@ -43,27 +42,6 @@ void Object::setPosition(int x, int y)
 void Object::setPosition(const QPoint& position)
 {
     mapPosition.coords = position;
-}
-
-void Object::setStartPosition()
-{
-    while (true)
-    {
-        int x = qrand() % sector()->width();
-        int y = qrand() % sector()->height();
-
-        bool atVerticalBorders = (x == 0) || (x == mapPosition.sector->width() - 1);
-        bool atHorizontalBorders = (y == 0) || (y == mapPosition.sector->height() - 1);
-        bool notAtBorders = !(atVerticalBorders || atHorizontalBorders);
-        if (mapPosition.sector->cell(x, y).isRoad() && notAtBorders)
-        {
-            x += mapPosition.sector->position().x() * mapPosition.sector->width();
-            y += mapPosition.sector->position().y() * mapPosition.sector->height();
-            setPosition(x, y);
-            setGraphicalPosition(x, y);
-            break;
-        }
-    }
 }
 
 Sector* Object::sector() const

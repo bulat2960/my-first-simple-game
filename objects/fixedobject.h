@@ -18,6 +18,8 @@ public:
 
     qreal rot() const;
     void setRot(qreal angle);
+
+    void setStartPosition() override;
 };
 
 #endif // FIXEDOBJECT_H

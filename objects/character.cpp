@@ -25,6 +25,8 @@ Character::Character(Sector* sector) : Object(sector)
     connect(this, &Character::yChanged, this, &Character::signalFindCharacter);
 
     connect(animations.moveAnim, &QPropertyAnimation::finished, this, &Character::signalFindPortal);
+
+    setStartPosition();
 }
 
 void Character::startMoveAnimation(QPoint startPos, QPoint endPos)
@@ -104,4 +106,25 @@ void Character::respawn()
         animations.moveAnim->resume();
     }
     show();
+}
+
+void Character::setStartPosition()
+{
+    while (true)
+    {
+        int x = qrand() % sector()->width();
+        int y = qrand() % sector()->height();
+
+        bool atVerticalBorders = (x == 0) || (x == mapPosition.sector->width() - 1);
+        bool atHorizontalBorders = (y == 0) || (y == mapPosition.sector->height() - 1);
+        bool notAtBorders = !(atVerticalBorders || atHorizontalBorders);
+        if (mapPosition.sector->cell(x, y).isRoad() && notAtBorders)
+        {
+            x += mapPosition.sector->position().x() * mapPosition.sector->width();
+            y += mapPosition.sector->position().y() * mapPosition.sector->height();
+            setPosition(x, y);
+            setGraphicalPosition(x, y);
+            break;
+        }
+    }
 }

@@ -48,6 +48,8 @@ public:
     void kill();
     void respawn();
 
+    void setStartPosition() override;
+
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 signals:
     void signalFindPortal();

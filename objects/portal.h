@@ -11,6 +11,8 @@ private:
     Sector* other;
 public:
     Portal(Sector* sector);
+
+    void setStartPosition() override;
 public slots:
     virtual QPainterPath shape() const override;
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
