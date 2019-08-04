@@ -10,11 +10,14 @@
 #include "gui/window.h"
 #include "gui/view.h"
 #include "gui/scene.h"
+#include "gui/gamedata.h"
 #include "objects/player.h"
 #include "objects/bot.h"
 #include "logic/game.h"
 #include "logic/collisiondetector.h"
 #include "logic/battleexecutor.h"
+
+#include <QVBoxLayout>
 
 int main(int argc, char *argv[])
 {
@@ -45,10 +48,11 @@ int main(int argc, char *argv[])
     View* view = new View(scene);
 
     Window* window = new Window(view);
+    window->setGeometry(a.screens()[0]->geometry());
 
     view->setScene(scene);
     view->setParent(window);
-    view->setGeometry(a.screens()[0]->geometry());
+    view->setGeometry(0, 0, window->geometry().size().width(), 900);
 
     for (int i = 0; i < botsNumber; i++)
     {
