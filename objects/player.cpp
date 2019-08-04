@@ -2,10 +2,8 @@
 
 Player::Player(Sector* sector) : Character(sector)
 {
-    // Установка фильтра событий
     installEventFilter(this);
 
-    // Клавиши, которыми управляет игрок
     usedKeys.insert(Qt::Key_W, false);
     usedKeys.insert(Qt::Key_A, false);
     usedKeys.insert(Qt::Key_S, false);
