@@ -2,5 +2,6 @@
     <qresource prefix="/images">
         <file>images/portal.png</file>
         <file>images/character.png</file>
+        <file>images/heal_bonus.png</file>
     </qresource>
 </RCC>

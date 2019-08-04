@@ -18,5 +18,5 @@ void Portal::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    painter->drawImage(boundingRect().adjusted(3, 3, -3, -3), drawingSettings.image);
+    painter->drawImage(boundingRect(), drawingSettings.image);
 }
