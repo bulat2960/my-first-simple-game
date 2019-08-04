@@ -20,7 +20,6 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-
     QTime midnight(0, 0, 0);
     qsrand(static_cast<uint>(midnight.secsTo(QTime::currentTime())));
 
@@ -31,7 +30,9 @@ int main(int argc, char *argv[])
     const int botsNumber = 0;
     const int bonusesNumber = 10;
     const int portalsNumber = 10;
+
     Maze* maze = new Maze(mHeight, mWidth, sHeight, sWidth);
+
     Player* player = new Player(maze->sector(0, 0));
     player->setColor(Qt::red);
     player->setZValue(0);
@@ -40,13 +41,14 @@ int main(int argc, char *argv[])
 
     Scene* scene = new Scene(maze, player);
     QObject::connect(game, &Game::signalCreated, scene, &Scene::addItem);
+
     View* view = new View(scene);
+
     Window* window = new Window(view);
 
     view->setScene(scene);
     view->setParent(window);
-    QRect geometry = a.screens()[0]->geometry();
-    view->setGeometry(geometry);
+    view->setGeometry(a.screens()[0]->geometry());
 
     for (int i = 0; i < botsNumber; i++)
     {
