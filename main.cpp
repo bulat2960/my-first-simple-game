@@ -34,6 +34,7 @@ int main(int argc, char *argv[])
     Maze* maze = new Maze(mHeight, mWidth, sHeight, sWidth);
     Player* player = new Player(maze->sector(0, 0));
     player->setColor(Qt::red);
+    player->setZValue(0);
 
     Game* game = new Game(maze, player);
 

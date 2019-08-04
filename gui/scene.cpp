@@ -17,7 +17,7 @@ Scene::Scene(Maze* maze, Player* player)
             int p1 = pos.x() * sector->width();
             int p2 = pos.y() * sector->height();
             sector->setPos(QPoint(p1, p2) * SIZE);
-            sector->setZValue(-9999);
+            sector->setZValue(-10000);
 
             addItem(sector);
         }
