@@ -10,3 +10,17 @@ FixedObject::FixedObject(Sector* sector) : Object(sector)
     animations.rotateAnim->setEasingCurve(QEasingCurve::InOutSine);
     animations.rotateAnim->start();
 }
+
+qreal FixedObject::rot() const
+{
+    return this->rotation();
+}
+
+void FixedObject::setRot(qreal angle)
+{
+    QTransform t = QTransform();
+    t.translate(SIZE / 2, SIZE / 2);
+    t.rotate(angle);
+    t.translate(-SIZE / 2, -SIZE / 2);
+    setTransform(t);
+}

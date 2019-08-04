@@ -12,7 +12,6 @@
 class Object : public QGraphicsObject
 {
     Q_OBJECT
-    Q_PROPERTY(qreal rot READ rot WRITE setRot)
 protected:
     struct MapPosition
     {
@@ -20,13 +19,6 @@ protected:
         Sector* sector;
     };
     MapPosition mapPosition;
-
-    struct Animations
-    {
-        QPropertyAnimation* moveAnim;
-        QPropertyAnimation* rotateAnim;
-    };
-    Animations animations;
 
     struct DrawingSettings
     {
@@ -42,8 +34,6 @@ protected:
     void setGraphicalPosition(int x, int y);
     void setGraphicalPosition(const QPoint& position);
 
-    bool moveAnimStopped() const;
-
     void setStartPosition();
 public:
     Object(Sector* sector);
@@ -57,9 +47,6 @@ public:
 
     QColor color() const;
     void setColor(QColor color);
-
-    qreal rot() const;
-    void setRot(qreal angle);
 public slots:
     virtual QRectF boundingRect() const override;
 };

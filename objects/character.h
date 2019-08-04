@@ -24,6 +24,12 @@ protected:
     };
     GameSettings gameSettings;
 
+    struct Animations
+    {
+        QPropertyAnimation* moveAnim;
+    };
+    Animations animations;
+
     QMap<int, QPoint> directions;
 protected:
     void move(QPoint nextPos);
@@ -33,6 +39,7 @@ public:
     virtual QPainterPath shape() const override;
 
     void startMoveAnimation(QPoint startPos, QPoint endPos);
+    bool moveAnimStopped() const;
 
     Sector* findNextSector(QPoint nextPos);
     bool insideScene(QPoint nextPos);

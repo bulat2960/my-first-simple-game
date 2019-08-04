@@ -34,6 +34,11 @@ void Character::startMoveAnimation(QPoint startPos, QPoint endPos)
     animations.moveAnim->start();
 }
 
+bool Character::moveAnimStopped() const
+{
+    return animations.moveAnim->state() == QPropertyAnimation::Stopped;
+}
+
 QPainterPath Character::shape() const
 {
     QPainterPath path;

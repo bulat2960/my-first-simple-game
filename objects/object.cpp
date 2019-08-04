@@ -4,9 +4,6 @@ Object::Object(Sector* sector)
 {
     mapPosition.sector = sector;
 
-    animations.moveAnim = nullptr;
-    animations.rotateAnim = nullptr;
-
     drawingSettings.color = Qt::black;
 
     setStartPosition();
@@ -100,20 +97,6 @@ void Object::setColor(QColor color)
     drawingSettings.color = color;
 }
 
-qreal Object::rot() const
-{
-    return this->rotation();
-}
-
-void Object::setRot(qreal angle)
-{
-    QTransform t = QTransform();
-    t.translate(SIZE / 2, SIZE / 2);
-    t.rotate(angle);
-    t.translate(-SIZE / 2, -SIZE / 2);
-    setTransform(t);
-}
-
 QPoint Object::mapToSector(QPoint p, Sector* sector) const
 {
     return QPoint(p.x() % sector->width(), p.y() % sector->height());
@@ -122,9 +105,4 @@ QPoint Object::mapToSector(QPoint p, Sector* sector) const
 QRectF Object::boundingRect() const
 {
     return QRectF(0, 0, SIZE, SIZE);
-}
-
-bool Object::moveAnimStopped() const
-{
-    return animations.moveAnim->state() == QPropertyAnimation::Stopped;
 }
