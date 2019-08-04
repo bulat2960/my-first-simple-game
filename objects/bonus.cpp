@@ -2,12 +2,7 @@
 
 Bonus::Bonus(Sector* sector) : FixedObject(sector)
 {
-    animations.rotateAnim = new QPropertyAnimation(this, "rot");
-    animations.rotateAnim->setDuration(10000);
-    animations.rotateAnim->setStartValue(0);
-    animations.rotateAnim->setEndValue(360);
-    animations.rotateAnim->setLoopCount(-1);
-    animations.rotateAnim->start();
+
 }
 
 QPainterPath Bonus::shape() const
