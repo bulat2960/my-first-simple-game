@@ -60,8 +60,6 @@ public:
 
     qreal rot() const;
     void setRot(qreal angle);
-signals:
-    void signalCheckCollisions();
 public slots:
     virtual QRectF boundingRect() const override;
 };

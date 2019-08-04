@@ -21,10 +21,10 @@ Character::Character(Sector* sector) : Object(sector)
 
     drawingSettings.image.load(":/images/images/character.png");
 
-    connect(this, &Character::xChanged, this, &Character::signalCheckCollisions);
-    connect(this, &Character::yChanged, this, &Character::signalCheckCollisions);
+    connect(this, &Character::xChanged, this, &Character::signalFindCharacter);
+    connect(this, &Character::yChanged, this, &Character::signalFindCharacter);
 
-    connect(animations.moveAnim, &QPropertyAnimation::finished, this, &Character::signalCheckPortal);
+    connect(animations.moveAnim, &QPropertyAnimation::finished, this, &Character::signalFindPortal);
 }
 
 void Character::startMoveAnimation(QPoint startPos, QPoint endPos)

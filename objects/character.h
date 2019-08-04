@@ -43,8 +43,8 @@ public:
 
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 signals:
-    void signalCheckPortal();
-    void signalCheckCollisions();
+    void signalFindPortal();
+    void signalFindCharacter();
 };
 
 #endif // CHARACTER_H

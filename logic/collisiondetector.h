@@ -20,7 +20,7 @@ private:
 public:
     CollisionDetector(Player* player, QVector<Bot*>& bots, QVector<Bonus*>& bonuses, QVector<Portal*>& portals);
 public slots:
-    void slotFindCollision();
+    void slotFindCharacter();
     void slotFindPortal();
 signals:
     void signalBattle(Character* obj1, Character* obj2);

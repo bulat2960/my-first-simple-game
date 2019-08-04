@@ -6,7 +6,7 @@ CollisionDetector::CollisionDetector(Player* player, QVector<Bot*>& bots, QVecto
     this->player = player;
 }
 
-void CollisionDetector::slotFindCollision()
+void CollisionDetector::slotFindCharacter()
 {
     QObject* sender = QObject::sender();
 
