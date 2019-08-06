@@ -16,8 +16,7 @@ public:
     Scene(Maze* maze, Player* player);
 
 public slots:
-    void keyPressEvent(QKeyEvent* event);
-    void keyReleaseEvent(QKeyEvent* event);
+    bool eventFilter(QObject* object, QEvent* event) override;
 };
 
 #endif // SCENE_H

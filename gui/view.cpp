@@ -3,6 +3,7 @@
 View::View(Scene* scene, GameDataPanel *panel) : QGraphicsView(scene)
 {
     this->panel = panel;
+    this->scene = scene;
 
     setScene(scene);
 
@@ -16,19 +17,20 @@ View::View(Scene* scene, GameDataPanel *panel) : QGraphicsView(scene)
     setFrameStyle(0);
 }
 
-bool View::eventFilter(QObject* obj, QEvent* event)
+bool View::eventFilter(QObject* object, QEvent* event)
 {
     QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
     int key = keyEvent->key();
 
-    if (event->type() == QEvent::KeyPress)
+    if ((event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease) && key != Qt::Key_Tab)
     {
-        if (key == Qt::Key_Tab)
-        {
-            panel->startAnimation();
-            return true;
-        }
+        scene->eventFilter(object, event);
+        return true;
     }
-
-    return QObject::eventFilter(obj, event);
+    if (event->type() == QEvent::KeyPress && key == Qt::Key_Tab)
+    {
+        panel->startAnimation();
+        return true;
+    }
+    return QObject::eventFilter(object, event);
 }

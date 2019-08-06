@@ -26,13 +26,13 @@ Scene::Scene(Maze* maze, Player* player)
     addItem(player);
 }
 
-void Scene::keyPressEvent(QKeyEvent* event)
+bool Scene::eventFilter(QObject* object, QEvent* event)
 {
-    sendEvent(player, event);
-}
-
-void Scene::keyReleaseEvent(QKeyEvent* event)
-{
-    sendEvent(player, event);
+    if (event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease)
+    {
+        sendEvent(player, event);
+        return true;
+    }
+    return QObject::eventFilter(object, event);
 }
 

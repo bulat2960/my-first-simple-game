@@ -2,7 +2,7 @@
 
 Character::Character(Sector* sector) : Object(sector)
 {
-    gameSettings.speed = 50;
+    gameSettings.speed = 200;
     gameSettings.damage = 1;
     gameSettings.hitpoints = 10;
 

@@ -12,6 +12,7 @@ class View : public QGraphicsView
 {
     Q_OBJECT
 private:
+    Scene* scene;
     GameDataPanel* panel;
 public:
     View(Scene* scene, GameDataPanel* panel);
