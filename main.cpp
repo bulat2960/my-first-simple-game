@@ -51,10 +51,9 @@ int main(int argc, char *argv[])
     GameDataPanel* gameDataPanel = new GameDataPanel;
 
     View* view = new View(scene, gameDataPanel);
-    view->setGeometry(0, 50, screenWidth, screenHeight - 50);
+    view->setGeometry(0, BUTTONS_PANEL_HEIGHT, screenWidth, screenHeight - BUTTONS_PANEL_HEIGHT);
     view->setFocusPolicy(Qt::StrongFocus);
 
-    gameDataPanel->setGeometry(0, view->height() - 100, view->width(), 100);
     gameDataPanel->setParent(view);
 
     Window* window = new Window(view);
@@ -82,7 +81,7 @@ int main(int argc, char *argv[])
         game->slotCreatePortal();
     }
 
-    window->show();
+    window->showFullScreen();
 
     return a.exec();
 }

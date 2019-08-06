@@ -21,17 +21,14 @@ bool View::eventFilter(QObject* obj, QEvent* event)
     QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
     int key = keyEvent->key();
 
-    if (key == Qt::Key_Tab)
+    if (event->type() == QEvent::KeyPress)
     {
-        if (panel->isHidden())
+        if (key == Qt::Key_Tab)
         {
-            panel->show();
+            panel->startAnimation();
+            return true;
         }
-        else
-        {
-            panel->hide();
-        }
-        return true;
     }
+
     return QObject::eventFilter(obj, event);
 }
