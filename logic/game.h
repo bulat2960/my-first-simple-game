@@ -38,7 +38,11 @@ public slots:
     void slotCreateBot();
     void slotCreateBonus();
     void slotCreatePortal();
+
     void slotStart();
+    void slotResume();
+    void slotPause();
+    void slotStop();
 };
 
 #endif // GAME_H

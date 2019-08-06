@@ -11,13 +11,12 @@
 #include "gui/view.h"
 #include "gui/scene.h"
 #include "gui/gamedatapanel.h"
+#include "gui/buttonspanel.h"
 #include "objects/player.h"
 #include "objects/bot.h"
 #include "logic/game.h"
 #include "logic/collisiondetector.h"
 #include "logic/battleexecutor.h"
-
-#include <QVBoxLayout>
 
 int main(int argc, char *argv[])
 {
@@ -52,15 +51,24 @@ int main(int argc, char *argv[])
     GameDataPanel* gameDataPanel = new GameDataPanel;
 
     View* view = new View(scene, gameDataPanel);
-    view->setGeometry(0, 100, screenWidth, screenHeight - 100);
+    view->setGeometry(0, 50, screenWidth, screenHeight - 50);
 
     gameDataPanel->setGeometry(0, view->height() - 100, view->width(), 100);
     gameDataPanel->setParent(view);
 
     Window* window = new Window(view);
 
+    ButtonsPanel* buttonsPanel = new ButtonsPanel(window);
+    buttonsPanel->setGeometry(0, 0, screenWidth, 50);
+    QObject::connect(buttonsPanel, &ButtonsPanel::signalExit, &a, QApplication::quit);
+    QObject::connect(buttonsPanel, &ButtonsPanel::signalStart, game, &Game::slotStart);
+    QObject::connect(buttonsPanel, &ButtonsPanel::signalResume, game, &Game::slotResume);
+    QObject::connect(buttonsPanel, &ButtonsPanel::signalPause, game, &Game::slotPause);
+    QObject::connect(buttonsPanel, &ButtonsPanel::signalStop, game, &Game::slotStop);
+
     view->setScene(scene);
     view->setParent(window);
+    view->setFocus();
 
     for (int i = 0; i < botsNumber; i++)
     {
@@ -76,8 +84,6 @@ int main(int argc, char *argv[])
     }
 
     window->show();
-
-    game->slotStart();
 
     return a.exec();
 }

@@ -55,3 +55,18 @@ void Game::slotStart()
         bots[i]->slotFindCorrectMoveDir();
     }
 }
+
+void Game::slotResume()
+{
+
+}
+
+void Game::slotPause()
+{
+
+}
+
+void Game::slotStop()
+{
+
+}
