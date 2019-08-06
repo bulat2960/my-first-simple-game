@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     const int sWidth = 10;
     const int mHeight = 3;
     const int mWidth = 6;
-    const int botsNumber = 0;
+    const int botsNumber = 10;
     const int bonusesNumber = 10;
     const int portalsNumber = 10;
 
@@ -52,6 +52,7 @@ int main(int argc, char *argv[])
 
     View* view = new View(scene, gameDataPanel);
     view->setGeometry(0, 50, screenWidth, screenHeight - 50);
+    view->setFocusPolicy(Qt::StrongFocus);
 
     gameDataPanel->setGeometry(0, view->height() - 100, view->width(), 100);
     gameDataPanel->setParent(view);
@@ -66,9 +67,7 @@ int main(int argc, char *argv[])
     QObject::connect(buttonsPanel, &ButtonsPanel::signalPause, game, &Game::slotPause);
     QObject::connect(buttonsPanel, &ButtonsPanel::signalStop, game, &Game::slotStop);
 
-    view->setScene(scene);
     view->setParent(window);
-    view->setFocus();
 
     for (int i = 0; i < botsNumber; i++)
     {

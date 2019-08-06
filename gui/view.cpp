@@ -4,6 +4,8 @@ View::View(Scene* scene, GameDataPanel *panel) : QGraphicsView(scene)
 {
     this->panel = panel;
 
+    setScene(scene);
+
     installEventFilter(this);
 
     centerOn(0, 0);

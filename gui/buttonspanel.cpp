@@ -2,9 +2,9 @@
 
 ButtonsPanel::ButtonsPanel(QWidget *parent) : QWidget(parent)
 {
-    QPushButton* startButton = new QPushButton("Start");
-    QPushButton* stopButton = new QPushButton("Stop");
-    QPushButton* exitButton = new QPushButton("Exit");
+    startButton = new QPushButton("Start");
+    stopButton = new QPushButton("Stop");
+    exitButton = new QPushButton("Exit");
 
     buttonLayout = new QHBoxLayout(this);
 
@@ -12,5 +12,14 @@ ButtonsPanel::ButtonsPanel(QWidget *parent) : QWidget(parent)
     buttonLayout->addWidget(stopButton);
     buttonLayout->addWidget(exitButton);
 
+    connect(startButton, &QPushButton::clicked, this, &ButtonsPanel::signalStart);
+    connect(stopButton, &QPushButton::clicked, this, &ButtonsPanel::signalStop);
     connect(exitButton, &QPushButton::clicked, this, &ButtonsPanel::signalExit);
+}
+
+void ButtonsPanel::changeStartButtonName()
+{
+    startButton->setText("Resume");
+    disconnect(startButton, &QPushButton::clicked, this, &ButtonsPanel::signalStart);
+    disconnect(startButton, &QPushButton::clicked, this, &ButtonsPanel::signalResume);
 }
