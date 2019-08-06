@@ -7,11 +7,11 @@
 
 #include <QPushButton>
 
-class GameData : public QWidget
+class GameDataPanel : public QWidget
 {
     Q_OBJECT
 public:
-    explicit GameData(QWidget *parent = nullptr);
+    explicit GameDataPanel(QWidget *parent = nullptr);
 public slots:
     void paintEvent(QPaintEvent* event) override;
 };

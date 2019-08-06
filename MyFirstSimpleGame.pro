@@ -44,7 +44,8 @@ SOURCES += \
     logic/bonusgenerator.cpp \
     logic/game.cpp \
     objects/fixedobject.cpp \
-    gui/gamedata.cpp
+    gui/gamedatapanel.cpp \
+    gui/buttonspanel.cpp
 
 HEADERS += \
     globaloptions.h \
@@ -66,7 +67,8 @@ HEADERS += \
     logic/bonusgenerator.h \
     logic/game.h \
     objects/fixedobject.h \
-    gui/gamedata.h
+    gui/gamedatapanel.h \
+    gui/buttonspanel.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

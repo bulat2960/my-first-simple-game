@@ -10,7 +10,7 @@
 #include "gui/window.h"
 #include "gui/view.h"
 #include "gui/scene.h"
-#include "gui/gamedata.h"
+#include "gui/gamedatapanel.h"
 #include "objects/player.h"
 #include "objects/bot.h"
 #include "logic/game.h"
@@ -28,8 +28,8 @@ int main(int argc, char *argv[])
 
     const int sHeight = 10;
     const int sWidth = 10;
-    const int mHeight = 5;
-    const int mWidth = 7;
+    const int mHeight = 3;
+    const int mWidth = 6;
     const int botsNumber = 0;
     const int bonusesNumber = 10;
     const int portalsNumber = 10;
@@ -51,9 +51,9 @@ int main(int argc, char *argv[])
 
     View* view = new View(scene);
 
-    GameData* gameData = new GameData;
+
+    GameDataPanel* gameData = new GameDataPanel(view);
     gameData->setGeometry(0, screenHeight - 100, screenWidth, 100);
-    gameData->setParent(view);
 
     Window* window = new Window(view);
 

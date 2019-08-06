@@ -4,18 +4,18 @@
 #include <QWidget>
 
 #include "view.h"
-#include "gamedata.h"
+#include "gamedatapanel.h"
+#include "buttonspanel.h"
 
 class Window : public QWidget
 {
 private:
     View* view;
-    GameData* gameData;
+    ButtonsPanel* buttonsPanel;
 public:
     Window(View* view);
 public slots:
-    void keyPressEvent(QKeyEvent* event) override;
-    void keyReleaseEvent(QKeyEvent* event) override;
+
 };
 
 #endif // WINDOW_H
