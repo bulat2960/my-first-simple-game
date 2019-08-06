@@ -50,16 +50,16 @@ int main(int argc, char *argv[])
     QObject::connect(game, &Game::signalCreated, scene, &Scene::addItem);
 
     View* view = new View(scene);
+    view->setGeometry(0, 100, screenWidth, screenHeight - 100);
 
 
     GameDataPanel* gameData = new GameDataPanel(view);
-    gameData->setGeometry(0, screenHeight - 100, screenWidth, 100);
+    gameData->setGeometry(0, view->height() - 100, view->width(), 100);
 
     Window* window = new Window(view);
 
     view->setScene(scene);
     view->setParent(window);
-    view->setGeometry(0, 0, screenWidth, screenHeight);
 
     for (int i = 0; i < botsNumber; i++)
     {
