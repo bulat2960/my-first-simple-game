@@ -28,8 +28,8 @@ int main(int argc, char *argv[])
 
     const int sHeight = 10;
     const int sWidth = 10;
-    const int mHeight = 3;
-    const int mWidth = 6;
+    const int mHeight = 5;
+    const int mWidth = 7;
     const int botsNumber = 0;
     const int bonusesNumber = 10;
     const int portalsNumber = 10;
@@ -42,17 +42,24 @@ int main(int argc, char *argv[])
 
     Game* game = new Game(maze, player);
 
+    QScreen* screen = a.screens()[0];
+    int screenHeight = screen->geometry().height();
+    int screenWidth = screen->geometry().width();
+
     Scene* scene = new Scene(maze, player);
     QObject::connect(game, &Game::signalCreated, scene, &Scene::addItem);
 
     View* view = new View(scene);
 
+    GameData* gameData = new GameData;
+    gameData->setGeometry(0, screenHeight - 100, screenWidth, 100);
+    gameData->setParent(view);
+
     Window* window = new Window(view);
-    window->setGeometry(a.screens()[0]->geometry());
 
     view->setScene(scene);
     view->setParent(window);
-    view->setGeometry(0, 0, window->geometry().size().width(), 900);
+    view->setGeometry(0, 0, screenWidth, screenHeight);
 
     for (int i = 0; i < botsNumber; i++)
     {
@@ -67,7 +74,7 @@ int main(int argc, char *argv[])
         game->slotCreatePortal();
     }
 
-    window->show();
+    window->showFullScreen();
 
     game->slotStart();
 

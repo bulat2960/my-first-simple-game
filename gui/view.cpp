@@ -2,7 +2,7 @@
 
 View::View(Scene* scene) : QGraphicsView(scene)
 {
-    //centerOn(0, 0);
+    centerOn(0, 0);
 
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
