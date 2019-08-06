@@ -49,12 +49,13 @@ int main(int argc, char *argv[])
     Scene* scene = new Scene(maze, player);
     QObject::connect(game, &Game::signalCreated, scene, &Scene::addItem);
 
-    View* view = new View(scene);
+    GameDataPanel* gameDataPanel = new GameDataPanel;
+
+    View* view = new View(scene, gameDataPanel);
     view->setGeometry(0, 100, screenWidth, screenHeight - 100);
 
-
-    GameDataPanel* gameData = new GameDataPanel(view);
-    gameData->setGeometry(0, view->height() - 100, view->width(), 100);
+    gameDataPanel->setGeometry(0, view->height() - 100, view->width(), 100);
+    gameDataPanel->setParent(view);
 
     Window* window = new Window(view);
 
@@ -74,7 +75,7 @@ int main(int argc, char *argv[])
         game->slotCreatePortal();
     }
 
-    window->showFullScreen();
+    window->show();
 
     game->slotStart();
 
