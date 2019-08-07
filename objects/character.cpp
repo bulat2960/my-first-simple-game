@@ -5,7 +5,7 @@ Character::Character(Sector* sector) : Object(sector)
     gameSettings.speed = 200;
     gameSettings.damage = 1;
     gameSettings.hitpoints = 10;
-
+    gameSettings.alive = true;
     gameSettings.respawnTimer = new QTimer(this);
     gameSettings.respawnTimer->setSingleShot(true);
     gameSettings.respawnTimer->setInterval(1000 + qrand() % 1000);

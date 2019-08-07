@@ -65,7 +65,6 @@ int main(int argc, char *argv[])
     QObject::connect(buttonsPanel, &ButtonsPanel::signalStop, game, &Game::slotStop);
 
     Window* window = new Window(view, buttonsPanel);
-    window->setFocus();
 
     for (int i = 0; i < botsNumber; i++)
     {
