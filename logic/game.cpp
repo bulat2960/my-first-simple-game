@@ -20,6 +20,7 @@ void Game::slotCreateBot()
     bot->setColor(Qt::blue);
     bot->setZValue(-20);
     bots.push_back(bot);
+
     connect(bot, &Bot::signalFindCharacter, collisionDetector, &CollisionDetector::slotFindCharacter);
     connect(bot, &Bot::signalFindPortal, collisionDetector, &CollisionDetector::slotFindPortal);
 
@@ -51,26 +52,50 @@ void Game::slotCreatePortal()
 void Game::slotStart()
 {
     player->start();
-    for (int i = 0; i < bots.size(); i++)
+    foreach (Bot* bot, bots)
     {
-        bots[i]->start();
+        bot->start();
+    }
+    foreach (Bonus* bonus, bonuses)
+    {
+        bonus->start();
+    }
+    foreach (Portal* portal, portals)
+    {
+        portal->start();
     }
 }
 
 void Game::slotResume()
 {
     player->resume();
-    for (int i = 0; i < bots.size(); i++)
+    foreach (Bot* bot, bots)
     {
-        bots[i]->resume();
+        bot->resume();
+    }
+    foreach (Bonus* bonus, bonuses)
+    {
+        bonus->resume();
+    }
+    foreach (Portal* portal, portals)
+    {
+        portal->resume();
     }
 }
 
 void Game::slotPause()
 {
     player->pause();
-    for (int i = 0; i < bots.size(); i++)
+    foreach (Bot* bot, bots)
     {
-        bots[i]->pause();
+        bot->pause();
+    }
+    foreach (Bonus* bonus, bonuses)
+    {
+        bonus->pause();
+    }
+    foreach (Portal* portal, portals)
+    {
+        portal->pause();
     }
 }

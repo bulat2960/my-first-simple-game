@@ -20,7 +20,7 @@ Player::Player(Sector* sector) : Character(sector)
 
 void Player::clearUsedKeys()
 {
-    foreach(int key, usedKeys.keys())
+    foreach (int key, usedKeys.keys())
     {
         usedKeys[key] = false;
     }

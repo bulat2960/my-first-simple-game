@@ -7,7 +7,6 @@
 
 #include "maze/sector.h"
 #include "maze/maze.h"
-#include "gui/window.h"
 #include "gui/view.h"
 #include "gui/scene.h"
 #include "gui/gamedatapanel.h"
@@ -33,6 +32,10 @@ int main(int argc, char *argv[])
     const int bonusesNumber = 10;
     const int portalsNumber = 10;
 
+    QScreen* screen = a.screens()[0];
+    int screenHeight = screen->geometry().height();
+    int screenWidth = screen->geometry().width();
+
     Maze* maze = new Maze(mHeight, mWidth, sHeight, sWidth);
 
     Player* player = new Player(maze->sector(0, 0));
@@ -41,29 +44,24 @@ int main(int argc, char *argv[])
 
     Game* game = new Game(maze, player);
 
-    QScreen* screen = a.screens()[0];
-    int screenHeight = screen->geometry().height();
-    int screenWidth = screen->geometry().width();
-
     Scene* scene = new Scene(maze, player);
     QObject::connect(game, &Game::signalCreated, scene, &Scene::addItem);
 
     GameDataPanel* gameDataPanel = new GameDataPanel;
+    ButtonsPanel* buttonsPanel = new ButtonsPanel;
 
     View* view = new View(scene, gameDataPanel);
     view->setGeometry(0, BUTTONS_PANEL_HEIGHT, screenWidth, screenHeight - BUTTONS_PANEL_HEIGHT);
 
-    gameDataPanel->setParent(view);
     gameDataPanel->setGeometry(0, view->height(), view->width(), 0);
+    gameDataPanel->setParent(view);
 
-    ButtonsPanel* buttonsPanel = new ButtonsPanel;
-    buttonsPanel->setGeometry(0, 0, screenWidth, 50);
+    buttonsPanel->setGeometry(screenWidth / 2 - 100, screenHeight / 2 - 100, 200, 200);
+    buttonsPanel->setParent(view);
     QObject::connect(buttonsPanel, &ButtonsPanel::signalExit, &a, QApplication::quit);
     QObject::connect(buttonsPanel, &ButtonsPanel::signalStart, game, &Game::slotStart);
     QObject::connect(buttonsPanel, &ButtonsPanel::signalResume, game, &Game::slotResume);
     QObject::connect(buttonsPanel, &ButtonsPanel::signalPause, game, &Game::slotPause);
-
-    Window* window = new Window(view, buttonsPanel);
 
     for (int i = 0; i < botsNumber; i++)
     {
@@ -78,7 +76,7 @@ int main(int argc, char *argv[])
         game->slotCreatePortal();
     }
 
-    window->show();
+    view->show();
 
     return a.exec();
 }

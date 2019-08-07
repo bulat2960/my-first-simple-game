@@ -27,7 +27,6 @@ CONFIG += c++11
 SOURCES += \
         gui/scene.cpp \
         gui/view.cpp \
-        gui/window.cpp \
         logic/battleexecutor.cpp \
         logic/collisiondetector.cpp \
         main.cpp \
@@ -51,7 +50,6 @@ HEADERS += \
     globaloptions.h \
     gui/scene.h \
     gui/view.h \
-    gui/window.h \
     logic/battleexecutor.h \
     logic/collisiondetector.h \
     maze/builder.h \

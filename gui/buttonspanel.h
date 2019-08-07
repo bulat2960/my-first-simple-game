@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QPushButton>
-#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 class ButtonsPanel : public QWidget
 {
@@ -14,11 +14,13 @@ private:
     QPushButton* pauseButton;
     QPushButton* exitButton;
 
-    QHBoxLayout* buttonLayout;
+    QVBoxLayout* buttonLayout;
 public:
     ButtonsPanel(QWidget* parent = nullptr);
 private slots:
     void slotReplaceButton();
+    void slotResume();
+    void slotPause();
 signals:
     void signalExit();
     void signalStart();
