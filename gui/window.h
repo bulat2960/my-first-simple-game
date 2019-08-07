@@ -13,9 +13,7 @@ private:
     View* view;
     ButtonsPanel* buttonsPanel;
 public:
-    Window(View* view);
-public slots:
-
+    Window(View* view, ButtonsPanel* buttonsPanel);
 };
 
 #endif // WINDOW_H

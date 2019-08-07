@@ -3,33 +3,29 @@
 GameDataPanel::GameDataPanel(QWidget *parent) : QWidget(parent)
 {
     anim = new QPropertyAnimation(this, "pos");
+    anim->setDuration(500);
     isVisible = false;
-
-    setGeometry(0, 0, 0, 0);
 }
 
-void GameDataPanel::startAnimation()
+void GameDataPanel::animShow()
 {
-    QRect rect1 = QRect(0, parentWidget()->height(), parentWidget()->width(), 0);
-    QRect rect2 = QRect(0, parentWidget()->height() - GAME_DATA_PANEL_HEIGHT, parentWidget()->width(), GAME_DATA_PANEL_HEIGHT);
-
-    if (anim->state() == QPropertyAnimation::Running)
+    if (anim->state() != QPropertyAnimation::Stopped)
     {
-        return;
+        anim->stop();
     }
+    anim->setStartValue(geometry());
+    anim->setEndValue(QRect(0, parentWidget()->height() - GAME_DATA_PANEL_HEIGHT, parentWidget()->width(), GAME_DATA_PANEL_HEIGHT));
+    anim->start();
+}
 
-    if (!isVisible)
+void GameDataPanel::animHide()
+{
+    if (anim->state() != QPropertyAnimation::Stopped)
     {
-        anim->setStartValue(rect1);
-        anim->setEndValue(rect2);
-        isVisible = true;
-     }
-    else
-    {
-        anim->setStartValue(rect2);
-        anim->setEndValue(rect1);
-        isVisible = false;
+        anim->stop();
     }
+    anim->setStartValue(geometry());
+    anim->setEndValue(QRect(0, parentWidget()->height(), parentWidget()->width(), 0));
     anim->start();
 }
 

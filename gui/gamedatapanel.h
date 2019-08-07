@@ -19,7 +19,8 @@ private:
 public:
     explicit GameDataPanel(QWidget *parent = nullptr);
 
-    void startAnimation();
+    void animShow();
+    void animHide();
 public slots:
     void paintEvent(QPaintEvent* event) override;
 };

@@ -54,11 +54,9 @@ int main(int argc, char *argv[])
     view->setGeometry(0, BUTTONS_PANEL_HEIGHT, screenWidth, screenHeight - BUTTONS_PANEL_HEIGHT);
 
     gameDataPanel->setParent(view);
+    gameDataPanel->setGeometry(0, view->height(), view->width(), 0);
 
-    Window* window = new Window(view);
-    window->setFocus();
-
-    ButtonsPanel* buttonsPanel = new ButtonsPanel(window);
+    ButtonsPanel* buttonsPanel = new ButtonsPanel;
     buttonsPanel->setGeometry(0, 0, screenWidth, 50);
     QObject::connect(buttonsPanel, &ButtonsPanel::signalExit, &a, QApplication::quit);
     QObject::connect(buttonsPanel, &ButtonsPanel::signalStart, game, &Game::slotStart);
@@ -66,7 +64,8 @@ int main(int argc, char *argv[])
     QObject::connect(buttonsPanel, &ButtonsPanel::signalPause, game, &Game::slotPause);
     QObject::connect(buttonsPanel, &ButtonsPanel::signalStop, game, &Game::slotStop);
 
-    view->setParent(window);
+    Window* window = new Window(view, buttonsPanel);
+    window->setFocus();
 
     for (int i = 0; i < botsNumber; i++)
     {
