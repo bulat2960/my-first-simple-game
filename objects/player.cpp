@@ -18,6 +18,20 @@ Player::Player(Sector* sector) : Character(sector)
     setMovementPermission(false);
 }
 
+void Player::clearUsedKeys()
+{
+    foreach(int key, usedKeys.keys())
+    {
+        usedKeys[key] = false;
+    }
+}
+
+void Player::pause()
+{
+    Character::pause();
+    clearUsedKeys();
+}
+
 void Player::slotFindCorrectMoveDir()
 {
     bool shiftKeyPressed = usedKeys[Qt::Key_Shift];

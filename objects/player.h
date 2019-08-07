@@ -11,8 +11,12 @@ class Player : public Character
 {
 private:
     QMap<int, bool> usedKeys;
+private:
+    void clearUsedKeys();
 public:
     Player(Sector* sector);
+
+    void pause() override;
 private slots:
     void slotFindCorrectMoveDir() override;
 public slots:
