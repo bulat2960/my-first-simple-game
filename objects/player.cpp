@@ -57,17 +57,6 @@ void Player::slotFindCorrectMoveDir()
     }
 }
 
-void Player::setMovementPermission(bool value)
-{
-    setAcceptTouchEvents(value);
-    (value == false) ? pause() : resume();
-}
-
-bool Player::haveMovementPermission() const
-{
-    return acceptTouchEvents();
-}
-
 bool Player::eventFilter(QObject* obj, QEvent* event)
 {
     if (!haveMovementPermission())

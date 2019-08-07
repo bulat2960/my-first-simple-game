@@ -42,7 +42,6 @@ public slots:
     void slotStart();
     void slotResume();
     void slotPause();
-    void slotStop();
 };
 
 #endif // GAME_H

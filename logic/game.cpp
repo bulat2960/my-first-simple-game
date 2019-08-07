@@ -50,7 +50,7 @@ void Game::slotCreatePortal()
 
 void Game::slotStart()
 {
-    player->setMovementPermission(true);
+    player->start();
     for (int i = 0; i < bots.size(); i++)
     {
         bots[i]->start();
@@ -59,7 +59,7 @@ void Game::slotStart()
 
 void Game::slotResume()
 {
-    player->setMovementPermission(true);
+    player->resume();
     for (int i = 0; i < bots.size(); i++)
     {
         bots[i]->resume();
@@ -68,14 +68,9 @@ void Game::slotResume()
 
 void Game::slotPause()
 {
-    player->setMovementPermission(false);
+    player->pause();
     for (int i = 0; i < bots.size(); i++)
     {
         bots[i]->pause();
     }
-}
-
-void Game::slotStop()
-{
-
 }

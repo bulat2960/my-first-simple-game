@@ -62,7 +62,6 @@ int main(int argc, char *argv[])
     QObject::connect(buttonsPanel, &ButtonsPanel::signalStart, game, &Game::slotStart);
     QObject::connect(buttonsPanel, &ButtonsPanel::signalResume, game, &Game::slotResume);
     QObject::connect(buttonsPanel, &ButtonsPanel::signalPause, game, &Game::slotPause);
-    QObject::connect(buttonsPanel, &ButtonsPanel::signalStop, game, &Game::slotStop);
 
     Window* window = new Window(view, buttonsPanel);
 

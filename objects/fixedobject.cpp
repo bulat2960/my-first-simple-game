@@ -54,15 +54,16 @@ void FixedObject::start()
 
 void FixedObject::resume()
 {
-    animations.rotateAnim->resume();
+    if (animations.rotateAnim->state() == QPropertyAnimation::Paused)
+    {
+        animations.rotateAnim->resume();
+    }
 }
 
 void FixedObject::pause()
 {
-    animations.rotateAnim->pause();
-}
-
-void FixedObject::stop()
-{
-    animations.rotateAnim->stop();
+    if (animations.rotateAnim->state() != QPropertyAnimation::Stopped)
+    {
+        animations.rotateAnim->pause();
+    }
 }

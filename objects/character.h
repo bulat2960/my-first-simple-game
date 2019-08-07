@@ -33,6 +33,9 @@ protected:
     QMap<int, QPoint> directions;
 protected:
     void move(QPoint nextPos);
+
+    void setMovementPermission(bool value);
+    bool haveMovementPermission() const;
 public:
     Character(Sector* sector);
 
@@ -53,7 +56,6 @@ public:
     void start() override;
     void resume() override;
     void pause() override;
-    void stop() override;
 
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 private slots:

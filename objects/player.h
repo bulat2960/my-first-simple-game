@@ -13,8 +13,6 @@ private:
     QMap<int, bool> usedKeys;
 public:
     Player(Sector* sector);
-    void setMovementPermission(bool value);
-    bool haveMovementPermission() const;
 private slots:
     void slotFindCorrectMoveDir() override;
 public slots:

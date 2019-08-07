@@ -24,7 +24,6 @@ public:
     void start() override;
     void resume() override;
     void pause() override;
-    void stop() override;
 };
 
 #endif // FIXEDOBJECT_H

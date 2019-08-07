@@ -81,6 +81,16 @@ void Character::move(QPoint nextPos)
     setSector(nextSector);
 }
 
+void Character::setMovementPermission(bool value)
+{
+    setAcceptTouchEvents(value);
+}
+
+bool Character::haveMovementPermission() const
+{
+    return acceptTouchEvents();
+}
+
 bool Character::alive() const
 {
     return gameSettings.alive;
@@ -131,20 +141,24 @@ void Character::setStartPosition()
 
 void Character::start()
 {
+    setMovementPermission(true);
     slotFindCorrectMoveDir();
 }
 
 void Character::resume()
 {
-    animations.moveAnim->resume();
+    setMovementPermission(true);
+    if (animations.moveAnim->state() == QPropertyAnimation::Paused)
+    {
+        animations.moveAnim->resume();
+    }
 }
 
 void Character::pause()
 {
-    animations.moveAnim->pause();
-}
-
-void Character::stop()
-{
-    animations.moveAnim->stop();
+    setMovementPermission(false);
+    if (animations.moveAnim->state() != QPropertyAnimation::Stopped)
+    {
+        animations.moveAnim->pause();
+    }
 }
