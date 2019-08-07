@@ -100,10 +100,7 @@ void Character::kill()
 {
     gameSettings.alive = false;
     gameSettings.respawnTimer->start();
-    if (animations.moveAnim->state() == QPropertyAnimation::Running)
-    {
-        animations.moveAnim->pause();
-    }
+    pause();
     hide();
 }
 
@@ -111,10 +108,7 @@ void Character::respawn()
 {
     gameSettings.alive = true;
     gameSettings.respawnTimer->stop();
-    if (animations.moveAnim->state() == QPropertyAnimation::Paused && haveMovementPermission())
-    {
-        animations.moveAnim->resume();
-    }
+    resume();
     show();
 }
 
@@ -170,6 +164,7 @@ QByteArray Character::gameData() const
     s += "Damage: " + QByteArray::number(gameSettings.damage) + "|";
     s += "Hitpoints: " + QByteArray::number(gameSettings.hitpoints) + "|";
     s += "Is alive: " + (gameSettings.alive ? QByteArray("true") : QByteArray("false")) + "|";
-    s += "Respawn timer: " + QByteArray::number(gameSettings.respawnTimer->remainingTime());
+    s += "Respawn timer: " + (gameSettings.respawnTimer->remainingTime() > 0 ?
+                              QByteArray::number(gameSettings.respawnTimer->remainingTime() / 1000.0, 'f', 1) : "0");
     return s;
 }
