@@ -13,6 +13,11 @@ void GameDataPanel::startAnimation()
     QRect rect1 = QRect(0, parentWidget()->height(), parentWidget()->width(), 0);
     QRect rect2 = QRect(0, parentWidget()->height() - GAME_DATA_PANEL_HEIGHT, parentWidget()->width(), GAME_DATA_PANEL_HEIGHT);
 
+    if (anim->state() == QPropertyAnimation::Running)
+    {
+        return;
+    }
+
     if (!isVisible)
     {
         anim->setStartValue(rect1);

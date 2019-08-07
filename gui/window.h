@@ -15,7 +15,6 @@ private:
 public:
     Window(View* view);
 public slots:
-    bool eventFilter(QObject* object, QEvent* event) override;
 
 };
 

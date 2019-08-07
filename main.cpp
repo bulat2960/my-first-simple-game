@@ -52,11 +52,11 @@ int main(int argc, char *argv[])
 
     View* view = new View(scene, gameDataPanel);
     view->setGeometry(0, BUTTONS_PANEL_HEIGHT, screenWidth, screenHeight - BUTTONS_PANEL_HEIGHT);
-    view->setFocusPolicy(Qt::StrongFocus);
 
     gameDataPanel->setParent(view);
 
     Window* window = new Window(view);
+    window->setFocus();
 
     ButtonsPanel* buttonsPanel = new ButtonsPanel(window);
     buttonsPanel->setGeometry(0, 0, screenWidth, 50);

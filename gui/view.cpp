@@ -22,14 +22,24 @@ bool View::eventFilter(QObject* object, QEvent* event)
     QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
     int key = keyEvent->key();
 
-    if ((event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease) && key != Qt::Key_Tab)
+    if (event->type() == QEvent::FocusOut)
     {
-        scene->eventFilter(object, event);
-        return true;
+        setFocus();
     }
-    if (event->type() == QEvent::KeyPress && key == Qt::Key_Tab)
+    if (event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease)
     {
-        panel->startAnimation();
+        if (key != Qt::Key_Tab)
+        {
+            scene->eventFilter(object, event);
+        }
+        else
+        {
+            if (keyEvent->isAutoRepeat() == false)
+            {
+                panel->startAnimation();
+            }
+
+        }
         return true;
     }
     return QObject::eventFilter(object, event);
