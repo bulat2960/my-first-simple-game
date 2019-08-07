@@ -13,6 +13,16 @@ ButtonsPanel::ButtonsPanel(QWidget *parent) : QWidget(parent)
     buttonLayout->addWidget(pauseButton);
     buttonLayout->addWidget(exitButton);
 
+    startButton->setMinimumHeight(MENU_PANEL_HEIGHT / buttonLayout->count());
+    resumeButton->setMinimumHeight(MENU_PANEL_HEIGHT / buttonLayout->count());
+    pauseButton->setMinimumHeight(MENU_PANEL_HEIGHT / buttonLayout->count());
+    exitButton->setMinimumHeight(MENU_PANEL_HEIGHT / buttonLayout->count());
+
+    startButton->setMaximumHeight(MENU_PANEL_HEIGHT / buttonLayout->count());
+    resumeButton->setMaximumHeight(MENU_PANEL_HEIGHT / buttonLayout->count());
+    pauseButton->setMaximumHeight(MENU_PANEL_HEIGHT / buttonLayout->count());
+    exitButton->setMaximumHeight(MENU_PANEL_HEIGHT / buttonLayout->count());
+
     connect(startButton, &QPushButton::clicked, this, &ButtonsPanel::signalStart);
     connect(startButton, &QPushButton::clicked, this, &ButtonsPanel::slotReplaceButton);
 
@@ -20,12 +30,15 @@ ButtonsPanel::ButtonsPanel(QWidget *parent) : QWidget(parent)
     connect(pauseButton, &QPushButton::clicked, this, &ButtonsPanel::slotPause);
 
     connect(exitButton, &QPushButton::clicked, this, &ButtonsPanel::signalExit);
+
+    pauseButton->setEnabled(false);
 }
 
 void ButtonsPanel::slotReplaceButton()
 {
     buttonLayout->replaceWidget(startButton, resumeButton);
     resumeButton->setEnabled(false);
+    pauseButton->setEnabled(true);
 }
 
 void ButtonsPanel::slotResume()

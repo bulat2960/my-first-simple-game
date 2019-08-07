@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
     const int sWidth = 10;
     const int mHeight = 3;
     const int mWidth = 6;
-    const int botsNumber = 10;
+    const int botsNumber = 50;
     const int bonusesNumber = 10;
     const int portalsNumber = 10;
 
@@ -50,13 +50,16 @@ int main(int argc, char *argv[])
     GameDataPanel* gameDataPanel = new GameDataPanel;
     ButtonsPanel* buttonsPanel = new ButtonsPanel;
 
-    View* view = new View(scene, gameDataPanel);
-    view->setGeometry(0, BUTTONS_PANEL_HEIGHT, screenWidth, screenHeight - BUTTONS_PANEL_HEIGHT);
+    View* view = new View(scene, gameDataPanel, buttonsPanel);
+    view->setGeometry(0, 0, screenWidth, screenHeight);
 
     gameDataPanel->setGeometry(0, view->height(), view->width(), 0);
     gameDataPanel->setParent(view);
+    QObject::connect(game, &Game::signalSendToGamePanel, gameDataPanel, &GameDataPanel::slotReceiveDataFromGame);
 
-    buttonsPanel->setGeometry(screenWidth / 2 - 100, screenHeight / 2 - 100, 200, 200);
+    QPoint menuTopLeft = QPoint((screenWidth - MENU_PANEL_WIDTH) / 2, (screenHeight - MENU_PANEL_HEIGHT) / 2);
+    QPoint menuBottomRight = menuTopLeft + QPoint(MENU_PANEL_WIDTH, MENU_PANEL_HEIGHT);
+    buttonsPanel->setGeometry(QRect(menuTopLeft, menuBottomRight));
     buttonsPanel->setParent(view);
     QObject::connect(buttonsPanel, &ButtonsPanel::signalExit, &a, QApplication::quit);
     QObject::connect(buttonsPanel, &ButtonsPanel::signalStart, game, &Game::slotStart);

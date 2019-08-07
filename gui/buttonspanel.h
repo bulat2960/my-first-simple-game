@@ -4,6 +4,9 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <QSizePolicy>
+
+#include "globaloptions.h"
 
 class ButtonsPanel : public QWidget
 {

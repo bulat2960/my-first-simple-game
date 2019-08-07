@@ -32,8 +32,6 @@ private:
 
 public:
     Game(Maze* maze, Player* player);
-signals:
-    void signalCreated(Object* object);
 public slots:
     void slotCreateBot();
     void slotCreateBonus();
@@ -42,6 +40,11 @@ public slots:
     void slotStart();
     void slotResume();
     void slotPause();
+
+    void slotReceiveData();
+signals:
+    void signalCreated(Object* object);
+    void signalSendToGamePanel(QByteArray data);
 };
 
 #endif // GAME_H

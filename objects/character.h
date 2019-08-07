@@ -18,7 +18,6 @@ protected:
         int speed;
         int damage;
         int hitpoints;
-
         bool alive;
         QTimer* respawnTimer;
     };
@@ -57,12 +56,15 @@ public:
     void resume() override;
     void pause() override;
 
+    QByteArray gameData() const;
+
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 private slots:
     virtual void slotFindCorrectMoveDir() = 0;
 signals:
     void signalFindPortal();
     void signalFindCharacter();
+    void signalSendData();
 };
 
 #endif // CHARACTER_H

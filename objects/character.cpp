@@ -111,7 +111,7 @@ void Character::respawn()
 {
     gameSettings.alive = true;
     gameSettings.respawnTimer->stop();
-    if (animations.moveAnim->state() == QPropertyAnimation::Paused)
+    if (animations.moveAnim->state() == QPropertyAnimation::Paused && haveMovementPermission())
     {
         animations.moveAnim->resume();
     }
@@ -161,4 +161,15 @@ void Character::pause()
     {
         animations.moveAnim->pause();
     }
+}
+
+QByteArray Character::gameData() const
+{
+    QByteArray s;
+    s += "Speed: " + QByteArray::number(gameSettings.speed) + "|";
+    s += "Damage: " + QByteArray::number(gameSettings.damage) + "|";
+    s += "Hitpoints: " + QByteArray::number(gameSettings.hitpoints) + "|";
+    s += "Is alive: " + (gameSettings.alive ? QByteArray("true") : QByteArray("false")) + "|";
+    s += "Respawn timer: " + QByteArray::number(gameSettings.respawnTimer->remainingTime());
+    return s;
 }

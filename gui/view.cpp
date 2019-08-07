@@ -1,8 +1,9 @@
 ﻿#include "view.h"
 
-View::View(Scene* scene, GameDataPanel *panel) : QGraphicsView(scene)
+View::View(Scene* scene, GameDataPanel* gameDataPanel, ButtonsPanel* buttonsPanel) : QGraphicsView(scene)
 {
-    this->panel = panel;
+    this->gameDataPanel = gameDataPanel;
+    this->buttonsPanel = buttonsPanel;
     this->scene = scene;
 
     setScene(scene);
@@ -22,20 +23,25 @@ bool View::eventFilter(QObject* object, QEvent* event)
     QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
     int key = keyEvent->key();
 
-    if ((event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease) && key != Qt::Key_Tab)
+    if (event->type() == QEvent::KeyPress && key == Qt::Key_Escape)
     {
-         scene->eventFilter(object, event);
-         return true;
+        buttonsPanel->isHidden() ? buttonsPanel->show() : buttonsPanel->hide();
+        return true;
     }
     if (event->type() == QEvent::KeyPress && key == Qt::Key_Tab)
     {
-        panel->animShow();
+        gameDataPanel->animShow();
         return true;
     }
     if (event->type() == QEvent::KeyRelease && key == Qt::Key_Tab)
     {
-        panel->animHide();
+        gameDataPanel->animHide();
         return true;
+    }
+    if (event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease)
+    {
+         scene->eventFilter(object, event);
+         return true;
     }
     return QObject::eventFilter(object, event);
 }

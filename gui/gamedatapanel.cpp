@@ -4,6 +4,8 @@ GameDataPanel::GameDataPanel(QWidget *parent) : QWidget(parent)
 {
     anim = new QPropertyAnimation(this, "pos");
     anim->setDuration(200);
+
+    textEdit = new QTextEdit(this);
 }
 
 void GameDataPanel::animShow()
@@ -28,10 +30,22 @@ void GameDataPanel::animHide()
     anim->start();
 }
 
+void GameDataPanel::slotReceiveDataFromGame(QByteArray data)
+{
+    textEdit->setGeometry(0, 0, width(), height()); // Transfer to other place
+    textEdit->clear();
+    this->receivedData = data;
+    QList<QByteArray> keys = data.split('|');
+    for (int i = 0; i < keys.size(); i++)
+    {
+        textEdit->append(keys[i]);
+    }
+    repaint();
+}
+
 void GameDataPanel::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event);
 
     QPainter painter(this);
-    painter.fillRect(0, 0, width(), height(), Qt::red);
 }

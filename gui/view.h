@@ -7,15 +7,17 @@
 
 #include "scene.h"
 #include "gamedatapanel.h"
+#include "buttonspanel.h"
 
 class View : public QGraphicsView
 {
     Q_OBJECT
 private:
     Scene* scene;
-    GameDataPanel* panel;
+    GameDataPanel* gameDataPanel;
+    ButtonsPanel* buttonsPanel;
 public:
-    View(Scene* scene, GameDataPanel* panel);
+    View(Scene* scene, GameDataPanel* gameDataPanel, ButtonsPanel* buttonsPanel);
 public slots:
     bool eventFilter(QObject* object, QEvent* event) override;
 
