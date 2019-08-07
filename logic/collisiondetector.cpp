@@ -21,12 +21,7 @@ void CollisionDetector::slotFindCharacter()
             Bot* bot = bots[i];
             if (bot->alive() && p->collidesWithItem(bot))
             {
-                qDebug() << "Battle!";
                 emit signalBattle(p, bot);
-            }
-            else
-            {
-                qDebug() << "Bot number" << (i + 1) << ":" << bot->alive() << p->collidesWithItem(bot);
             }
         }
     }

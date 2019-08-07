@@ -14,6 +14,8 @@ Player::Player(Sector* sector) : Character(sector)
     timer->setInterval(1);
     connect(timer, &QTimer::timeout, this, &Player::slotFindCorrectMoveDir);
     timer->start();
+
+    setMovementPermission(false);
 }
 
 void Player::slotFindCorrectMoveDir()
@@ -55,8 +57,24 @@ void Player::slotFindCorrectMoveDir()
     }
 }
 
+void Player::setMovementPermission(bool value)
+{
+    setAcceptTouchEvents(value);
+    (value == false) ? pause() : resume();
+}
+
+bool Player::haveMovementPermission() const
+{
+    return acceptTouchEvents();
+}
+
 bool Player::eventFilter(QObject* obj, QEvent* event)
 {
+    if (!haveMovementPermission())
+    {
+        return QObject::eventFilter(obj, event);
+    }
+
     QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
     int key = keyEvent->key();
 

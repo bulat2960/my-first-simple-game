@@ -8,7 +8,6 @@ FixedObject::FixedObject(Sector* sector) : Object(sector)
     animations.rotateAnim->setEndValue(3600);
     animations.rotateAnim->setLoopCount(-1);
     animations.rotateAnim->setEasingCurve(QEasingCurve::InOutSine);
-    animations.rotateAnim->start();
 
     setStartPosition();
 }
@@ -46,4 +45,24 @@ void FixedObject::setStartPosition()
             break;
         }
     }
+}
+
+void FixedObject::start()
+{
+    animations.rotateAnim->start();
+}
+
+void FixedObject::resume()
+{
+    animations.rotateAnim->resume();
+}
+
+void FixedObject::pause()
+{
+    animations.rotateAnim->pause();
+}
+
+void FixedObject::stop()
+{
+    animations.rotateAnim->stop();
 }

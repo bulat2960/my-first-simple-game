@@ -128,3 +128,23 @@ void Character::setStartPosition()
         }
     }
 }
+
+void Character::start()
+{
+    slotFindCorrectMoveDir();
+}
+
+void Character::resume()
+{
+    animations.moveAnim->resume();
+}
+
+void Character::pause()
+{
+    animations.moveAnim->pause();
+}
+
+void Character::stop()
+{
+    animations.moveAnim->stop();
+}

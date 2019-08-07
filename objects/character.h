@@ -50,7 +50,14 @@ public:
 
     void setStartPosition() override;
 
+    void start() override;
+    void resume() override;
+    void pause() override;
+    void stop() override;
+
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+private slots:
+    virtual void slotFindCorrectMoveDir() = 0;
 signals:
     void signalFindPortal();
     void signalFindCharacter();

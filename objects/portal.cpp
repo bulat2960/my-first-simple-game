@@ -41,7 +41,6 @@ void Portal::setStartPosition()
                     continue;
                 }
 
-
                 x += mapPosition.sector->position().x() * mapPosition.sector->width();
                 y += mapPosition.sector->position().y() * mapPosition.sector->height();
                 setPosition(x, y);

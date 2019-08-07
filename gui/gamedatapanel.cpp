@@ -3,8 +3,7 @@
 GameDataPanel::GameDataPanel(QWidget *parent) : QWidget(parent)
 {
     anim = new QPropertyAnimation(this, "pos");
-    anim->setDuration(500);
-    isVisible = false;
+    anim->setDuration(200);
 }
 
 void GameDataPanel::animShow()

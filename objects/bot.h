@@ -7,8 +7,8 @@ class Bot : public Character
 {
 public:
     Bot(Sector* sector);
-public slots:
-    void slotFindCorrectMoveDir();
+private slots:
+    void slotFindCorrectMoveDir() override;
 };
 
 #endif // BOT_H

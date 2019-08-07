@@ -13,8 +13,10 @@ private:
     QMap<int, bool> usedKeys;
 public:
     Player(Sector* sector);
+    void setMovementPermission(bool value);
+    bool haveMovementPermission() const;
 private slots:
-    void slotFindCorrectMoveDir();
+    void slotFindCorrectMoveDir() override;
 public slots:
     virtual bool eventFilter(QObject* obj, QEvent* event) override;
 };

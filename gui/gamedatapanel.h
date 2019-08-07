@@ -15,7 +15,6 @@ class GameDataPanel : public QWidget
     Q_PROPERTY(QRect pos READ geometry WRITE setGeometry)
 private:
     QPropertyAnimation* anim;
-    bool isVisible;
 public:
     explicit GameDataPanel(QWidget *parent = nullptr);
 

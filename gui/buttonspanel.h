@@ -10,14 +10,15 @@ class ButtonsPanel : public QWidget
     Q_OBJECT
 private:
     QPushButton* startButton;
+    QPushButton* pauseButton;
     QPushButton* stopButton;
     QPushButton* exitButton;
 
     QHBoxLayout* buttonLayout;
 public:
     ButtonsPanel(QWidget* parent = nullptr);
-public slots:
-    void changeStartButtonName();
+private slots:
+    void slotChangeStartButtonName();
 signals:
     void signalExit();
     void signalStart();
