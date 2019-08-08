@@ -71,7 +71,6 @@ int main(int argc, char *argv[])
 
     gameDataPanel->setGeometry(0, window->height(), window->width(), 0);
     gameDataPanel->setParent(window);
-    gameDataPanel->setElementsGeometries();
     QObject::connect(game, &Game::signalSendToGamePanel, gameDataPanel, &GameDataPanel::slotReceiveDataFromGame);
 
     for (int i = 0; i < botsNumber; i++)

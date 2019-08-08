@@ -11,20 +11,21 @@ Window::Window(View* view, GameDataPanel* gameDataPanel, ButtonsPanel* buttonsPa
 
 bool Window::eventFilter(QObject* object, QEvent* event)
 {
-    if (event->type() != QEvent::LayoutRequest && event->type() != QEvent::UpdateRequest && event->type() != QEvent::ToolTip
-            && event->type() != QEvent::Leave && event->type() != QEvent::Enter)
-    {
-        qDebug() << "WINDOW" << this << object;
-        qDebug() << "WINDOW EVENT" << event->type() << hasFocus();
-        qDebug() << "";
-    }
-
     QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
     int key = keyEvent->key();
 
     if (event->type() == QEvent::KeyPress && key == Qt::Key_Escape)
     {
-        buttonsPanel->isHidden() ? buttonsPanel->show() : buttonsPanel->hide();
+        if (buttonsPanel->isHidden())
+        {
+            buttonsPanel->show();
+            buttonsPanel->slotPause();
+        }
+        else
+        {
+            buttonsPanel->hide();
+            buttonsPanel->slotResume();
+        }
         return true;
     }
     if (event->type() == QEvent::KeyPress && key == Qt::Key_Tab)

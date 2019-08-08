@@ -25,8 +25,6 @@ private:
 public:
     explicit GameDataPanel(QWidget *parent = nullptr);
 
-    void setElementsGeometries();
-
     void animShow();
     void animHide();
     bool isVisible() const;

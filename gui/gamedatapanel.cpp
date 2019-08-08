@@ -57,11 +57,6 @@ void GameDataPanel::slotReceiveDataFromGame(QByteArray data)
     repaint();
 }
 
-void GameDataPanel::setElementsGeometries()
-{
-
-}
-
 bool GameDataPanel::isVisible() const
 {
     return visible;

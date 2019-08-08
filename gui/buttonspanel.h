@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include <QSizePolicy>
+#include <QLabel>
 
 #include "globaloptions.h"
 
@@ -13,14 +13,13 @@ class ButtonsPanel : public QWidget
     Q_OBJECT
 private:
     QPushButton* startButton;
-    QPushButton* resumeButton;
-    QPushButton* pauseButton;
+    QLabel* pauseLabel;
     QPushButton* exitButton;
 
     QVBoxLayout* buttonLayout;
 public:
     ButtonsPanel(QWidget* parent = nullptr);
-private slots:
+public slots:
     void slotReplaceButton();
     void slotResume();
     void slotPause();
