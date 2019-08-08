@@ -5,7 +5,8 @@ GameDataPanel::GameDataPanel(QWidget *parent) : QWidget(parent)
     anim = new QPropertyAnimation(this, "pos");
     anim->setDuration(200);
 
-    textEdit = new QTextEdit(this);
+    label = new QLabel(this);
+    label->setStyleSheet("QLabel { background-color: blue; }");
 }
 
 void GameDataPanel::animShow()
@@ -32,14 +33,18 @@ void GameDataPanel::animHide()
 
 void GameDataPanel::slotReceiveDataFromGame(QByteArray data)
 {
-    textEdit->setGeometry(0, 0, width(), height()); // Transfer to other place
-    textEdit->clear();
+    label->setGeometry(0, 0, width(), height()); // Transfer to other place
+    label->clear();
     this->receivedData = data;
     QList<QByteArray> keys = data.split('|');
+
+    QByteArray result;
     for (int i = 0; i < keys.size(); i++)
     {
-        textEdit->append(keys[i]);
+        result.append(keys[i]);
+        result += " ";
     }
+    label->setText(result);
     repaint();
 }
 

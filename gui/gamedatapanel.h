@@ -6,7 +6,6 @@
 #include <QPaintEvent>
 #include <QPushButton>
 #include <QPropertyAnimation>
-#include <QTextEdit>
 #include <QLabel>
 
 #include "globaloptions.h"
@@ -19,7 +18,7 @@ private:
     QPropertyAnimation* anim;
 
     QByteArray receivedData;
-    QTextEdit* textEdit;
+    QLabel* label;
 public:
     explicit GameDataPanel(QWidget *parent = nullptr);
 
