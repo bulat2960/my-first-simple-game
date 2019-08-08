@@ -55,6 +55,7 @@ int main(int argc, char *argv[])
 
     gameDataPanel->setGeometry(0, view->height(), view->width(), 0);
     gameDataPanel->setParent(view);
+    gameDataPanel->setElementsGeometries();
     QObject::connect(game, &Game::signalSendToGamePanel, gameDataPanel, &GameDataPanel::slotReceiveDataFromGame);
 
     QPoint menuTopLeft = QPoint((screenWidth - MENU_PANEL_WIDTH) / 2, (screenHeight - MENU_PANEL_HEIGHT) / 2);

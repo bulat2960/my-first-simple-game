@@ -30,12 +30,12 @@ bool View::eventFilter(QObject* object, QEvent* event)
     }
     if (event->type() == QEvent::KeyPress && key == Qt::Key_Tab)
     {
-        gameDataPanel->animShow();
-        return true;
-    }
-    if (event->type() == QEvent::KeyRelease && key == Qt::Key_Tab)
-    {
-        gameDataPanel->animHide();
+        if (keyEvent->isAutoRepeat())
+        {
+            return QObject::eventFilter(object, event);
+        }
+        bool isGameDataPanelVisible = gameDataPanel->isVisible();
+        isGameDataPanelVisible ? gameDataPanel->animHide() : gameDataPanel->animShow();
         return true;
     }
     if (event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease)

@@ -5,8 +5,17 @@ GameDataPanel::GameDataPanel(QWidget *parent) : QWidget(parent)
     anim = new QPropertyAnimation(this, "pos");
     anim->setDuration(200);
 
-    label = new QLabel(this);
-    label->setStyleSheet("QLabel { background-color: blue; }");
+    visible = false;
+
+    label1 = new QLabel;
+    label1->setStyleSheet("QLabel { color: white; background-color: green }");
+
+    label2 = new QLabel;
+    label2->setStyleSheet("QLabel { color: white; background-color: red }");
+
+    labelLayout = new QHBoxLayout(this);
+    labelLayout->addWidget(label1);
+    labelLayout->addWidget(label2);
 }
 
 void GameDataPanel::animShow()
@@ -18,6 +27,7 @@ void GameDataPanel::animShow()
     anim->setStartValue(geometry());
     anim->setEndValue(QRect(0, parentWidget()->height() - GAME_DATA_PANEL_HEIGHT, parentWidget()->width(), GAME_DATA_PANEL_HEIGHT));
     anim->start();
+    visible = true;
 }
 
 void GameDataPanel::animHide()
@@ -29,13 +39,12 @@ void GameDataPanel::animHide()
     anim->setStartValue(geometry());
     anim->setEndValue(QRect(0, parentWidget()->height(), parentWidget()->width(), 0));
     anim->start();
+    visible = false;
 }
 
 void GameDataPanel::slotReceiveDataFromGame(QByteArray data)
 {
-    label->setGeometry(0, 0, width(), height()); // Transfer to other place
-    label->clear();
-    this->receivedData = data;
+    label1->clear();
     QList<QByteArray> keys = data.split('|');
 
     QByteArray result;
@@ -44,8 +53,18 @@ void GameDataPanel::slotReceiveDataFromGame(QByteArray data)
         result.append(keys[i]);
         result += " ";
     }
-    label->setText(result);
+    label1->setText(result);
     repaint();
+}
+
+void GameDataPanel::setElementsGeometries()
+{
+
+}
+
+bool GameDataPanel::isVisible() const
+{
+    return visible;
 }
 
 void GameDataPanel::paintEvent(QPaintEvent* event)
@@ -53,4 +72,5 @@ void GameDataPanel::paintEvent(QPaintEvent* event)
     Q_UNUSED(event);
 
     QPainter painter(this);
+    painter.fillRect(0, 0, width(), GAME_DATA_PANEL_HEIGHT, Qt::blue);
 }

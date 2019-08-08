@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include <QPropertyAnimation>
 #include <QLabel>
+#include <QHBoxLayout>
 
 #include "globaloptions.h"
 
@@ -16,14 +17,19 @@ class GameDataPanel : public QWidget
     Q_PROPERTY(QRect pos READ geometry WRITE setGeometry)
 private:
     QPropertyAnimation* anim;
+    bool visible;
 
-    QByteArray receivedData;
-    QLabel* label;
+    QLabel* label1;
+    QLabel* label2;
+    QHBoxLayout* labelLayout;
 public:
     explicit GameDataPanel(QWidget *parent = nullptr);
 
+    void setElementsGeometries();
+
     void animShow();
     void animHide();
+    bool isVisible() const;
 public slots:
     void slotReceiveDataFromGame(QByteArray data);
     void paintEvent(QPaintEvent* event) override;
