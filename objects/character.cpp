@@ -6,10 +6,8 @@ Character::Character(Sector* sector) : Object(sector)
     gameSettings.damage = 1;
     gameSettings.hitpoints = 10;
     gameSettings.alive = true;
-    gameSettings.respawnTimer = new QTimer(this);
-    gameSettings.respawnTimer->setSingleShot(true);
-    gameSettings.respawnTimer->setInterval(1000 + qrand() % 1000);
-    connect(gameSettings.respawnTimer, &QTimer::timeout, this, &Character::respawn);
+    gameSettings.respawnTimer = new QTimeLine(2000, this);
+    connect(gameSettings.respawnTimer, &QTimeLine::finished, this, &Character::respawn);
 
     animations.moveAnim = new QPropertyAnimation(this, "pos");
     animations.moveAnim->setDuration(gameSettings.speed);
@@ -34,6 +32,22 @@ void Character::startMoveAnimation(QPoint startPos, QPoint endPos)
     animations.moveAnim->setStartValue(graphicalPosition(startPos));
     animations.moveAnim->setEndValue(graphicalPosition(endPos));
     animations.moveAnim->start();
+}
+
+void Character::resumeMoveAnimation()
+{
+    if (animations.moveAnim->state() == QPropertyAnimation::Paused)
+    {
+        animations.moveAnim->resume();
+    }
+}
+
+void Character::pauseMoveAnimation()
+{
+    if (animations.moveAnim->state() != QPropertyAnimation::Stopped)
+    {
+        animations.moveAnim->pause();
+    }
 }
 
 bool Character::moveAnimStopped() const
@@ -100,7 +114,7 @@ void Character::kill()
 {
     gameSettings.alive = false;
     gameSettings.respawnTimer->start();
-    pause();
+    pauseMoveAnimation();
     hide();
 }
 
@@ -108,7 +122,7 @@ void Character::respawn()
 {
     gameSettings.alive = true;
     gameSettings.respawnTimer->stop();
-    resume();
+    resumeMoveAnimation();
     show();
 }
 
@@ -142,29 +156,29 @@ void Character::start()
 void Character::resume()
 {
     setMovementPermission(true);
-    if (animations.moveAnim->state() == QPropertyAnimation::Paused)
-    {
-        animations.moveAnim->resume();
-    }
+    resumeMoveAnimation();
 }
 
 void Character::pause()
 {
     setMovementPermission(false);
-    if (animations.moveAnim->state() != QPropertyAnimation::Stopped)
-    {
-        animations.moveAnim->pause();
-    }
+    pauseMoveAnimation();
 }
 
 QByteArray Character::gameData() const
 {
     QByteArray s;
-    s += "Speed: " + QByteArray::number(gameSettings.speed) + "|";
-    s += "Damage: " + QByteArray::number(gameSettings.damage) + "|";
-    s += "Hitpoints: " + QByteArray::number(gameSettings.hitpoints) + "|";
-    s += "Is alive: " + (gameSettings.alive ? QByteArray("true") : QByteArray("false")) + "|";
-    s += "Respawn timer: " + (gameSettings.respawnTimer->remainingTime() > 0 ?
-                              QByteArray::number(gameSettings.respawnTimer->remainingTime() / 1000.0, 'f', 1) : "0");
+    s += "Speed: " + QByteArray::number(gameSettings.speed) + "     ";
+    s += "Damage: " + QByteArray::number(gameSettings.damage) + "     ";
+    s += "Hitpoints: " + QByteArray::number(gameSettings.hitpoints) + "     ";
+    s += "Is alive: " + (gameSettings.alive ? QByteArray("true") : QByteArray("false")) + "     ";
+
+    if (gameSettings.alive == false)
+    {
+        int duration = gameSettings.respawnTimer->duration();
+        int currentTime = gameSettings.respawnTimer->currentTime();
+        double secondFormat = (duration - currentTime) / 1000.0;
+        s += "Respawn timer: " + QByteArray::number(secondFormat, 'f', 1);
+    }
     return s;
 }

@@ -4,6 +4,7 @@
 #include <QKeyEvent>
 #include <QMap>
 #include <QGraphicsScene>
+#include <QTimeLine>
 
 #include "object.h"
 #include "maze/sector.h"
@@ -19,7 +20,7 @@ protected:
         int damage;
         int hitpoints;
         bool alive;
-        QTimer* respawnTimer;
+        QTimeLine* respawnTimer;
     };
     GameSettings gameSettings;
 
@@ -41,6 +42,8 @@ public:
     virtual QPainterPath shape() const override;
 
     void startMoveAnimation(QPoint startPos, QPoint endPos);
+    void resumeMoveAnimation();
+    void pauseMoveAnimation();
     bool moveAnimStopped() const;
 
     Sector* findNextSector(QPoint nextPos);

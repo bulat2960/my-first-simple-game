@@ -39,7 +39,7 @@ void Player::slotFindCorrectMoveDir()
 
     signalSendData();
 
-    if (!moveAnimStopped())
+    if (!moveAnimStopped() || !haveMovementPermission())
     {
         return;
     }
@@ -75,11 +75,6 @@ void Player::slotFindCorrectMoveDir()
 
 bool Player::eventFilter(QObject* obj, QEvent* event)
 {
-    if (!haveMovementPermission())
-    {
-        return QObject::eventFilter(obj, event);
-    }
-
     QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
     int key = keyEvent->key();
 

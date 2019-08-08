@@ -7,6 +7,11 @@ Bot::Bot(Sector* sector) : Character(sector)
 
 void Bot::slotFindCorrectMoveDir()
 {
+    if (!haveMovementPermission())
+    {
+        return;
+    }
+
     QPoint left  = position() + directions[Qt::Key_A];
     QPoint right = position() + directions[Qt::Key_D];
     QPoint up    = position() + directions[Qt::Key_W];
