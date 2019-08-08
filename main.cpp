@@ -11,6 +11,7 @@
 #include "gui/scene.h"
 #include "gui/gamedatapanel.h"
 #include "gui/buttonspanel.h"
+#include "gui/window.h"
 #include "objects/player.h"
 #include "objects/bot.h"
 #include "logic/game.h"
@@ -26,8 +27,8 @@ int main(int argc, char *argv[])
 
     const int sHeight = 10;
     const int sWidth = 10;
-    const int mHeight = 1;
-    const int mWidth = 1;
+    const int mHeight = 3;
+    const int mWidth = 6;
     const int botsNumber = 1;
     const int bonusesNumber = 10;
     const int portalsNumber = 10;
@@ -50,22 +51,28 @@ int main(int argc, char *argv[])
     GameDataPanel* gameDataPanel = new GameDataPanel;
     ButtonsPanel* buttonsPanel = new ButtonsPanel;
 
-    View* view = new View(scene, gameDataPanel, buttonsPanel);
-    view->setGeometry(0, 0, screenWidth, screenHeight);
+    View* view = new View(scene);
 
-    gameDataPanel->setGeometry(0, view->height(), view->width(), 0);
-    gameDataPanel->setParent(view);
-    gameDataPanel->setElementsGeometries();
-    QObject::connect(game, &Game::signalSendToGamePanel, gameDataPanel, &GameDataPanel::slotReceiveDataFromGame);
+    Window* window = new Window(view, gameDataPanel, buttonsPanel);
+    window->setGeometry(0, 0, screenWidth, screenHeight);
+    window->setFocus();
+
+    view->setParent(window);
+    view->setGeometry(window->geometry());
 
     QPoint menuTopLeft = QPoint((screenWidth - MENU_PANEL_WIDTH) / 2, (screenHeight - MENU_PANEL_HEIGHT) / 2);
     QPoint menuBottomRight = menuTopLeft + QPoint(MENU_PANEL_WIDTH, MENU_PANEL_HEIGHT);
     buttonsPanel->setGeometry(QRect(menuTopLeft, menuBottomRight));
-    buttonsPanel->setParent(view);
+    buttonsPanel->setParent(window);
     QObject::connect(buttonsPanel, &ButtonsPanel::signalExit, &a, QApplication::quit);
     QObject::connect(buttonsPanel, &ButtonsPanel::signalStart, game, &Game::slotStart);
     QObject::connect(buttonsPanel, &ButtonsPanel::signalResume, game, &Game::slotResume);
     QObject::connect(buttonsPanel, &ButtonsPanel::signalPause, game, &Game::slotPause);
+
+    gameDataPanel->setGeometry(0, window->height(), window->width(), 0);
+    gameDataPanel->setParent(window);
+    gameDataPanel->setElementsGeometries();
+    QObject::connect(game, &Game::signalSendToGamePanel, gameDataPanel, &GameDataPanel::slotReceiveDataFromGame);
 
     for (int i = 0; i < botsNumber; i++)
     {
@@ -80,7 +87,7 @@ int main(int argc, char *argv[])
         game->slotCreatePortal();
     }
 
-    view->show();
+    window->show();
 
     return a.exec();
 }
