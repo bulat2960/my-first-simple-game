@@ -13,6 +13,7 @@ Player::Player(Sector* sector) : Character(sector)
     QTimer* timer = new QTimer(this);
     timer->setInterval(1);
     connect(timer, &QTimer::timeout, this, &Player::slotFindCorrectMoveDir);
+    connect(timer, &QTimer::timeout, this, &Player::signalSendData);
     timer->start();
 
     setMovementPermission(false);
@@ -36,8 +37,7 @@ void Player::slotFindCorrectMoveDir()
 {
     bool shiftKeyPressed = usedKeys[Qt::Key_Shift];
     animations.moveAnim->setDuration(shiftKeyPressed ? 1 : gameSettings.speed);
-
-    signalSendData();
+    mapPosition.sector->update();
 
     if (!moveAnimStopped() || !haveMovementPermission())
     {

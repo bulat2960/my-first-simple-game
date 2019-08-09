@@ -2,7 +2,7 @@
 
 Character::Character(Sector* sector) : Object(sector)
 {
-    gameSettings.speed = 200;
+    gameSettings.speed = 500;
     gameSettings.damage = 1;
     gameSettings.hitpoints = 10;
     gameSettings.alive = true;
@@ -112,14 +112,16 @@ bool Character::alive() const
 
 void Character::kill()
 {
+    setMovementPermission(false);
     gameSettings.alive = false;
     gameSettings.respawnTimer->start();
     pauseMoveAnimation();
-    hide();
+
 }
 
 void Character::respawn()
 {
+    setMovementPermission(true);
     gameSettings.alive = true;
     gameSettings.respawnTimer->stop();
     resumeMoveAnimation();
@@ -157,12 +159,15 @@ void Character::resume()
 {
     setMovementPermission(true);
     resumeMoveAnimation();
+    gameSettings.respawnTimer->setPaused(false);
 }
 
 void Character::pause()
 {
     setMovementPermission(false);
     pauseMoveAnimation();
+    gameSettings.respawnTimer->setPaused(true);
+    qDebug() << gameSettings.respawnTimer->duration() - gameSettings.respawnTimer->currentTime();
 }
 
 QByteArray Character::gameData() const
