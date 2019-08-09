@@ -7,15 +7,15 @@ GameDataPanel::GameDataPanel(QWidget *parent) : QWidget(parent)
 
     visible = false;
 
-    label1 = new QLabel;
-    label1->setStyleSheet("QLabel { color: white; background-color: green }");
+    playerLabel = new QLabel;
+    playerLabel->setStyleSheet("QLabel { color: white; background-color: green }");
 
-    label2 = new QLabel;
-    label2->setStyleSheet("QLabel { color: white; background-color: red }");
+    botLabel = new QLabel;
+    botLabel->setStyleSheet("QLabel { color: white; background-color: red }");
 
     labelLayout = new QHBoxLayout(this);
-    labelLayout->addWidget(label1);
-    labelLayout->addWidget(label2);
+    labelLayout->addWidget(playerLabel);
+    labelLayout->addWidget(botLabel);
 }
 
 void GameDataPanel::animShow()
@@ -42,18 +42,30 @@ void GameDataPanel::animHide()
     visible = false;
 }
 
-void GameDataPanel::slotReceiveDataFromGame(QByteArray data)
+void GameDataPanel::slotReceiveDataFromGame(QByteArray playerData, QByteArray botData)
 {
-    label1->clear();
-    QList<QByteArray> keys = data.split('|');
+    playerLabel->clear();
+    botLabel->clear();
 
-    QByteArray result;
-    for (int i = 0; i < keys.size(); i++)
+    QList<QByteArray> playerValues = playerData.split('|');
+    QList<QByteArray> botValues = botData.split('|');
+
+    QByteArray playerResult;
+    for (int i = 0; i < playerValues.size(); i++)
     {
-        result.append(keys[i]);
-        result += " ";
+        playerResult.append(playerValues[i]);
+        playerResult += "    ";
     }
-    label1->setText(result);
+    playerLabel->setText(playerResult);
+
+    QByteArray botResult;
+    for (int i = 0; i < botValues.size(); i++)
+    {
+        botResult.append(botValues[i]);
+        botResult += "     ";
+    }
+    botLabel->setText(botResult);
+
     repaint();
 }
 

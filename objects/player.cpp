@@ -37,7 +37,6 @@ void Player::slotFindCorrectMoveDir()
 {
     bool shiftKeyPressed = usedKeys[Qt::Key_Shift];
     animations.moveAnim->setDuration(shiftKeyPressed ? 1 : gameSettings.speed);
-    mapPosition.sector->update();
 
     if (!moveAnimStopped() || !haveMovementPermission())
     {

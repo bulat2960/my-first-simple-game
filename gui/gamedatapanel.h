@@ -19,8 +19,8 @@ private:
     QPropertyAnimation* anim;
     bool visible;
 
-    QLabel* label1;
-    QLabel* label2;
+    QLabel* playerLabel;
+    QLabel* botLabel;
     QHBoxLayout* labelLayout;
 public:
     explicit GameDataPanel(QWidget *parent = nullptr);
@@ -29,7 +29,7 @@ public:
     void animHide();
     bool isVisible() const;
 public slots:
-    void slotReceiveDataFromGame(QByteArray data);
+    void slotReceiveDataFromGame(QByteArray playerData, QByteArray botData);
     void paintEvent(QPaintEvent* event) override;
 };
 

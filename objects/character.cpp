@@ -2,9 +2,9 @@
 
 Character::Character(Sector* sector) : Object(sector)
 {
-    gameSettings.speed = 500;
-    gameSettings.damage = 1;
-    gameSettings.hitpoints = 10;
+    gameSettings.speed = 300 + qrand() % 200;
+    gameSettings.damage = 5 + qrand() % 5;
+    gameSettings.hitpoints = 50 + qrand() % 50;
     gameSettings.alive = true;
     gameSettings.respawnTimer = new QTimeLine(2000, this);
     connect(gameSettings.respawnTimer, &QTimeLine::finished, this, &Character::respawn);
@@ -172,10 +172,10 @@ void Character::pause()
 QByteArray Character::gameData() const
 {
     QByteArray s;
-    s += "Speed: " + QByteArray::number(gameSettings.speed) + "     ";
-    s += "Damage: " + QByteArray::number(gameSettings.damage) + "     ";
-    s += "Hitpoints: " + QByteArray::number(gameSettings.hitpoints) + "     ";
-    s += "Is alive: " + (gameSettings.alive ? QByteArray("true") : QByteArray("false")) + "     ";
+    s += "Speed: " + QByteArray::number(gameSettings.speed) + "|";
+    s += "Damage: " + QByteArray::number(gameSettings.damage) + "|";
+    s += "Hitpoints: " + QByteArray::number(gameSettings.hitpoints) + "|";
+    s += "Is alive: " + (gameSettings.alive ? QByteArray("true") : QByteArray("false")) + "|";
 
     if (gameSettings.alive == false)
     {

@@ -44,7 +44,7 @@ public slots:
     void slotReceiveData();
 signals:
     void signalCreated(Object* object);
-    void signalSendToGamePanel(QByteArray data);
+    void signalSendToGamePanel(QByteArray playerData, QByteArray botData);
 };
 
 #endif // GAME_H

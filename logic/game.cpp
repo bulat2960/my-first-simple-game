@@ -104,7 +104,28 @@ void Game::slotPause()
 void Game::slotReceiveData()
 {
     QObject* sender = QObject::sender();
-    Character* character = dynamic_cast<Character*>(sender);
+    Player* player = dynamic_cast<Player*>(sender);
 
-    emit signalSendToGamePanel(character->gameData());
+    if (bots.size() > 0)
+    {
+        double minDistance = 10000000000;
+        Bot* nearestBot = nullptr;
+
+        foreach (Bot* bot, bots)
+        {
+            QPoint pPos = player->position();
+            QPoint bPos = bot->position();
+            double xSquare = pow(pPos.x() - bPos.x(), 2);
+            double ySquare = pow(pPos.y() - bPos.y(), 2);
+            double distance = sqrt(xSquare + ySquare);
+
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                nearestBot = bot;
+            }
+        }
+
+        emit signalSendToGamePanel(player->gameData(), nearestBot->gameData());
+    }
 }
