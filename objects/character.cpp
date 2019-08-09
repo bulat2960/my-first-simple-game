@@ -116,7 +116,7 @@ void Character::kill()
     gameSettings.alive = false;
     gameSettings.respawnTimer->start();
     pauseMoveAnimation();
-
+    hide();
 }
 
 void Character::respawn()
@@ -167,7 +167,6 @@ void Character::pause()
     setMovementPermission(false);
     pauseMoveAnimation();
     gameSettings.respawnTimer->setPaused(true);
-    qDebug() << gameSettings.respawnTimer->duration() - gameSettings.respawnTimer->currentTime();
 }
 
 QByteArray Character::gameData() const
