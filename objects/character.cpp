@@ -2,7 +2,7 @@
 
 Character::Character(Sector* sector) : Object(sector)
 {
-    gameSettings.speed = 300 + qrand() % 200;
+    gameSettings.speed = 100 + qrand() % 200;
     gameSettings.damage = 5 + qrand() % 5;
     gameSettings.hitpoints = 50 + qrand() % 50;
     gameSettings.alive = true;
@@ -90,7 +90,7 @@ void Character::move(QPoint nextPos)
 {
     Sector* nextSector = findNextSector(nextPos);
 
-    startMoveAnimation(position(), nextPos);
+    startMoveAnimation(pos().toPoint() / SIZE, nextPos);
     setPosition(nextPos);
     setSector(nextSector);
 }

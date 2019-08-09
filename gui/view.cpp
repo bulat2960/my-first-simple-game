@@ -16,6 +16,11 @@ View::View(Scene* scene) : QGraphicsView(scene)
     setFrameStyle(0);
 }
 
+Scene* View::getScene() const
+{
+    return scene;
+}
+
 bool View::eventFilter(QObject* object, QEvent* event)
 {
     QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
@@ -23,13 +28,13 @@ bool View::eventFilter(QObject* object, QEvent* event)
 
     if (event->type() == QEvent::KeyPress && (key == Qt::Key_Escape || key == Qt::Key_Tab))
     {
+        invalidateScene(scene->sceneRect());
         return parentWidget()->eventFilter(object, event);
     }
 
     if (event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease)
     {
-         scene->eventFilter(object, event);
-         return true;
+         return scene->eventFilter(object, event);
     }
     return QObject::eventFilter(object, event);
 }

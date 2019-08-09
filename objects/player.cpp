@@ -8,7 +8,6 @@ Player::Player(Sector* sector) : Character(sector)
     usedKeys.insert(Qt::Key_A, false);
     usedKeys.insert(Qt::Key_S, false);
     usedKeys.insert(Qt::Key_D, false);
-    usedKeys.insert(Qt::Key_Shift, false);
 
     QTimer* timer = new QTimer(this);
     timer->setInterval(1);
@@ -35,9 +34,6 @@ void Player::pause()
 
 void Player::slotFindCorrectMoveDir()
 {
-    bool shiftKeyPressed = usedKeys[Qt::Key_Shift];
-    animations.moveAnim->setDuration(shiftKeyPressed ? 1 : gameSettings.speed);
-
     if (!moveAnimStopped() || !haveMovementPermission())
     {
         return;

@@ -14,6 +14,7 @@ private:
     Scene* scene;
 public:
     View(Scene* scene);
+    Scene* getScene() const;
 public slots:
     bool eventFilter(QObject* object, QEvent* event) override;
 
