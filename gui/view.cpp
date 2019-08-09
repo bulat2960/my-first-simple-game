@@ -28,7 +28,6 @@ bool View::eventFilter(QObject* object, QEvent* event)
 
     if (event->type() == QEvent::KeyPress && (key == Qt::Key_Escape || key == Qt::Key_Tab))
     {
-        invalidateScene(scene->sceneRect());
         return parentWidget()->eventFilter(object, event);
     }
 

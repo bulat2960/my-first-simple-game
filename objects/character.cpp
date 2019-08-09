@@ -2,7 +2,7 @@
 
 Character::Character(Sector* sector) : Object(sector)
 {
-    gameSettings.speed = 100 + qrand() % 200;
+    gameSettings.speed = 100;
     gameSettings.damage = 5 + qrand() % 5;
     gameSettings.hitpoints = 50 + qrand() % 50;
     gameSettings.alive = true;
@@ -60,6 +60,11 @@ QPainterPath Character::shape() const
     QPainterPath path;
     path.addEllipse(boundingRect());
     return path;
+}
+
+QRectF Character::boundingRect() const
+{
+    return QRectF(0, 0, drawingSettings.image.width(), drawingSettings.image.height());
 }
 
 void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)

@@ -39,8 +39,6 @@ protected:
 public:
     Character(Sector* sector);
 
-    virtual QPainterPath shape() const override;
-
     void startMoveAnimation(QPoint startPos, QPoint endPos);
     void resumeMoveAnimation();
     void pauseMoveAnimation();
@@ -61,6 +59,8 @@ public:
 
     QByteArray gameData() const;
 
+    virtual QPainterPath shape() const override;
+    virtual QRectF boundingRect() const override;
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 private slots:
     virtual void slotFindCorrectMoveDir() = 0;

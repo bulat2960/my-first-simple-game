@@ -38,9 +38,5 @@ bool Window::eventFilter(QObject* object, QEvent* event)
         isGameDataPanelVisible ? gameDataPanel->animHide() : gameDataPanel->animShow();
         return true;
     }
-    if (event->type() == QEvent::UpdateRequest)
-    {
-        view->invalidateScene(view->getScene()->sceneRect());
-    }
     return QObject::eventFilter(object, event);
 }
