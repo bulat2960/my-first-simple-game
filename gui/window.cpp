@@ -38,12 +38,12 @@ bool Window::eventFilter(QObject* object, QEvent* event)
         if (isGameDataPanelVisible)
         {
             view->animDown();
-            gameDataPanel->animHide();
+            gameDataPanel->animDown();
         }
         else
         {
             view->animUp();
-            gameDataPanel->animShow();
+            gameDataPanel->animUp();
         }
         return true;
     }

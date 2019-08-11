@@ -18,7 +18,7 @@ GameDataPanel::GameDataPanel(QWidget *parent) : QWidget(parent)
     labelLayout->addWidget(botLabel);
 }
 
-void GameDataPanel::animShow()
+void GameDataPanel::animUp()
 {
     if (anim->state() != QPropertyAnimation::Stopped)
     {
@@ -30,7 +30,7 @@ void GameDataPanel::animShow()
     visible = true;
 }
 
-void GameDataPanel::animHide()
+void GameDataPanel::animDown()
 {
     if (anim->state() != QPropertyAnimation::Stopped)
     {

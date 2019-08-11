@@ -25,8 +25,8 @@ private:
 public:
     explicit GameDataPanel(QWidget *parent = nullptr);
 
-    void animShow();
-    void animHide();
+    void animUp();
+    void animDown();
     bool isVisible() const;
 public slots:
     void slotReceiveDataFromGame(QByteArray playerData, QByteArray botData);

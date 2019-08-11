@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
         game->slotCreatePortal();
     }
 
-    window->show();
+    window->showFullScreen();
 
     return a.exec();
 }
