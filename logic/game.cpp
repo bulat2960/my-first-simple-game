@@ -8,7 +8,7 @@ Game::Game(Maze* maze, Player* player)
     collisionDetector = new CollisionDetector(player, bots, bonuses, portals);
     connect(player, &Character::signalFindCharacter, collisionDetector, &CollisionDetector::slotFindCharacter);
     connect(player, &Player::signalFindPortal, collisionDetector, &CollisionDetector::slotFindPortal);
-    connect(player, &Player::signalSendData, this, &Game::slotReceiveData);
+    connect(player, &Player::signalSendData, this, &Game::slotFindNearestEnemy);
 
     battleExecutor = new BattleExecutor;
     QObject::connect(collisionDetector, &CollisionDetector::signalBattle, battleExecutor, &BattleExecutor::slotBattle);
@@ -101,7 +101,7 @@ void Game::slotPause()
     }
 }
 
-void Game::slotReceiveData()
+void Game::slotFindNearestEnemy()
 {
     QObject* sender = QObject::sender();
     Player* player = dynamic_cast<Player*>(sender);
