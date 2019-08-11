@@ -4,6 +4,9 @@ View::View(Scene* scene) : QGraphicsView(scene)
 {
     this->scene = scene;
 
+    anim = new QPropertyAnimation(this, "geometry");
+    anim->setDuration(200);
+
     setScene(scene);
 
     installEventFilter(this);
@@ -14,6 +17,28 @@ View::View(Scene* scene) : QGraphicsView(scene)
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     setFrameStyle(0);
+}
+
+void View::animUp()
+{
+    if (anim->state() != QPropertyAnimation::Stopped)
+    {
+        anim->stop();
+    }
+    anim->setStartValue(QRect(0, 0, parentWidget()->width(), parentWidget()->height()));
+    anim->setEndValue(QRect(0, 0, parentWidget()->width(), parentWidget()->height() - GAME_DATA_PANEL_HEIGHT));
+    anim->start();
+}
+
+void View::animDown()
+{
+    if (anim->state() != QPropertyAnimation::Stopped)
+    {
+        anim->stop();
+    }
+    anim->setStartValue(QRect(0, 0, parentWidget()->width(), parentWidget()->height() - GAME_DATA_PANEL_HEIGHT));
+    anim->setEndValue(QRect(0, 0, parentWidget()->width(), parentWidget()->height()));
+    anim->start();
 }
 
 Scene* View::getScene() const
