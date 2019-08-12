@@ -44,6 +44,12 @@ public:
     void pauseMoveAnimation();
     bool moveAnimStopped() const;
 
+    int hitpoints() const;
+    void setHitpoints(int hitpoints);
+
+    int damage() const;
+    void setDamage(int damage);
+
     Sector* findNextSector(QPoint nextPos);
     bool insideScene(QPoint nextPos);
 

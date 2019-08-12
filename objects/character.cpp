@@ -2,7 +2,7 @@
 
 Character::Character(Sector* sector) : Object(sector)
 {
-    gameSettings.speed = 100;
+    gameSettings.speed = 300;
     gameSettings.damage = 5 + qrand() % 5;
     gameSettings.hitpoints = 50 + qrand() % 50;
     gameSettings.alive = true;
@@ -25,6 +25,26 @@ Character::Character(Sector* sector) : Object(sector)
     connect(animations.moveAnim, &QPropertyAnimation::finished, this, &Character::signalFindPortal);
 
     setStartPosition();
+}
+
+int Character::hitpoints() const
+{
+    return gameSettings.hitpoints;
+}
+
+void Character::setHitpoints(int hitpoints)
+{
+    gameSettings.hitpoints = hitpoints;
+}
+
+int Character::damage() const
+{
+    return gameSettings.damage;
+}
+
+void Character::setDamage(int damage)
+{
+    gameSettings.damage = damage;
 }
 
 void Character::startMoveAnimation(QPoint startPos, QPoint endPos)
@@ -119,7 +139,10 @@ void Character::kill()
 {
     setMovementPermission(false);
     gameSettings.alive = false;
-    gameSettings.respawnTimer->start();
+    if (gameSettings.hitpoints > 0)
+    {
+        gameSettings.respawnTimer->start();
+    }
     pauseMoveAnimation();
     hide();
 }

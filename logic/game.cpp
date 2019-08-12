@@ -113,6 +113,11 @@ void Game::slotFindNearestEnemy()
 
         foreach (Bot* bot, bots)
         {
+            if (bot->hitpoints() <= 0)
+            {
+                continue;
+            }
+
             QPoint pPos = player->position();
             QPoint bPos = bot->position();
             double xSquare = pow(pPos.x() - bPos.x(), 2);
@@ -126,6 +131,9 @@ void Game::slotFindNearestEnemy()
             }
         }
 
-        emit signalSendToGamePanel(player->gameData(), nearestBot->gameData());
+        if (nearestBot != nullptr)
+        {
+            emit signalSendToGamePanel(player->gameData(), nearestBot->gameData());
+        }
     }
 }

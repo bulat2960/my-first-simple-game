@@ -2,6 +2,8 @@
 
 Player::Player(Sector* sector) : Character(sector)
 {
+    gameSettings.hitpoints = 300;
+
     installEventFilter(this);
 
     usedKeys.insert(Qt::Key_W, false);
