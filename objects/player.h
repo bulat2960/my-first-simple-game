@@ -9,6 +9,7 @@
 
 class Player : public Character
 {
+    Q_OBJECT
 private:
     QMap<int, bool> usedKeys;
 private:
@@ -21,6 +22,8 @@ private slots:
     void slotFindCorrectMoveDir() override;
 public slots:
     virtual bool eventFilter(QObject* obj, QEvent* event) override;
+signals:
+    void signalSendData();
 };
 
 #endif // PLAYER_H
