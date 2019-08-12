@@ -187,14 +187,20 @@ void Character::resume()
 {
     setMovementPermission(true);
     resumeMoveAnimation();
-    gameSettings.respawnTimer->setPaused(false);
+    if (gameSettings.respawnTimer->state() == QTimeLine::Paused)
+    {
+        gameSettings.respawnTimer->setPaused(false);
+    }
 }
 
 void Character::pause()
 {
     setMovementPermission(false);
     pauseMoveAnimation();
-    gameSettings.respawnTimer->setPaused(true);
+    if (gameSettings.respawnTimer->state() == QTimeLine::Running)
+    {
+        gameSettings.respawnTimer->setPaused(true);
+    }
 }
 
 QByteArray Character::gameData() const
