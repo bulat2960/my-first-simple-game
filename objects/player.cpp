@@ -16,8 +16,6 @@ Player::Player(Sector* sector) : Character(sector)
     connect(timer, &QTimer::timeout, this, &Player::slotFindCorrectMoveDir);
     connect(timer, &QTimer::timeout, this, &Player::signalSendData);
     timer->start();
-
-    setMovementPermission(false);
 }
 
 void Player::clearUsedKeys()

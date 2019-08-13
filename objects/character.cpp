@@ -25,6 +25,8 @@ Character::Character(Sector* sector) : Object(sector)
     connect(animations.moveAnim, &QPropertyAnimation::finished, this, &Character::signalFindPortal);
 
     setStartPosition();
+
+    setMovementPermission(false);
 }
 
 int Character::hitpoints() const
