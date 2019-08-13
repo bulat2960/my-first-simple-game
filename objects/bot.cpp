@@ -60,4 +60,8 @@ void Bot::slotFindCorrectMoveDir()
         QPoint nextPos = validDirs[qrand() % validDirs.size()];
         move(nextPos);
     }
+    if (state == ATTACK)
+    {
+
+    }
 }

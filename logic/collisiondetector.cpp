@@ -1,7 +1,7 @@
 ﻿#include "collisiondetector.h"
 
-CollisionDetector::CollisionDetector(Player* player, QVector<Bot*>& bots, QVector<Bonus*>& bonuses,
-                                     QVector<Portal*>& portals) : bots(bots), bonuses(bonuses), portals(portals)
+CollisionDetector::CollisionDetector(Player* player, QVector<Bot*>& bots, QVector<Bonus*>& bonuses, QVector<Portal*>& portals)
+    : bots(bots), bonuses(bonuses), portals(portals)
 {
     this->player = player;
 }
