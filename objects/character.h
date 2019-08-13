@@ -73,6 +73,7 @@ private slots:
 signals:
     void signalFindPortal();
     void signalFindCharacter();
+    void signalSectorChanged();
 };
 
 #endif // CHARACTER_H

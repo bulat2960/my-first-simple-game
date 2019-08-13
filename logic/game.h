@@ -42,6 +42,7 @@ public slots:
     void slotPause();
 
     void slotFindNearestEnemy();
+    void slotChangeBotState();
 signals:
     void signalCreated(Object* object);
     void signalSendToGamePanel(QByteArray playerData, QByteArray botData);

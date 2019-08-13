@@ -9,6 +9,7 @@ Game::Game(Maze* maze, Player* player)
     connect(player, &Character::signalFindCharacter, collisionDetector, &CollisionDetector::slotFindCharacter);
     connect(player, &Player::signalFindPortal, collisionDetector, &CollisionDetector::slotFindPortal);
     connect(player, &Player::signalSendData, this, &Game::slotFindNearestEnemy);
+    connect(player, &Player::signalSectorChanged, this, &Game::slotChangeBotState);
 
     battleExecutor = new BattleExecutor;
     QObject::connect(collisionDetector, &CollisionDetector::signalBattle, battleExecutor, &BattleExecutor::slotBattle);
@@ -24,8 +25,6 @@ void Game::slotCreateBot()
 
     connect(bot, &Bot::signalFindCharacter, collisionDetector, &CollisionDetector::slotFindCharacter);
     connect(bot, &Bot::signalFindPortal, collisionDetector, &CollisionDetector::slotFindPortal);
-
-    bot->setState(Bot::ATTACK);
 
     emit signalCreated(bot);
 }
@@ -100,6 +99,17 @@ void Game::slotPause()
     foreach (Portal* portal, portals)
     {
         portal->pause();
+    }
+}
+
+void Game::slotChangeBotState()
+{
+    foreach (Bot* bot, bots)
+    {
+        if (bot->sector() == player->sector())
+        {
+            bot->setState(Bot::ATTACK);
+        }
     }
 }
 

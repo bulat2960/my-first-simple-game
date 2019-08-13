@@ -119,6 +119,8 @@ void Character::move(QPoint nextPos)
     startMoveAnimation(pos().toPoint() / SIZE, nextPos);
     setPosition(nextPos);
     setSector(nextSector);
+
+    emit signalSectorChanged();
 }
 
 void Character::setMovementPermission(bool value)
