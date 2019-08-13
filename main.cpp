@@ -27,11 +27,11 @@ int main(int argc, char *argv[])
 
     const int sHeight = 10;
     const int sWidth = 10;
-    const int mHeight = 3;
-    const int mWidth = 6;
-    const int botsNumber = 10;
+    const int mHeight = 1;
+    const int mWidth = 1;
+    const int botsNumber = 5;
     const int bonusesNumber = 0;
-    const int portalsNumber = 10;
+    const int portalsNumber = 0;
 
     QScreen* screen = a.screens()[0];
     int screenHeight = screen->geometry().height();
@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
         game->slotCreatePortal();
     }
 
-    window->showFullScreen();
+    window->show();
 
     return a.exec();
 }

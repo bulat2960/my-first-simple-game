@@ -3,6 +3,8 @@
 Player::Player(Sector* sector) : Character(sector)
 {
     gameSettings.hitpoints = 300;
+    gameSettings.speed = 100;
+    animations.moveAnim->setDuration(gameSettings.speed);
 
     installEventFilter(this);
 

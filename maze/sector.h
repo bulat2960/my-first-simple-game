@@ -40,6 +40,8 @@ public:
     bool isWall(int x, int y) const;
     bool isWall(const QPoint& p) const;
 
+    QVector<QVector<int>> digitMatrix() const;
+
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;

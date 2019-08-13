@@ -15,11 +15,15 @@ public:
     };
 private:
     State state;
+    Character* target;
 public:
     Bot(Sector* sector);
 
     State getState() const;
     void setState(State state);
+
+    void setTarget(Character* character);
+    Character* getTarget() const;
 private slots:
     void slotFindCorrectMoveDir() override;
 };

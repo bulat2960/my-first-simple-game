@@ -25,6 +25,8 @@ void Game::slotCreateBot()
     connect(bot, &Bot::signalFindCharacter, collisionDetector, &CollisionDetector::slotFindCharacter);
     connect(bot, &Bot::signalFindPortal, collisionDetector, &CollisionDetector::slotFindPortal);
 
+    bot->setState(Bot::ATTACK);
+
     emit signalCreated(bot);
 }
 
@@ -133,6 +135,7 @@ void Game::slotFindNearestEnemy()
 
         if (nearestBot != nullptr)
         {
+            nearestBot->setTarget(player); // Fix me!
             emit signalSendToGamePanel(player->gameData(), nearestBot->gameData());
         }
     }

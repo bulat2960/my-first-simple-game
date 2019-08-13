@@ -2,7 +2,7 @@
 
 Character::Character(Sector* sector) : Object(sector)
 {
-    gameSettings.speed = 300;
+    gameSettings.speed = 200;
     gameSettings.damage = 5 + qrand() % 5;
     gameSettings.hitpoints = 50 + qrand() % 50;
     gameSettings.alive = true;
@@ -10,7 +10,6 @@ Character::Character(Sector* sector) : Object(sector)
     connect(gameSettings.respawnTimer, &QTimeLine::finished, this, &Character::respawn);
 
     animations.moveAnim = new QPropertyAnimation(this, "pos");
-    animations.moveAnim->setDuration(gameSettings.speed);
 
     directions.insert(Qt::Key_A, QPoint(-1, 0));
     directions.insert(Qt::Key_W, QPoint(0, -1));

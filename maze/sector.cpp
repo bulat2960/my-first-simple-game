@@ -58,6 +58,24 @@ bool Sector::isWall(const QPoint& p) const
     return cell(p.x(), p.y()).isWall();
 }
 
+QVector<QVector<int>> Sector::digitMatrix() const
+{
+    QVector<QVector<int>> result;
+
+    for (int i = 0; i < matrix.size(); i++)
+    {
+        QVector<int> temp;
+        for (int j = 0; j < matrix[i].size(); j++)
+        {
+            bool isWallCurrentCell = cell(j, i).isWall();
+            temp.push_back(isWallCurrentCell ? -1 : 0);
+        }
+        result.push_back(temp);
+    }
+
+    return result;
+}
+
 QRectF Sector::boundingRect() const
 {
     return QRectF(0, 0, width() * SIZE, height() * SIZE);
