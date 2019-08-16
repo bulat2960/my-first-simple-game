@@ -68,7 +68,7 @@ QVector<QVector<int>> Sector::digitMatrix() const
         for (int j = 0; j < matrix[i].size(); j++)
         {
             bool isWallCurrentCell = cell(j, i).isWall();
-            temp.push_back(isWallCurrentCell ? -1 : 0);
+            temp.push_back(isWallCurrentCell ? 0 : 1);
         }
         result.push_back(temp);
     }
