@@ -30,10 +30,6 @@ Character* Bot::getTarget() const
     return target;
 }
 
-#include <iomanip>
-#include <iostream>
-#include <cmath>
-
 void Bot::slotFindCorrectMoveDir()
 {
     if (!haveMovementPermission())
@@ -105,21 +101,6 @@ void Bot::slotFindCorrectMoveDir()
         int currentValue = 2;
         QVector<QPoint> points = {startPos};
 
-        // Проблема в том, что путь, который создается при модификации digitMatrix, может
-        // "телепортироваться" на другой край матрицы из-за неверной логики mapToSector.
-        /* Пример:
-            "1 1 1 1 1 1 1 0 1 1 "
-            "0 0 0 0 0 0 1 0 1 0 "
-            "7 6 5 4 3 0 1 0 1 8!"
-            "F 0 6 0 2 0 1 0 1 0 "
-            "1 0 7 0 S 0 1 0 1 0 "
-            "1 0 1 0 2 0 1 0 1 0 "
-            "1 0 1 0 3 0 1 1 1 0 "
-            "1 0 1 0 0 0 0 0 1 0 "
-            "1 0 1 1 1 1 1 1 1 0 "
-            "0 0 1 0 0 0 1 0 0 0 "
-        */
-
         while (true)
         {
             QVector<QPoint> temp;
@@ -132,7 +113,7 @@ void Bot::slotFindCorrectMoveDir()
 
                 for (int j = 0; j < dirs.size(); j++)
                 {
-                    QPoint nextPoint = points[i] + (dirs[j] - position());
+                    QPoint nextPoint = currentPoint + (dirs[j] - position());
                     QPoint mappedNextPoint = mapToSector(nextPoint, sector());
 
                     int sectorTopBorder = mapPosition.sector->position().y() * mapPosition.sector->height();
@@ -157,7 +138,6 @@ void Bot::slotFindCorrectMoveDir()
 
                     if (nextPoint == finishPos)
                     {
-                        qDebug() << nextPoint << finishPos;
                         flag = true;
                         break;
                     }
@@ -169,15 +149,8 @@ void Bot::slotFindCorrectMoveDir()
                 }
             }
 
-            if (temp.empty())
-            {
-                qDebug() << "TEMP IS EMPTY";
-                break;
-            }
-
             if (temp.contains(finishPos))
             {
-                qDebug() << "FINISH REACHED";
                 break;
             }
 
@@ -185,7 +158,7 @@ void Bot::slotFindCorrectMoveDir()
             currentValue++;
         }
 
-        qDebug() << "--------------------------";
+        /*qDebug() << "--------------------------";
         for (int i = 0; i < digitMatrix.size(); i++)
         {
             QString s;
@@ -206,7 +179,7 @@ void Bot::slotFindCorrectMoveDir()
             }
             qDebug() << s;
         }
-        qDebug() << "--------------------------";
+        qDebug() << "--------------------------";*/
 
         QVector<QPoint> way;
 
@@ -265,8 +238,6 @@ void Bot::slotFindCorrectMoveDir()
                         break;
                     }
                 }
-
-                qDebug() << startPos << way;
 
                 if (way.back() == startPos)
                 {
