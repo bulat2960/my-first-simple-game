@@ -168,6 +168,9 @@ void Bot::slotFindCorrectMoveDir()
                     QPoint nextPoint = currentPoint + (position() - dirs[i]);
                     QPoint mappedNextPoint = mapToSector(nextPoint, sector());
 
+                    // Ошибка в mapped!!! Необходимо смотреть ячейки только в текущем секторе
+                    // Еще проверить генерацию digitMatrix
+
                     if (mappedNextPoint.x() < 0 || mappedNextPoint.y() < 0
                         || mappedNextPoint.x() >= mapPosition.sector->width()
                         || mappedNextPoint.y() >= mapPosition.sector->height())

@@ -25,8 +25,8 @@ int main(int argc, char *argv[])
     QTime midnight(0, 0, 0);
     qsrand(static_cast<uint>(midnight.secsTo(QTime::currentTime())));
 
-    const int sHeight = 6;
-    const int sWidth = 6;
+    const int sHeight = 10;
+    const int sWidth = 10;
     const int mHeight = 1;
     const int mWidth = 2;
     const int botsNumber = 1;
