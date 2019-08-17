@@ -130,16 +130,18 @@ void Bot::slotFindCorrectMoveDir()
 
                 QPoint currentPoint = points[i];
 
-                qDebug() << currentPoint;
-
                 for (int j = 0; j < dirs.size(); j++)
                 {
                     QPoint nextPoint = points[i] + (dirs[j] - position());
                     QPoint mappedNextPoint = mapToSector(nextPoint, sector());
 
-                    if (mappedNextPoint.x() < 0 || mappedNextPoint.y() < 0
-                        || mappedNextPoint.x() >= mapPosition.sector->width()
-                        || mappedNextPoint.y() >= mapPosition.sector->height())
+                    int sectorTopBorder = mapPosition.sector->position().y() * mapPosition.sector->height();
+                    int sectorBottomBorder = sectorTopBorder + mapPosition.sector->height();
+                    int sectorLeftBorder = mapPosition.sector->position().x() * mapPosition.sector->width();
+                    int sectorRightBorder = sectorLeftBorder + mapPosition.sector->width();
+
+                    if (nextPoint.x() < sectorLeftBorder || nextPoint.y() < sectorTopBorder
+                        || nextPoint.x() >= sectorRightBorder || nextPoint.y() >= sectorBottomBorder)
                     {
                         continue;
                     }
@@ -206,7 +208,7 @@ void Bot::slotFindCorrectMoveDir()
         }
         qDebug() << "--------------------------";
 
-        /*QVector<QPoint> way;
+        QVector<QPoint> way;
 
         if (digitMatrix[mappedFinishPos.y()][mappedFinishPos.x()] != 1)
         {
@@ -277,8 +279,6 @@ void Bot::slotFindCorrectMoveDir()
                 way.pop_back();
                 move(way.back());
             }
-        }*/
-
-        setState(DO_NOTHING);
+        }
     }
 }
