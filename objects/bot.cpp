@@ -105,34 +105,57 @@ void Bot::slotFindCorrectMoveDir()
         int currentValue = 2;
         QVector<QPoint> points = {startPos};
 
+        // Проблема в том, что путь, который создается при модификации digitMatrix, может
+        // "телепортироваться" на другой край матрицы из-за неверной логики mapToSector.
+        /* Пример:
+            "1 1 1 1 1 1 1 0 1 1 "
+            "0 0 0 0 0 0 1 0 1 0 "
+            "7 6 5 4 3 0 1 0 1 8!"
+            "F 0 6 0 2 0 1 0 1 0 "
+            "1 0 7 0 S 0 1 0 1 0 "
+            "1 0 1 0 2 0 1 0 1 0 "
+            "1 0 1 0 3 0 1 1 1 0 "
+            "1 0 1 0 0 0 0 0 1 0 "
+            "1 0 1 1 1 1 1 1 1 0 "
+            "0 0 1 0 0 0 1 0 0 0 "
+        */
+
         while (true)
         {
             QVector<QPoint> temp;
-            for (int i = 0; i < dirs.size(); i++)
+
+            for (int i = 0; i < points.size(); i++)
             {
                 bool flag = false;
-                for (int j = 0; j < points.size(); j++)
-                {
-                    QPoint currentCell = points[j] + (dirs[i] - position());
-                    QPoint mappedCurrentCell = mapToSector(currentCell, sector());
 
-                    if (mappedCurrentCell.x() < 0 || mappedCurrentCell.y() < 0
-                        || mappedCurrentCell.x() >= mapPosition.sector->width()
-                        || mappedCurrentCell.y() >= mapPosition.sector->height())
+                QPoint currentPoint = points[i];
+
+                qDebug() << currentPoint;
+
+                for (int j = 0; j < dirs.size(); j++)
+                {
+                    QPoint nextPoint = points[i] + (dirs[j] - position());
+                    QPoint mappedNextPoint = mapToSector(nextPoint, sector());
+
+                    if (mappedNextPoint.x() < 0 || mappedNextPoint.y() < 0
+                        || mappedNextPoint.x() >= mapPosition.sector->width()
+                        || mappedNextPoint.y() >= mapPosition.sector->height())
                     {
                         continue;
                     }
 
-                    if (mapPosition.sector->cell(mappedCurrentCell).isRoad()
-                            && digitMatrix[mappedCurrentCell.y()][mappedCurrentCell.x()] == 1
-                            && currentCell != startPos)
+                    if (mapPosition.sector->cell(mappedNextPoint).isRoad()
+                            && digitMatrix[mappedNextPoint.y()][mappedNextPoint.x()] == 1
+                            && nextPoint != startPos)
                     {
-                        digitMatrix[mappedCurrentCell.y()][mappedCurrentCell.x()] = currentValue;
-                        temp.push_back(currentCell);
+                        digitMatrix[mappedNextPoint.y()][mappedNextPoint.x()] = currentValue;
+                        temp.push_back(nextPoint);
                     }
 
-                    if (currentCell == finishPos)
+
+                    if (nextPoint == finishPos)
                     {
+                        qDebug() << nextPoint << finishPos;
                         flag = true;
                         break;
                     }
@@ -144,8 +167,15 @@ void Bot::slotFindCorrectMoveDir()
                 }
             }
 
-            if (temp.empty() || temp.contains(finishPos))
+            if (temp.empty())
             {
+                qDebug() << "TEMP IS EMPTY";
+                break;
+            }
+
+            if (temp.contains(finishPos))
+            {
+                qDebug() << "FINISH REACHED";
                 break;
             }
 
@@ -153,7 +183,30 @@ void Bot::slotFindCorrectMoveDir()
             currentValue++;
         }
 
-        QVector<QPoint> way;
+        qDebug() << "--------------------------";
+        for (int i = 0; i < digitMatrix.size(); i++)
+        {
+            QString s;
+            for (int j = 0; j < digitMatrix[i].size(); j++)
+            {
+                if (QPoint(j, i) == mappedFinishPos)
+                {
+                    s += "F ";
+                }
+                else if (QPoint(j, i) == mappedStartPos)
+                {
+                    s += "S ";
+                }
+                else
+                {
+                    s += QString::number(digitMatrix[i][j]) + " ";
+                }
+            }
+            qDebug() << s;
+        }
+        qDebug() << "--------------------------";
+
+        /*QVector<QPoint> way;
 
         if (digitMatrix[mappedFinishPos.y()][mappedFinishPos.x()] != 1)
         {
@@ -224,6 +277,8 @@ void Bot::slotFindCorrectMoveDir()
                 way.pop_back();
                 move(way.back());
             }
-        }
+        }*/
+
+        setState(DO_NOTHING);
     }
 }
