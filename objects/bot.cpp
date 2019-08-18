@@ -80,7 +80,6 @@ void Bot::slotFindCorrectMoveDir()
         if (target == nullptr || target->sector() != this->sector())
         {
             setState(DO_NOTHING);
-            slotFindCorrectMoveDir();
             return;
         }
 

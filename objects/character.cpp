@@ -112,6 +112,13 @@ bool Character::insideScene(QPoint nextPos)
     return (insideVertical && insideHorizontal);
 }
 
+bool Character::insideSector(QPoint nextPos)
+{
+    bool insideByX = (nextPos.x() >= 0) && (nextPos.x() < mapPosition.sector->width());
+    bool insideByY = (nextPos.y() >= 0) && (nextPos.y() < mapPosition.sector->height());
+    return (insideByX && insideByY);
+}
+
 void Character::move(QPoint nextPos)
 {
     Sector* nextSector = findNextSector(nextPos);
