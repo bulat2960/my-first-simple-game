@@ -56,7 +56,7 @@ void Player::slotFindCorrectMoveDir()
         }
 
         Sector* nextSector = findNextSector(nextPos);
-        QPoint nextSectorPos = mapToSector(nextPos, nextSector);
+        QPoint nextSectorPos = mapToSector(nextPos);
         if (usedKey && nextSector->isRoad(nextSectorPos))
         {
             possibleDirs.push_back(nextPos);

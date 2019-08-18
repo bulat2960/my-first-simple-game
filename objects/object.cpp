@@ -75,9 +75,9 @@ void Object::setColor(QColor color)
     drawingSettings.color = color;
 }
 
-QPoint Object::mapToSector(QPoint p, Sector* sector) const
+QPoint Object::mapToSector(QPoint p) const
 {
-    return QPoint(p.x() % sector->width(), p.y() % sector->height());
+    return QPoint(p.x() % mapPosition.sector->width(), p.y() % mapPosition.sector->height());
 }
 
 QRectF Object::boundingRect() const

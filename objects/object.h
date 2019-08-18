@@ -27,7 +27,7 @@ protected:
     };
     DrawingSettings drawingSettings;
 protected:
-    QPoint mapToSector(QPoint p, Sector *sector) const;
+    QPoint mapToSector(QPoint p) const;
 
     QPoint graphicalPosition(int x, int y) const;
     QPoint graphicalPosition(const QPoint& position) const;

@@ -37,10 +37,10 @@ void Bot::slotFindCorrectMoveDir()
         return;
     }
 
-    QPoint left  = position() + directions[Qt::Key_A];
-    QPoint right = position() + directions[Qt::Key_D];
-    QPoint up    = position() + directions[Qt::Key_W];
-    QPoint down  = position() + directions[Qt::Key_S];
+    QPoint left  = directions[Qt::Key_A];
+    QPoint right = directions[Qt::Key_D];
+    QPoint up    = directions[Qt::Key_W];
+    QPoint down  = directions[Qt::Key_S];
 
     QVector<QPoint> dirs = {left, right, up, down};
 
@@ -50,7 +50,7 @@ void Bot::slotFindCorrectMoveDir()
 
         for (int i = 0; i < dirs.size(); i++)
         {
-            QPoint nextPos = dirs[i];
+            QPoint nextPos = position() + dirs[i];
 
             if (!insideScene(nextPos))
             {
@@ -58,7 +58,7 @@ void Bot::slotFindCorrectMoveDir()
             }
 
             Sector* next = findNextSector(nextPos);
-            QPoint sectorPos = mapToSector(nextPos, next);
+            QPoint sectorPos = mapToSector(nextPos);
             bool roadInCurrentSector = sector()->cell(sectorPos.x(), sectorPos.y()).isRoad();
             bool roadInNextSector = next->cell(sectorPos.x(), sectorPos.y()).isRoad();
 
@@ -86,6 +86,24 @@ void Bot::slotFindCorrectMoveDir()
 
         QVector<QVector<int>> digitMatrix = mapPosition.sector->digitMatrix();
 
+        QPoint botPosition = position();
+        QPoint targetPosition = target->position();
+
+        QPoint mappedBotPosition = mapToSector(botPosition);
+        QPoint mappedTargetPosition = mapToSector(targetPosition);
+    }
+
+    /*if (state == ATTACK)
+    {
+        if (target == nullptr || target->sector() != this->sector())
+        {
+            setState(DO_NOTHING);
+            slotFindCorrectMoveDir();
+            return;
+        }
+
+        QVector<QVector<int>> digitMatrix = mapPosition.sector->digitMatrix();
+
         QPoint startPos = position();
         QPoint mappedStartPos = mapToSector(startPos, sector());
         QPoint finishPos = target->position();
@@ -103,6 +121,8 @@ void Bot::slotFindCorrectMoveDir()
 
         while (true)
         {
+            qDebug() << "WTF1";
+
             QVector<QPoint> temp;
 
             for (int i = 0; i < points.size(); i++)
@@ -158,7 +178,7 @@ void Bot::slotFindCorrectMoveDir()
             currentValue++;
         }
 
-        /*qDebug() << "--------------------------";
+        qDebug() << "--------------------------";
         for (int i = 0; i < digitMatrix.size(); i++)
         {
             QString s;
@@ -179,7 +199,7 @@ void Bot::slotFindCorrectMoveDir()
             }
             qDebug() << s;
         }
-        qDebug() << "--------------------------";*/
+        qDebug() << "--------------------------";
 
         QVector<QPoint> way;
 
@@ -189,6 +209,8 @@ void Bot::slotFindCorrectMoveDir()
 
             while (true)
             {
+                qDebug() << "WTF";
+
                 for (int i = 0; i < dirs.size(); i++)
                 {
                     QPoint currentPoint = way.back();
@@ -251,5 +273,5 @@ void Bot::slotFindCorrectMoveDir()
                 move(way.back());
             }
         }
-    }
+    }*/
 }
