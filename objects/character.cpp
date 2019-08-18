@@ -119,6 +119,21 @@ bool Character::insideSector(QPoint nextPos)
     return (insideByX && insideByY);
 }
 
+bool Character::isBelongsToCurrentSector(QPoint nextPos)
+{
+    int sectorTopBorder = mapPosition.sector->position().y() * mapPosition.sector->height();
+    int sectorBottomBorder = sectorTopBorder + mapPosition.sector->height();
+    int sectorLeftBorder = mapPosition.sector->position().x() * mapPosition.sector->width();
+    int sectorRightBorder = sectorLeftBorder + mapPosition.sector->width();
+
+    if (nextPos.x() < sectorLeftBorder || nextPos.y() < sectorTopBorder
+        || nextPos.x() >= sectorRightBorder || nextPos.y() >= sectorBottomBorder)
+    {
+        return false;
+    }
+    return true;
+}
+
 void Character::move(QPoint nextPos)
 {
     Sector* nextSector = findNextSector(nextPos);

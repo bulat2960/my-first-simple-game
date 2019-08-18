@@ -53,6 +53,7 @@ public:
     Sector* findNextSector(QPoint nextPos);
     bool insideScene(QPoint nextPos);
     bool insideSector(QPoint nextPos);
+    bool isBelongsToCurrentSector(QPoint nextPos);
 
     bool alive() const;
     void kill();

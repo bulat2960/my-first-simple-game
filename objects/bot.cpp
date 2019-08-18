@@ -30,6 +30,54 @@ Character* Bot::getTarget() const
     return target;
 }
 
+QVector<QVector<int>> Bot::generateFilledDigitMatrix(QPoint start, QPoint finish)
+{
+    QPoint left  = directions[Qt::Key_A];
+    QPoint right = directions[Qt::Key_D];
+    QPoint up    = directions[Qt::Key_W];
+    QPoint down  = directions[Qt::Key_S];
+
+    QVector<QPoint> dirs = {left, right, up, down};
+
+    QVector<QVector<int>> digitMatrix = mapPosition.sector->digitMatrix();
+
+    int value = 2;
+    QVector<QPoint> points = {start};
+
+    while (true)
+    {
+        QVector<QPoint> temp;
+
+        foreach (QPoint currentPoint, points)
+        {
+            foreach (QPoint dir, dirs)
+            {
+                QPoint nextPoint = currentPoint + dir;
+                QPoint mappedNextPoint = mapToSector(nextPoint);
+
+                if (!isBelongsToCurrentSector(nextPoint) || mapPosition.sector->cell(mappedNextPoint).isWall())
+                {
+                    continue;
+                }
+
+                if (digitMatrix[mappedNextPoint.y()][mappedNextPoint.x()] == 1 && nextPoint != start)
+                {
+                    digitMatrix[mappedNextPoint.y()][mappedNextPoint.x()] = value;
+                    temp.push_back(nextPoint);
+                }
+
+                if (nextPoint == finish)
+                {
+                    return digitMatrix;
+                }
+            }
+        }
+
+        points = temp;
+        value++;
+    }
+}
+
 void Bot::slotFindCorrectMoveDir()
 {
     if (!haveMovementPermission())
@@ -83,13 +131,13 @@ void Bot::slotFindCorrectMoveDir()
             return;
         }
 
-        QVector<QVector<int>> digitMatrix = mapPosition.sector->digitMatrix();
-
         QPoint botPosition = position();
         QPoint targetPosition = target->position();
 
         QPoint mappedBotPosition = mapToSector(botPosition);
         QPoint mappedTargetPosition = mapToSector(targetPosition);
+
+        QVector<QVector<int>> digitMatrix = generateFilledDigitMatrix(botPosition, targetPosition);
     }
 
     /*if (state == ATTACK)
@@ -226,29 +274,6 @@ void Bot::slotFindCorrectMoveDir()
                     {
                         continue;
                     }
-
-                    qDebug() << "--------------------------";
-                    for (int i = 0; i < digitMatrix.size(); i++)
-                    {
-                        QString s;
-                        for (int j = 0; j < digitMatrix[i].size(); j++)
-                        {
-                            if (QPoint(j, i) == mappedFinishPos)
-                            {
-                                s += "f ";
-                            }
-                            else if (QPoint(j, i) == mappedStartPos)
-                            {
-                                s += "s ";
-                            }
-                            else
-                            {
-                                s += QString::number(digitMatrix[i][j]) + " ";
-                            }
-                        }
-                        qDebug() << s;
-                    }
-                    qDebug() << "--------------------------";
 
                     if (digitMatrix[mappedCurrentPoint.y()][mappedCurrentPoint.x()] ==
                            digitMatrix[mappedNextPoint.y()][mappedNextPoint.x()] + 1

@@ -16,6 +16,8 @@ public:
 private:
     State state;
     Character* target;
+private:
+    QVector<QVector<int>> generateFilledDigitMatrix(QPoint start, QPoint finish);
 public:
     Bot(Sector* sector);
 
