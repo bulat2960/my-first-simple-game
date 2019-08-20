@@ -95,19 +95,31 @@ QVector<QPoint> Bot::getPath(QPoint start, QPoint finish, QVector<QVector<int>> 
 
     QVector<QPoint> dirs = {left, right, up, down};
 
+
     while (true)
     {
+        int counter = 0;
+
         for (int i = 0; i < dirs.size(); i++)
         {
             QPoint nextPoint = path.back() + dirs[i];
             QPoint mappedNextPoint = mapToSector(nextPoint);
 
-            if (!isBelongsToCurrentSector(mappedNextPoint) || mapPosition.sector->cell(mappedNextPoint).isWall())
+            if (!isBelongsToCurrentSector(nextPoint))
             {
+                counter++;
                 continue;
             }
 
-            int currentValue = matrix[path.back().y()][path.back().x()];
+            if (mapPosition.sector->cell(mappedNextPoint).isWall())
+            {
+                counter++;
+                continue;
+            }
+
+            QPoint mappedPathBack = mapToSector(path.back());
+
+            int currentValue = matrix[mappedPathBack.y()][mappedPathBack.x()];
             int nextValue = matrix[mappedNextPoint.y()][mappedNextPoint.x()];
 
             if (nextPoint == start)
@@ -173,20 +185,23 @@ void Bot::slotFindCorrectMoveDir()
         if (target == nullptr || target->sector() != this->sector())
         {
             setState(DO_NOTHING);
+            slotFindCorrectMoveDir();
             return;
         }
 
         QPoint botPosition = position();
         QPoint targetPosition = target->position();
 
-        qDebug() << "LOL!";
         QVector<QVector<int>> digitMatrix = generateFilledDigitMatrix(botPosition, targetPosition);
-        qDebug() << "KEK!";
         QVector<QPoint> path = getPath(botPosition, targetPosition, digitMatrix);
 
-        qDebug() << this << path.size();
-
-
-        move(path.back());
+        if (!path.empty())
+        {
+            move(path.back());
+        }
+        else
+        {
+            qDebug() << "Weird... Path is empty";
+        }
     }
 }
