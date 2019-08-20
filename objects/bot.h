@@ -18,6 +18,7 @@ private:
     Character* target;
 private:
     QVector<QVector<int>> generateFilledDigitMatrix(QPoint start, QPoint finish);
+    QVector<QPoint> getPath(QPoint start, QPoint finish, QVector<QVector<int>> matrix);
 public:
     Bot(Sector* sector);
 
