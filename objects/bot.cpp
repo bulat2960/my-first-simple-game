@@ -80,7 +80,7 @@ QVector<QVector<int>> Bot::generateFilledDigitMatrix(QPoint start, QPoint finish
 
 QVector<QPoint> Bot::getPath(QPoint start, QPoint finish, QVector<QVector<int>> matrix)
 {
-    if (abs((start - finish).manhattanLength()) == 1)
+    if (abs((start - finish).manhattanLength()) == 1 || (start - finish).manhattanLength() == 0)
     {
         return {finish};
     }
@@ -151,6 +151,13 @@ void Bot::slotFindCorrectMoveDir()
 
     if (state == DO_NOTHING)
     {
+        if (target != nullptr && target->sector() == this->sector())
+        {
+            setState(ATTACK);
+            slotFindCorrectMoveDir();
+            return;
+        }
+
         QVector<QPoint> validDirs;
 
         for (int i = 0; i < dirs.size(); i++)
@@ -198,10 +205,6 @@ void Bot::slotFindCorrectMoveDir()
         if (!path.empty())
         {
             move(path.back());
-        }
-        else
-        {
-            qDebug() << "Weird... Path is empty";
         }
     }
 }

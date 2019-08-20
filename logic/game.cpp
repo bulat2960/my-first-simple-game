@@ -57,6 +57,7 @@ void Game::slotStart()
     foreach (Bot* bot, bots)
     {
         bot->start();
+        bot->setTarget(player);
     }
     foreach (Bonus* bonus, bonuses)
     {
@@ -145,7 +146,6 @@ void Game::slotFindNearestEnemy()
 
         if (nearestBot != nullptr)
         {
-            nearestBot->setTarget(player); // Fix me!
             emit signalSendToGamePanel(player->gameData(), nearestBot->gameData());
         }
     }
